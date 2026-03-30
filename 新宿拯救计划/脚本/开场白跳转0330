@@ -1,0 +1,3790 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>新宿拯救计划 — Shinjuku Rescue Plan</title>
+    <meta
+      name="description"
+      content="在霓虹闪烁的新宿，你拯救的究竟是她们的人生，还是自己的灵魂？"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ===== CSS 变量系统 ===== */
+      :root {
+        --bg-deep: #06060e;
+        --bg-section: #0c0c18;
+        --bg-card: rgba(255, 255, 255, 0.04);
+        --bg-card-hover: rgba(255, 255, 255, 0.08);
+        --neon-red: #e51400;
+        --neon-red-glow: rgba(229, 20, 0, 0.4);
+        --neon-blue: #0078d7;
+        --neon-blue-glow: rgba(0, 120, 215, 0.3);
+        --neon-purple: #9b59b6;
+        --amber: #f0a30a;
+        --amber-glow: rgba(240, 163, 10, 0.3);
+        --pink: #e91e8c;
+        --pink-glow: rgba(233, 30, 140, 0.3);
+        --purple-glow: rgba(155, 89, 182, 0.3);
+        --text-primary: #ffffff;
+        --text-secondary: #c0c0d4;
+        --text-muted: #5a5a70;
+        --border-subtle: rgba(255, 255, 255, 0.08);
+        --glass: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --font-main:
+          "Noto Sans SC", "Noto Sans JP", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      /* ===== 基础重置 ===== */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        min-height: 0;
+        height: auto;
+        background: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        overflow: hidden;
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+      body {
+        font-family: var(--font-main);
+        background: var(--bg-deep);
+        color: var(--text-primary);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      .zoom-wrapper {
+        position: relative;
+        transform-origin: top left;
+        overflow: hidden;
+        width: 1440px;
+        height: 900px;
+      }
+      .zoom-content {
+        width: 1440px;
+        height: 900px;
+        transform-origin: top left;
+      }
+      .fullpage-wrapper {
+        position: relative;
+        height: 900px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+      }
+      .hero,
+      .section,
+      .footer {
+        height: 900px;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        overflow-y: auto;
+      }
+      .section::-webkit-scrollbar {
+        width: 0;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ===== 滚动条 ===== */
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--neon-red);
+        border-radius: 4px;
+      }
+
+      /* ===== 通用动画 ===== */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+      @keyframes shimmer {
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+      @keyframes neonFlicker {
+        0%,
+        19%,
+        21%,
+        23%,
+        25%,
+        54%,
+        56%,
+        100% {
+          text-shadow:
+            0 0 10px var(--neon-red-glow),
+            0 0 20px var(--neon-red-glow),
+            0 0 40px var(--neon-red-glow);
+        }
+        20%,
+        24%,
+        55% {
+          text-shadow: none;
+        }
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s var(--transition-smooth);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ===== 粒子背景 ===== */
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: var(--neon-red);
+        border-radius: 50%;
+        opacity: 0;
+        animation: particleFloat linear infinite;
+      }
+      @keyframes particleFloat {
+        0% {
+          opacity: 0;
+          transform: translateY(900px) scale(0);
+        }
+        10% {
+          opacity: 0.6;
+        }
+        90% {
+          opacity: 0.6;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-90px) scale(1);
+        }
+      }
+
+      /* ===== 导航栏 ===== */
+      .top-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 24px 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(
+          180deg,
+          rgba(6, 6, 14, 0.95) 0%,
+          rgba(6, 6, 14, 0) 100%
+        );
+        pointer-events: none;
+        transition: all 0.4s var(--transition-smooth);
+      }
+      .top-nav.scrolled {
+        padding: 16px 48px;
+        background: rgba(6, 6, 14, 0.98);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .nav-logo,
+      .nav-links {
+        pointer-events: auto;
+      }
+      .nav-logo {
+        font-size: 1.2rem;
+        font-weight: 900;
+        letter-spacing: 4px;
+        color: var(--text-primary);
+      }
+      .nav-logo span {
+        color: var(--neon-red);
+      }
+      .nav-links {
+        display: flex;
+        gap: 40px;
+      }
+      .nav-links a {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        transition: all 0.3s;
+        letter-spacing: 2px;
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+      .nav-links a:hover {
+        color: var(--text-primary);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
+
+      /* ===== 全局发光线条导航 (Design by Stitch v2) ===== */
+      .neon-nav-container {
+        position: absolute;
+        right: 60px;
+        top: 0;
+        height: 900px;
+        width: 15rem;
+        z-index: 900;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        padding-right: 20px;
+        pointer-events: none;
+        transform: scale(1.6);
+        transform-origin: center right;
+      }
+      .neon-nav-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end; /* All lines' right ends align together */
+        gap: 24px;
+        pointer-events: auto;
+      }
+      .neon-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end; /* 统一向右侧对齐 */
+        gap: 4px;
+        width: auto; /* 让外层自适应内容，靠内部子元素控制宽度 */
+        text-decoration: none;
+        cursor: pointer;
+        padding: 10px 0; /* 增加上下的透明感应区防止鼠标移出导致闪烁 */
+        margin: -10px 0; /* 抵消 padding 的影响 */
+      }
+      .neon-line {
+        height: 2px;
+        width: 15px; /* 默认短线 */
+        background-color: rgba(230, 19, 0, 0.3);
+        border-radius: 9999px;
+        transition:
+          width 0.3s cubic-bezier(0.4, 0, 0.2, 1), /* 线条本身的宽度做动画 */
+          background-color 0.3s ease,
+          box-shadow 0.3s ease;
+        box-shadow: 0 0 0px transparent;
+      }
+      .neon-nav-text {
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        transition:
+          transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+          color 0.3s ease,
+          text-shadow 0.3s ease;
+        text-transform: uppercase;
+        text-align: right; /* 文字靠右对齐 */
+        transform-origin: right bottom; /* 从右下角为基准点放大，避免边缘闪烁 */
+        white-space: nowrap;
+      }
+      .neon-nav-item:hover .neon-line,
+      .neon-nav-item.active .neon-line {
+        width: 40px; /* hover 时仅加长线段 */
+        background-color: var(--neon-red);
+        box-shadow: 0 0 8px rgba(230, 19, 0, 0.8);
+      }
+      .neon-nav-item:hover .neon-nav-text,
+      .neon-nav-item.active .neon-nav-text {
+        color: #ffffff;
+        font-weight: 700;
+        transform: scale(1.4);
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+      }
+      @media (max-width: 768px) {
+        .neon-nav-container {
+          display: none;
+        }
+      }
+
+      /* ===== HERO 首屏 ===== */
+      .hero {
+        position: relative;
+        min-height: 900px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 80px 24px 120px;
+        overflow: hidden;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: -5%;
+        background: url("https://esvigan.cn/jimeng-2026-03-01-1079.webp")
+          no-repeat center center/cover;
+        transform: scale(1.05);
+        animation: heroBgZoom 20s ease-out forwards;
+      }
+      .hero-bg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(6, 6, 14, 0.3) 0%,
+          rgba(6, 6, 14, 0.6) 40%,
+          rgba(6, 6, 14, 0.92) 75%,
+          var(--bg-deep) 100%
+        );
+      }
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+      }
+      .hero-badge {
+        display: inline-block;
+        padding: 6px 20px;
+        border: 1px solid var(--neon-red);
+        color: var(--neon-red);
+        font-size: 0.7rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-bottom: 28px;
+        animation: fadeIn 1s 0.2s both;
+      }
+      .hero-title {
+        font-size: clamp(2.8rem, 7.2rem, 5rem);
+        font-weight: 900;
+        line-height: 1.15;
+        letter-spacing: 6px;
+        margin-bottom: 12px;
+        background: linear-gradient(
+          135deg,
+          #fff 0%,
+          #e0e0f0 50%,
+          var(--neon-red) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: fadeInUp 1s 0.4s both;
+      }
+      .hero-title-img {
+        max-width: 80%;
+        height: auto;
+        margin: 180px auto 12px;
+        animation: fadeInUp 1s 0.4s both;
+        filter: drop-shadow(0 0 15px rgba(229, 20, 0, 0.4));
+      }
+
+      .hero-subtitle-jp {
+        display: none;
+      }
+      .hero-tagline {
+        font-size: clamp(0.9rem, 2.25rem, 1.15rem);
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto 40px;
+        line-height: 1.8;
+        font-weight: 300;
+        animation: fadeInUp 1s 0.8s both;
+      }
+      .hero-author {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        letter-spacing: 2px;
+        animation: fadeInUp 1s 1s both;
+      }
+      .hero-author span {
+        color: var(--neon-red);
+      }
+      .scroll-hint {
+        position: absolute;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        animation: float 2s ease-in-out infinite;
+        z-index: 1;
+      }
+      .scroll-hint span {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        letter-spacing: 3px;
+      }
+      .scroll-arrow {
+        width: 20px;
+        height: 20px;
+        border-right: 2px solid var(--neon-red);
+        border-bottom: 2px solid var(--neon-red);
+        transform: rotate(45deg);
+      }
+
+      /* ===== 音乐播放器 (扁平简洁版) ===== */
+      .music-player {
+        position: fixed;
+        top: 54px;
+        right: 54px;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 9999;
+        backdrop-filter: blur(8px);
+        transition: all 0.25s ease;
+      }
+      .music-player:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+      .music-player .music-icon {
+        font-size: 20px;
+        line-height: 1;
+        color: #fff;
+      }
+      .music-player.playing .music-icon {
+        animation: pulse 2s ease-in-out infinite;
+      }
+      .music-player.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .music-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid var(--neon-red);
+        background: transparent;
+        color: var(--neon-red);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+        flex-shrink: 0;
+        font-size: 14px;
+      }
+      .music-btn:hover {
+        background: var(--neon-red);
+        color: #fff;
+      }
+      .music-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .music-title {
+        font-size: 0.75rem;
+        color: var(--text-primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .music-artist {
+        font-size: 0.65rem;
+        color: var(--text-muted);
+      }
+      .music-progress {
+        flex: 2;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .music-progress-fill {
+        height: 100%;
+        background: var(--neon-red);
+        border-radius: 3px;
+        width: 0;
+        transition: width 0.2s;
+      }
+      .music-time {
+        font-size: 0.65rem;
+        color: var(--text-muted);
+        flex-shrink: 0;
+        min-width: 70px;
+        text-align: right;
+      }
+
+      /* ===== 通用 Section ===== */
+      .section {
+        position: relative;
+        padding: 60px 24px 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .section-header {
+        text-align: center;
+        margin-bottom: 32px;
+        flex-shrink: 0;
+      }
+      .section-label {
+        font-size: 0.7rem;
+        color: var(--neon-red);
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+      .section-title {
+        font-size: clamp(1.8rem, 3.6rem, 2.8rem);
+        font-weight: 700;
+        letter-spacing: 3px;
+        margin-bottom: 16px;
+      }
+      .section-subtitle {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        font-weight: 300;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .section-line {
+        width: 60px;
+        height: 2px;
+        background: var(--neon-red);
+        margin: 24px auto 0;
+      }
+      .section-divider {
+        width: 100%;
+        height: 1px;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border-subtle),
+          transparent
+        );
+      }
+
+      /* ===== 角色轮播样式 ===== */
+      .character-slider-wrap {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        flex: 1;
+      }
+      .character-slider {
+        display: flex;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .character-slider .char-panel {
+        width: 100%;
+        flex-shrink: 0;
+        min-height: auto;
+        height: 100%;
+        margin-bottom: 0;
+      }
+      .character-slider .char-panel:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+      .slider-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-secondary);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 24px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+        backdrop-filter: blur(5px);
+      }
+      .slider-btn:hover {
+        background: var(--neon-red);
+        color: #fff;
+        border-color: var(--neon-red);
+        box-shadow: 0 0 15px var(--neon-red-glow);
+      }
+      .slider-btn.prev {
+        left: calc(2% - 8px);
+        z-index: 50;
+      }
+      .slider-btn.next {
+        right: calc(2% - 8px);
+        z-index: 50;
+      }
+      @media (max-width: 768px) {
+        .character-slider .char-panel,
+        .character-slider .char-panel:nth-child(even) {
+          flex-direction: column;
+          padding: 0; /* 让图片和背景色贴边 */
+        }
+        .slider-btn {
+          width: 40px;
+          height: 40px;
+          font-size: 18px;
+        }
+      }
+
+      /* ===== 角色展示 (沉浸式融合) ===== */
+      .character-showcase {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .char-panel {
+        position: relative;
+        min-height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 6%;
+        overflow: hidden;
+        margin-bottom: 0;
+      }
+      .char-panel:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+      .char-bg-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 432px;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.015);
+        white-space: nowrap;
+        pointer-events: none;
+        z-index: 0;
+        user-select: none;
+      }
+
+      .char-content-wrap {
+        position: relative;
+        z-index: 3;
+        width: 45%;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .char-name-block {
+        display: flex;
+        flex-direction: column;
+      }
+      .char-name-jp {
+        font-size: 1rem;
+        color: var(--neon-red);
+        letter-spacing: 4px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        opacity: 0.8;
+      }
+      .char-name {
+        font-size: clamp(2.5rem, 4.5rem, 4.5rem);
+        font-weight: 900;
+        letter-spacing: 4px;
+        line-height: 1.1;
+      }
+      .char-quote {
+        font-size: 1.1rem;
+        font-style: italic;
+        color: rgba(200, 200, 220, 0.9);
+        line-height: 1.8;
+        border-left: 2px solid;
+        padding-left: 20px;
+        margin: 16px 0;
+      }
+      .char-desc {
+        font-size: 0.95rem;
+        color: rgba(220, 220, 235, 0.85);
+        line-height: 1.9;
+        font-weight: 300;
+      }
+      .char-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 16px;
+      }
+      .char-tag {
+        padding: 6px 16px;
+        border: 1px solid var(--border-subtle);
+        color: var(--text-secondary);
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        border-radius: 4px;
+        backdrop-filter: blur(5px);
+        transition: all 0.3s;
+      }
+
+      .char-portrait-wrap {
+        position: relative;
+        z-index: 2;
+        width: 60%;
+        height: 585px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: visible;
+        margin-left: -15%; /* 向左侧文字下方延伸 */
+      }
+      .char-panel:nth-child(even) .char-portrait-wrap {
+        margin-left: 0;
+        margin-right: -15%; /* 偶数面板文字在右侧，向右侧文字下方延伸 */
+      }
+      .char-portrait-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: left center; /* 默认奇数面板图片在右，向左靠齐不裁切 */
+        /* 极其宽广的泼墨羽化：渐变点远超图片宽度 (160%)，导致整张图都处于柔和半透状态 */
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 80%);
+        mask-image: linear-gradient(to right, transparent 0%, black 80%);
+        filter: drop-shadow(0 0 30px rgba(0,0,0,0.6));
+        transition: transform 0.6s var(--transition-smooth);
+      }
+      /* 绘里奈面板布局反转，向右侧靠齐且反向做极大范围的宽羽化 */
+      .panel-erina .char-portrait-wrap img {
+        object-position: right center; /* 偶数面板图片在左，向右靠齐不裁切 */
+        -webkit-mask-image: linear-gradient(to left, transparent 0%, black 80%);
+        mask-image: linear-gradient(to left, transparent 0%, black 80%);
+      }
+
+      /* --- 单独为每个人物调整图片偏移（裁剪位置） --- */
+      
+      /* 1. 林绛（月宫绾音） - 文字在左，图片在右 */
+      .panel-ayane .char-portrait-wrap img {
+        /* 第一值(左右偏移)：0%最左，100%最右 */
+        /* 第二值(上下偏移)：0%最上，100%最下 */
+        object-position: 25% 10% ; 
+      }
+
+      /* 2. 如月绘里奈 - 文字在右，图片在左 */
+      .panel-erina .char-portrait-wrap img {
+        /* 注意：绘里奈图片默认贴紧右侧(100%), 减小第一值让她往左移 */
+        object-position: 80% 10%; 
+      }
+
+      /* 3. 安藤由美 - 文字在左，图片在右 */
+      .panel-yumi .char-portrait-wrap img {
+        object-position: 30% 5%; 
+      }
+      .char-panel:hover .char-portrait-wrap img {
+        transform: scale(1.02) translateY(-10px);
+      }
+
+      /* --- 手机端(竖屏)插画专属控制 --- */
+      @media (max-width: 768px) {
+        .char-portrait-wrap {
+          width: 100%;
+          margin: 0 !important; /* 取消原先的负边距重叠 */
+          height: 60vh; /* 手机端拉高图片展示区 */
+        }
+        .char-portrait-wrap img,
+        .panel-erina .char-portrait-wrap img {
+          /* 手机端统一：顶部羽化融入上方文字，左右自然裁切 */
+          object-position: center top !important; /* 居中顶部对齐，左右两边多余部分会被裁切 */
+          -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%) !important;
+          mask-image: linear-gradient(to bottom, transparent 0%, black 40%) !important;
+        }
+        /* 单独针对林绛在手机端向右平移 20px */
+        .panel-ayane .char-portrait-wrap img {
+          object-position: calc(50% + 20px) top !important;
+        }
+      }
+
+      /* 角色主题色定制 */
+      .panel-ayane .char-name-jp {
+        color: var(--amber);
+      }
+      .panel-ayane .char-quote {
+        border-color: var(--amber);
+      }
+      .panel-ayane .char-tag:hover {
+        border-color: var(--amber);
+        color: var(--amber);
+      }
+
+      .panel-erina .char-name-jp {
+        color: var(--neon-purple);
+      }
+      .panel-erina .char-quote {
+        border-color: var(--neon-purple);
+      }
+      .panel-erina .char-tag:hover {
+        border-color: var(--neon-purple);
+        color: var(--neon-purple);
+      }
+
+      .panel-yumi .char-name-jp {
+        color: var(--pink);
+      }
+      .panel-yumi .char-quote {
+        border-color: var(--pink);
+      }
+      .panel-yumi .char-tag:hover {
+        border-color: var(--pink);
+        color: var(--pink);
+      }
+
+      /* ===== PV 视频 ===== */
+      .pv-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        padding: 0 8%; /* 增加左右内边距，整体缩小卡片并避开右侧导航栏 */
+      }
+      .pv-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s;
+      }
+      .pv-card:hover {
+        border-color: var(--neon-red);
+        box-shadow: 0 0 30px var(--neon-red-glow);
+      }
+      .pv-video-wrap {
+        aspect-ratio: 16/9;
+        background: #111;
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .pv-video-wrap video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .pv-play-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.4);
+        transition: opacity 0.3s;
+        z-index: 2;
+      }
+      .pv-play-overlay.playing {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .pv-play-btn {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        background: rgba(229, 20, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+        backdrop-filter: blur(10px);
+      }
+      .pv-play-btn:hover {
+        background: var(--neon-red);
+        transform: scale(1.1);
+      }
+      .pv-play-icon {
+        width: 0;
+        height: 0;
+        border-left: 20px solid #fff;
+        border-top: 12px solid transparent;
+        border-bottom: 12px solid transparent;
+        margin-left: 4px;
+      }
+      .pv-info {
+        padding: 16px 20px;
+      }
+      .pv-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .pv-desc {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      /* ===== 视频弹窗 ===== */
+      .video-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.92);
+        z-index: 10000;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(8px);
+      }
+      .video-modal-overlay.active {
+        display: flex;
+      }
+      .video-modal-content {
+        position: relative;
+        width: 90%;
+        max-width: 900px;
+        aspect-ratio: 16/9;
+        background: #000;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 0 60px rgba(229, 20, 0, 0.3);
+      }
+      .video-modal-content video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .video-modal-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        color: #fff;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        transition: background 0.2s;
+      }
+      .video-modal-close:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      /* ===== 开局选择 ===== */
+      .routes-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .route-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: 12px;
+        padding: 24px 20px;
+        cursor: pointer;
+        transition: all 0.4s var(--transition-smooth);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .route-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--neon-red);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .route-card:hover {
+        border-color: rgba(229, 20, 0, 0.4);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      }
+      .route-card:hover::before {
+        opacity: 1;
+      }
+      .route-number {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--neon-red);
+        letter-spacing: 3px;
+        margin-bottom: 12px;
+      }
+      .route-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+      .route-desc {
+        font-size: 0.9rem;
+        color: rgba(200, 200, 220, 0.8);
+        line-height: 1.6;
+        margin-bottom: 16px;
+        font-weight: 300;
+        flex: 1;
+      }
+      .route-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .route-avatars {
+        display: flex;
+        gap: -10px;
+        align-items: flex-end;
+      }
+      .route-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 2px solid var(--bg-deep);
+        object-fit: cover;
+        margin-left: -8px;
+      }
+      .route-avatar:first-child {
+        margin-left: 0;
+      }
+      .route-enter {
+        font-size: 0.72rem;
+        color: var(--neon-red);
+        letter-spacing: 1px;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .route-card:hover .route-enter {
+        opacity: 1;
+      }
+      .route-scene {
+        display: inline-block;
+        padding: 3px 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        font-size: 0.65rem;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+      }
+
+      /* 开局卡片角色主题色边框 */
+      .route-card[data-char="ayane"]:hover {
+        border-color: var(--amber-glow);
+      }
+      .route-card[data-char="erina"]:hover {
+        border-color: var(--purple-glow);
+      }
+      .route-card[data-char="yumi"]:hover {
+        border-color: var(--pink-glow);
+      }
+      .route-card[data-char="both"]:hover {
+        border-color: var(--neon-red-glow);
+      }
+
+      /* ===== Footer ===== */
+      .footer {
+        position: relative;
+        padding: 80px 24px 120px;
+        background-color: var(--bg-deep);
+        text-align: center;
+        z-index: 1;
+        overflow: hidden;
+      }
+      .footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+          /* 上下暗化渐变与全局遮罩，以确保文字可读性 */
+          linear-gradient(to bottom, var(--bg-deep) 0%, rgba(6, 6, 14, 0.7) 15%, transparent 40%),
+          linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0,0,0,0.5) 40%, transparent 100%),
+          /* 半透明遮罩 */
+          linear-gradient(rgba(10, 10, 20, 0.65), rgba(10, 10, 20, 0.65)),
+          url('https://esvigan.cn/0301kaichangbai.webp');
+        background-size: cover, cover, cover, cover;
+        background-position: center top, center bottom, center, center;
+        background-repeat: no-repeat;
+        z-index: -1;
+      }
+      .footer-platform {
+        font-size: clamp(1.2rem, 2.7rem, 1.6rem);
+        font-weight: 700;
+        letter-spacing: 4px;
+        margin-bottom: 16px;
+        color: var(--text-primary);
+      }
+      .footer-platform-sub {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto 40px;
+        line-height: 1.7;
+        font-weight: 300;
+      }
+      .footer-notice {
+        background: rgba(229, 20, 0, 0.08);
+        border: 1px solid rgba(229, 20, 0, 0.2);
+        border-radius: 12px;
+        padding: 20px 28px;
+        max-width: 600px;
+        margin: 0 auto 32px;
+        text-align: left;
+      }
+      .footer-notice-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--neon-red);
+        margin-bottom: 8px;
+        letter-spacing: 1px;
+      }
+      .footer-notice-list {
+        list-style: none;
+      }
+      .footer-notice-list li {
+        font-size: 0.78rem;
+        color: var(--text-secondary);
+        padding: 3px 0;
+        padding-left: 16px;
+        position: relative;
+      }
+      .footer-notice-list li::before {
+        content: "·";
+        position: absolute;
+        left: 0;
+        color: var(--neon-red);
+      }
+      .footer-credit {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        letter-spacing: 2px;
+      }
+      .footer-credit a {
+        color: var(--neon-red);
+      }
+      .footer-watermark {
+        margin: 32px auto 0;
+        width: 48px;
+        opacity: 0.3;
+      }
+
+      /* ===== 响应式 ===== */
+      @media (max-width: 1024px) {
+        .routes-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .nav-links {
+          display: none;
+        }
+        .char-portrait-wrap {
+          width: 50%;
+        }
+        .char-content-wrap {
+          width: 50%;
+        }
+      }
+      @media (max-width: 768px) {
+        .top-nav {
+          padding: 16px 24px;
+        }
+        .top-nav.scrolled {
+          padding: 16px 24px;
+        }
+        .char-panel,
+        .char-panel:nth-child(even) {
+          flex-direction: column;
+          padding: 80px 24px 0;
+          min-height: auto;
+          margin-bottom: 0;
+        }
+        .char-content-wrap {
+          width: 100%;
+          text-align: center;
+          align-items: center;
+          z-index: 3;
+        }
+        .char-portrait-wrap {
+          width: 100%;
+          height: 540px;
+          margin-top: -45px;
+          z-index: 2;
+        }
+        .char-bg-text {
+          font-size: 576px;
+          top: 30%;
+        }
+        .char-quote {
+          border-left: none;
+          border-bottom: 1px solid;
+          padding: 0 0 16px 0;
+        }
+        .char-tags {
+          justify-content: center;
+        }
+
+        .pv-grid {
+          grid-template-columns: 1fr;
+        }
+        .routes-grid {
+          grid-template-columns: 1fr;
+        }
+        .section {
+          padding: 60px 16px;
+        }
+        .music-player {
+          padding: 8px 12px;
+          gap: 10px;
+        }
+        .music-info {
+          display: none;
+        }
+        .music-time {
+          min-width: 50px;
+          font-size: 0.6rem;
+        }
+      }
+      @media (max-width: 480px) {
+        .hero {
+          padding: 60px 16px 100px;
+        }
+        .hero-badge {
+          font-size: 0.6rem;
+          padding: 5px 14px;
+          letter-spacing: 3px;
+        }
+        .character-image-wrap {
+          aspect-ratio: 4/5;
+        }
+      }
+
+      /* ===== 画廊 ===== */
+      .gallery-grid {
+        columns: 2; /* 4张卡片分两列展示，形成两行 */
+        column-gap: 24px;
+        padding: 0 8%;
+      }
+      @media (max-width: 768px) {
+        .gallery-grid {
+          columns: 2;
+        }
+      }
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        border: 1px solid var(--border-subtle);
+        break-inside: avoid;
+        margin-bottom: 16px;
+        transition: all 0.4s var(--transition-smooth);
+        cursor: pointer;
+      }
+      .gallery-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.6s var(--transition-smooth);
+      }
+      .gallery-item::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.6),
+          transparent 50%
+        );
+        opacity: 0;
+        transition: opacity 0.4s;
+        pointer-events: none;
+      }
+      .gallery-item:hover {
+        border-color: var(--neon-red);
+        box-shadow:
+          0 10px 30px rgba(0, 0, 0, 0.5),
+          0 0 15px var(--neon-red-glow);
+        transform: translateY(-5px);
+        z-index: 2;
+      }
+      .gallery-item:hover img {
+        transform: scale(1.05);
+      }
+      .gallery-item:hover::after {
+        opacity: 1;
+      }
+
+      /* ===== 灯箱弹窗 ===== */
+      .lightbox-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.92);
+        backdrop-filter: blur(20px);
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 20px;
+        animation: fadeIn 0.3s ease;
+      }
+      .lightbox-overlay.active {
+        display: flex;
+      }
+      .lightbox-img {
+        max-width: 90%;
+        max-height: 675px;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+      }
+      .lightbox-actions {
+        display: flex;
+        gap: 16px;
+      }
+      .lightbox-btn {
+        padding: 10px 24px;
+        border: 1px solid var(--border-subtle);
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s;
+        backdrop-filter: blur(8px);
+        letter-spacing: 1px;
+      }
+      .lightbox-btn:hover {
+        background: var(--neon-red);
+        color: #fff;
+        border-color: var(--neon-red);
+        box-shadow: 0 0 15px var(--neon-red-glow);
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--border-subtle);
+        background: rgba(0, 0, 0, 0.5);
+        color: var(--text-secondary);
+        font-size: 24px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }
+      .lightbox-close:hover {
+        background: var(--neon-red);
+        color: #fff;
+      }
+
+      /* ===== 移动端响应式布局 (Mobile Portrait Adaptation) ===== */
+      @media (max-width: 800px) {
+        .fullpage-wrapper {
+          /* 移动端高度由 JS adjustScale 动态设置，不再使用 auto */
+          scroll-snap-type: none;
+          overflow-y: scroll;
+          overflow-x: hidden;
+        }
+        .hero, .section, .footer {
+          height: auto !important;
+          min-height: auto;
+          padding: 60px 24px;
+        }
+        .hero-title-img {
+          margin-top: 100px;
+        }
+        .hero-watermark {
+          top: 16px !important;
+          left: 16px !important;
+        }
+        .hero-watermark img {
+          width: 56px !important;
+        }
+
+        /* --- 全局字体放大 --- */
+        .section-label { font-size: 1.2rem !important; }
+        .section-title { font-size: 2.4rem !important; }
+        .section-subtitle { font-size: 1.1rem !important; }
+
+        /* --- 首页 --- */
+        .hero-notice {
+          font-size: 1.2rem !important;
+          padding: 12px 20px !important;
+        }
+
+        /* --- 角色区 --- */
+        .char-panel {
+          flex-direction: column-reverse;
+          justify-content: flex-start;
+          gap: 24px;
+        }
+        .char-content-wrap {
+          width: 100%;
+          padding: 24px;
+        }
+        .char-portrait-wrap {
+          width: 100%;
+          height: 600px;
+          margin-top: 0;
+        }
+        .char-bg-text {
+          font-size: 240px;
+          top: 10%;
+        }
+        .char-name { font-size: 2rem !important; }
+        .char-title { font-size: 1.1rem !important; }
+        .char-desc { font-size: 1.05rem !important; line-height: 1.8 !important; }
+        .char-stat-value { font-size: 1.3rem !important; }
+        .char-stat-label { font-size: 0.9rem !important; }
+
+        /* --- 映像区 --- */
+        .pv-title { font-size: 1.2rem !important; }
+        .pv-desc { font-size: 1rem !important; }
+
+        /* --- 开局区 --- */
+        .routes-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+        .route-scene { font-size: 1rem !important; }
+        .route-number { font-size: 0.9rem !important; }
+        .route-title { font-size: 1.3rem !important; }
+        .route-desc { font-size: 1.05rem !important; line-height: 1.7 !important; }
+        .route-enter { font-size: 1rem !important; opacity: 1 !important; }
+        .route-avatar { width: 44px !important; height: 44px !important; }
+
+        /* --- 画廊区 --- */
+        .gallery-grid {
+          column-count: 2;
+        }
+
+        /* --- 关于/阅读须知 --- */
+        .about-content { font-size: 1.15rem !important; line-height: 1.8 !important; padding: 40px !important; }
+        .about-content h3 { font-size: 1.6rem !important; }
+        .about-content h4 { font-size: 1.4rem !important; }
+        .about-content p, .about-content li { font-size: 1.15rem !important; }
+
+        /* --- 底部水印区 --- */
+        .footer-credits p { font-size: 1rem !important; }
+
+        /* --- 导航与音乐按钮 --- */
+        .music-player {
+          top: 16px;
+          right: 16px;
+        }
+        .neon-nav-container {
+          display: none;
+        }
+        /* --- 开局弹窗移动端适配 --- */
+        .route-modal-overlay {
+          padding: 10px !important;
+        }
+        .route-modal-box {
+          max-width: 100% !important;
+          border-radius: 18px !important;
+          max-height: none !important;
+          overflow: visible !important;
+        }
+        .route-modal-body {
+          padding: 40px 36px !important;
+        }
+        .route-modal-close {
+          width: 46px !important;
+          height: 46px !important;
+          font-size: 32px !important;
+          top: 14px !important;
+          right: 14px !important;
+        }
+        .route-modal-scene {
+          font-size: 1.5rem !important;
+          padding: 8px 18px !important;
+          margin-bottom: 20px !important;
+        }
+        .route-modal-scene i { font-size: 1.7rem !important; }
+        .route-modal-number {
+          font-size: 1.4rem !important;
+          margin-bottom: 8px !important;
+        }
+        .route-modal-title {
+          font-size: 3.2rem !important;
+          margin-bottom: 24px !important;
+        }
+        .route-modal-divider {
+          width: 50px !important;
+          margin-bottom: 24px !important;
+        }
+        .route-modal-desc {
+          font-size: 1.8rem !important;
+          line-height: 1.85 !important;
+          margin-bottom: 36px !important;
+        }
+        .route-modal-footer {
+          flex-direction: column !important;
+          align-items: flex-start !important;
+          gap: 20px !important;
+        }
+        .route-modal-char-label { font-size: 1.4rem !important; }
+        .route-modal-avatar {
+          width: 68px !important;
+          height: 68px !important;
+        }
+        .route-modal-enter-btn {
+          width: 100% !important;
+          justify-content: center !important;
+          font-size: 1.5rem !important;
+          padding: 16px 32px !important;
+        }
+      }
+
+      /* ===== 视频弹窗 ===== */
+      .video-modal-overlay {
+        /* 定位由 JS 在运行时通过 inline style 注入 */
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(15px);
+        z-index: 10000;
+      }
+      .video-modal-overlay.active {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+      }
+      .video-modal-content {
+        position: relative;
+        width: 95%;
+        max-width: 1000px;
+        background: #000;
+        border: 1px solid var(--border-subtle);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+      }
+      .video-modal-content video {
+        width: 100%;
+        display: block;
+      }
+      .video-modal-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        font-size: 28px;
+        cursor: pointer;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.3s;
+      }
+      .video-modal-close:hover {
+        background: var(--neon-red);
+      }
+
+      /* ===== 开局详情弹窗 ===== */
+      .route-modal-overlay {
+        /* 定位由 JS 在运行时通过 inline style 注入 */
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(12px);
+        z-index: 11000;
+      }
+      .route-modal-overlay.active {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+      }
+      .route-modal-box {
+        position: relative;
+        background: rgba(18, 18, 26, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        max-width: 1000px;
+        width: 100%;
+        box-shadow: 
+          0 20px 50px rgba(0,0,0,0.6), 
+          0 0 0 1px rgba(255,255,255,0.05) inset;
+        animation: modalSlideIn 0.4s var(--transition-smooth);
+        display: flex;
+        flex-direction: column;
+        backdrop-filter: blur(20px);
+      }
+      @keyframes modalSlideIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      .route-modal-body { 
+        padding: 60px 70px; 
+      }
+      .route-modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 52px;
+        height: 52px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid var(--glass-border);
+        border-radius: 50%;
+        color: var(--text-secondary);
+        font-size: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        z-index: 5;
+        line-height: 1;
+      }
+      .route-modal-close:hover {
+        background: var(--neon-red);
+        color: #fff;
+        border-color: var(--neon-red);
+      }
+      .route-modal-scene {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 22px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        font-size: 1.6rem;
+        color: var(--text-muted);
+        margin-bottom: 28px;
+      }
+      .route-modal-scene i {
+        font-size: 1.8rem;
+        color: var(--neon-red);
+      }
+      .route-modal-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--neon-red);
+        letter-spacing: 4px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+      }
+      .route-modal-title {
+        font-size: 3.6rem;
+        font-weight: 700;
+        line-height: 1.3;
+        margin-bottom: 32px;
+        letter-spacing: 2px;
+      }
+      .route-modal-divider {
+        width: 60px;
+        height: 3px;
+        background: var(--neon-red);
+        margin-bottom: 32px;
+      }
+      .route-modal-desc {
+        font-size: 1.9rem;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.9;
+        font-weight: 300;
+        margin-bottom: 50px;
+      }
+      .route-modal-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .route-modal-avatars { 
+        display: flex; 
+        align-items: center; 
+      }
+      .route-modal-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 3px solid var(--neon-red);
+        object-fit: cover;
+        margin-left: -14px;
+      }
+      .route-modal-avatar:first-child { margin-left: 0; }
+      .route-modal-char-label {
+        font-size: 1.6rem;
+        color: var(--text-muted);
+        margin-right: 16px;
+        font-weight: 600;
+      }
+      .route-modal-enter-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 44px;
+        background: transparent;
+        color: var(--neon-red);
+        font-size: 1.6rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        border: 2px solid var(--neon-red);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .route-modal-enter-btn:hover {
+        background: var(--neon-red);
+        color: #fff;
+        box-shadow: 0 0 15px var(--neon-red-glow);
+        transform: translateY(-2px);
+      }
+      .route-modal-box::-webkit-scrollbar { width: 4px; }
+      .route-modal-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+      @media (max-width: 800px) {
+        .route-modal-box { max-height: 90vh; }
+        .route-modal-body { padding: 30px 20px; }
+        .route-modal-title { font-size: 1.8rem; }
+        .route-modal-desc { font-size: 1.1rem; line-height: 1.7; }
+        .route-modal-footer { flex-direction: column-reverse; align-items: stretch; text-align: center; }
+        .route-modal-avatars { justify-content: center; }
+        .route-modal-enter-btn { justify-content: center; font-size: 1.05rem; padding: 14px; }
+      }
+    </style>
+  
+    <style>
+      .cg-char-card { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; cursor: pointer; border: 1px solid var(--border-subtle); transition: all 0.3s; }
+      .cg-char-card:hover { border-color: var(--neon-red); box-shadow: 0 0 20px rgba(230, 19, 0, 0.4); transform: translateY(-2px); }
+      .cg-card { border: 1px solid var(--border-subtle); background: rgba(255, 255, 255, 0.03); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: all 0.3s; }
+      .cg-card:hover { border-color: var(--neon-red); box-shadow: 0 0 15px var(--neon-red-glow); transform: translateY(-2px); }
+      .cg-card.locked { filter: grayscale(100%); opacity: 0.3; cursor: not-allowed; }
+      .cg-card.locked:hover { border-color: var(--border-subtle); box-shadow: none; transform: none; }
+      .cg-img-wrapper { width: 100%; aspect-ratio: 16 / 9; background: rgba(0,0,0,0.3); position: relative; border-bottom: 1px solid var(--border-subtle); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+      .cg-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .cg-locked-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 32px; color: rgba(255,255,255,0.4); }
+      .cg-title { padding: 12px 8px; font-size: 0.9rem; font-weight: 700; text-align: center; color: var(--text-primary); background: transparent; }
+      #cg-sub-page .fa-arrow-left:hover { color: var(--neon-red); }
+      @media (max-width: 800px) {
+        #cg-characters-grid { grid-template-columns: 1fr !important; }
+        #kc-gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      }
+      @media (min-width: 800px) and (max-width: 1200px) {
+        #kc-gallery-grid { grid-template-columns: repeat(3, 1fr) !important; }
+      }
+      /* CG Viewer：仅去掉宽度限制，其余行为与画廊 section 完全一致 */
+      #cg-viewer {
+        max-width: 100%;
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== 卡通版音乐控制按钮 (必须在 zoom-wrapper 外层，否则 transform 会干扰 fixed) ===== -->
+    <div class="music-player playing" id="musicPlayer" onclick="toggleMusic()">
+      <span class="material-symbols-outlined music-icon" id="musicIcon">music_note</span>
+    </div>
+
+    <!-- ===== Zoom Wrapping 容器 ===== -->
+    <div class="zoom-wrapper" id="zoom-wrapper">
+      <div class="zoom-content" id="zoom-content">
+
+        <!-- ===== 全局发光线条导航 (在 zoom-content 内部跟随缩放) ===== -->
+        <nav class="neon-nav-container" id="neonNav">
+          <div class="neon-nav-wrapper">
+            <a class="neon-nav-item active" href="#hero">
+              <span class="neon-nav-text">首页</span>
+              <div class="neon-line"></div>
+            </a>
+            <a class="neon-nav-item" href="#characters">
+              <span class="neon-nav-text">角色</span>
+              <div class="neon-line"></div>
+            </a>
+            <a class="neon-nav-item" href="#pv">
+              <span class="neon-nav-text">映像</span>
+              <div class="neon-line"></div>
+            </a>
+            <a class="neon-nav-item" href="#routes">
+              <span class="neon-nav-text">开局</span>
+              <div class="neon-line"></div>
+            </a>
+            <a class="neon-nav-item" href="#about">
+              <span class="neon-nav-text">须知</span>
+              <div class="neon-line"></div>
+            </a>
+            <a class="neon-nav-item" href="#cg-viewer">
+              <span class="neon-nav-text">记忆</span>
+              <div class="neon-line"></div>
+            </a>
+            <a class="neon-nav-item" href="#gallery">
+              <span class="neon-nav-text">画廊</span>
+              <div class="neon-line"></div>
+            </a>
+          </div>
+        </nav>
+
+        <div class="fullpage-wrapper">
+      <!-- 粒子背景 -->
+      <div class="particles" id="particles"></div>
+
+      <!-- ===== HERO 首屏 ===== -->
+      <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+          <img
+            src="https://esvigan.cn/标题文字.webp"
+            alt="新宿拯救计划"
+            class="hero-title-img"
+          />
+          <p class="hero-tagline">
+            在霓虹闪烁、永不落幕的新宿，恋爱早已成为可以明码标价的"消费品"。<br />
+            当订单的时钟停止跳动，当她们脱下面具……<br />
+            你拯救的究竟是她们摇摇欲坠的人生，还是自己逐渐麻木的灵魂？
+          </p>
+          <div
+            class="hero-warning"
+            style="
+              margin-top: 16px;
+              padding: 10px 20px;
+              background: rgba(0, 0, 0, 0.2);
+              border: 1px solid rgba(230, 19, 0, 0.2);
+              border-radius: 8px;
+              display: inline-block;
+              animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+            "
+          >
+            <p
+              style="
+                color: rgba(255, 255, 255, 0.75);
+                font-size: 13px;
+                letter-spacing: 2px;
+              "
+            >
+              ❗ 游玩前请务必阅读完毕右侧【须知】页面的阅读须知与设定
+            </p>
+          </div>
+
+          <p class="hero-author" style="margin-top: 24px">
+            by <span>今天肚子疼啊w</span> | ._sarasa_.
+          </p>
+        </div>
+
+        <!-- 水印及版权声明 -->
+        <div
+          class="hero-watermark"
+          style="
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            display: flex;
+            align-items: flex-start;
+            flex-direction: row-reverse;
+            gap: 16px;
+            opacity: 0.8;
+            pointer-events: none;
+            text-align: left;
+          "
+        >
+          <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px;">
+            <span
+              style="
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: bold;
+                letter-spacing: 1px;
+              "
+              >这是一张永久免费的卡</span
+            >
+            <span style="font-size: 11px; color: rgba(255, 255, 255, 0.6)"
+              >仅在类脑和旅程免费发布，禁止倒卖</span
+            >
+          </div>
+          <img
+            src="https://esvigan.cn/肚子疼水印3.webp"
+            alt="今天肚子疼啊w"
+            style="
+              width: 72px;
+              border-radius: 50%;
+              opacity: 0.9;
+              filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.6));
+            "
+          />
+        </div>
+      </section>
+
+      <!-- ===== 角色展示 ===== -->
+      <section class="section" id="characters">
+        <div class="section-header reveal">
+          <p class="section-label">Characters</p>
+          <h2 class="section-title">她们的面具与真心</h2>
+          <p class="section-subtitle">
+            每个人都有两幅面孔，在新宿的霓虹之下更是如此
+          </p>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="character-slider-wrap">
+          <button class="slider-btn prev" onclick="prevChar()">&#10094;</button>
+          <div class="character-slider" id="charSlider">
+            <!-- 月宫绾音 -->
+            <div class="char-panel panel-ayane reveal">
+              <div class="char-bg-text">月宮</div>
+              <div class="char-content-wrap">
+                <div class="char-name-block">
+                  <span class="char-name-jp">TSUKIMIYA AYANE</span>
+                  <h3 class="char-name">月宫绾音</h3>
+                </div>
+                <blockquote class="char-quote">
+                  "既然是梦，就请暂时忘记现实，全身心地爱我吧。"
+                </blockquote>
+                <p class="char-desc">
+                  东京大学大一的中国留学生，Tomorrow's Girlfriend 平台 Top 10
+                  的租借女友。<br />
+                  她有着千年一遇的国民级美貌，在三线压力中挣扎——学业、兼职与声优梦想。<br />
+                  温柔体贴是她的底色，自我怀疑却从未离开。<br />
+                  她渴望有人看穿她的伪装，又害怕面具下的自己不值得被爱。
+                </p>
+                <div class="char-tags">
+                  <span class="char-tag">19岁</span>
+                  <span class="char-tag">东京大学</span>
+                  <span class="char-tag">TOP 10</span>
+                  <span class="char-tag">声优梦</span>
+                </div>
+              </div>
+              <div class="char-portrait-wrap">
+                <img
+                  src="https://esvigan.cn/林绛插图1.webp"
+                  alt="月宫绾音"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <!-- 如月绘里奈 -->
+            <div class="char-panel panel-erina reveal">
+              <div class="char-bg-text">如月</div>
+              <div class="char-content-wrap">
+                <div class="char-name-block">
+                  <span class="char-name-jp">KISARAGI ERINA</span>
+                  <h3 class="char-name">如月绘里奈</h3>
+                </div>
+                <blockquote class="char-quote">
+                  "还不快点？慢吞吞的会被抛弃哦。"
+                </blockquote>
+                <p class="char-desc">
+                  Tomorrow's Girlfriend
+                  人气第一的租借女友，无家可归的神待少女。<br />
+                  黑色短发、猫形耳钉、右嘴角那颗致命的小梨涡——她把所有人当作游戏里的NPC，用甜美包裹算计，用狡黠掩盖脆弱。<br />
+                  在凌晨三点的网咖包间里，当所有刺激褪去，她会被窒息般的孤独淹没。
+                </p>
+                <div class="char-tags">
+                  <span class="char-tag">17岁</span>
+                  <span class="char-tag">NO.1</span>
+                  <span class="char-tag">小恶魔</span>
+                  <span class="char-tag">神待少女</span>
+                </div>
+              </div>
+              <div class="char-portrait-wrap">
+                <img
+                  src="https://esvigan.cn/绘里奈插图1.webp"
+                  alt="如月绘里奈"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <!-- 安藤由美 -->
+            <div class="char-panel panel-yumi reveal">
+              <div class="char-bg-text">安藤</div>
+              <div class="char-content-wrap">
+                <div class="char-name-block">
+                  <span class="char-name-jp">ANDO YUMI</span>
+                  <h3 class="char-name">安藤由美</h3>
+                </div>
+                <blockquote class="char-quote">
+                  "那个……请、请多指教呀……"
+                </blockquote>
+                <p class="char-desc">
+                  坚韧温婉的大和抚子，实际26岁却在平台上自称19岁的清纯学妹。<br />
+                  背负着前夫留下的800万日元高利贷，为了还债成为新手租借女友。<br />
+                  她努力装出年轻俏皮，却因为骨子里的成熟人妻气质而显得局促又反差可爱。<br />
+                  尽管身处绝境，从不会忘记把便宜的打折便当摆盘得极其精致。
+                </p>
+                <div class="char-tags">
+                  <span class="char-tag">26岁</span>
+                  <span class="char-tag">大和抚子</span>
+                  <span class="char-tag">800万债务</span>
+                  <span class="char-tag">反差萌</span>
+                </div>
+              </div>
+              <div class="char-portrait-wrap">
+                <img
+                  src="https://esvigan.cn/由美插图1.webp"
+                  alt="安藤由美"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+          <button class="slider-btn next" onclick="nextChar()">&#10095;</button>
+        </div>
+      </section>
+
+      <!-- ===== PV 视频 ===== -->
+      <section class="section" id="pv">
+        <div class="section-header reveal">
+          <p class="section-label">Preview</p>
+          <h2 class="section-title">宣传映像</h2>
+          <p class="section-subtitle">
+            点击播放预告片，播放时将自动暂停背景音乐
+          </p>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="pv-grid reveal">
+          <!-- PV 1 -->
+          <div class="pv-card">
+            <div class="pv-video-wrap" onclick="togglePV(this)">
+              <video
+                id="pv1"
+                preload="none"
+                poster="https://esvigan.cn/开场白大图.webp"
+                data-youtube="https://www.youtube.com/embed/z0CrzVvPWlI"
+              >
+                <source src="https://esvigan.cn/PV1.mp4" type="video/mp4" />
+              </video>
+              <div class="pv-play-overlay" id="pv1-overlay">
+                <div class="pv-play-btn"><div class="pv-play-icon"></div></div>
+              </div>
+            </div>
+            <div class="pv-info">
+              <p class="pv-title">Official PV — Vol.1</p>
+              <p class="pv-desc">新宿拯救计划 宣传映像第一弹</p>
+            </div>
+          </div>
+
+          <!-- PV 2 -->
+          <div class="pv-card">
+            <div class="pv-video-wrap" onclick="togglePV(this)">
+              <video
+                id="pv2"
+                preload="none"
+                poster="https://esvigan.cn/三人合照.webp"
+                data-youtube="https://www.youtube.com/embed/GcDO-UYNtVg"
+              >
+                <source
+                  src="https://esvigan.cn/%E9%9B%B6%E9%9B%B6%E7%A2%8E%E7%A2%8E%E7%9A%84%E6%97%A5%E5%B8%B8.mp4"
+                  type="video/mp4"
+                />
+              </video>
+              <div class="pv-play-overlay" id="pv2-overlay">
+                <div class="pv-play-btn"><div class="pv-play-icon"></div></div>
+              </div>
+            </div>
+            <div class="pv-info" style="margin-top: 16px">
+              <p class="pv-title">零零碎碎的日常</p>
+              <p class="pv-desc">林绛的个人单曲</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 开局选择 ===== -->
+      <section class="section" id="routes">
+        <div class="section-header reveal">
+          <p class="section-label">Story Routes</p>
+          <h2 class="section-title">选择你的命运</h2>
+          <p class="section-subtitle">
+            八种开局，八种邂逅 —— 每个选择都将引向不同的新宿未来
+          </p>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="routes-grid reveal">
+          <!-- 开局 1 -->
+          <div class="route-card" data-char="both" onclick="openRouteModal(1)">
+            <span class="route-scene">🌃 新宿歌舞伎町</span>
+            <p class="route-number">ROUTE 01</p>
+            <h3 class="route-title">新宿偶遇</h3>
+            <p class="route-desc">
+              在歌舞伎町的奶茶店前，你偶遇了正在逛街的月宫绾音和如月绘里奈。素颜、眼镜、疲惫——这不是平台上那个完美的她。
+            </p>
+            <div class="route-meta">
+              <div class="route-avatars">
+                <img
+                  class="route-avatar"
+                  src="https://esvigan.cn/0301linjiang.webp"
+                  alt="绾音"
+                />
+                <img
+                  class="route-avatar"
+                  src="https://esvigan.cn/0301huilinai.webp"
+                  alt="绘里奈"
+                />
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 开局 2 -->
+          <div class="route-card" data-char="ayane" onclick="openRouteModal(2)">
+            <span class="route-scene">🗼 涩谷 忠犬八公像前</span>
+            <p class="route-number">ROUTE 02</p>
+            <h3 class="route-title">第一次租借</h3>
+            <p class="route-desc">
+              你第一次使用 Tomorrow's Girlfriend，在忠犬八公像旁等待着那个评分
+              4.9 的传说级租借女友——月宫绾音。
+            </p>
+            <div class="route-meta">
+              <div class="route-avatars">
+                <img
+                  class="route-avatar"
+                  src="https://esvigan.cn/0301linjiang.webp"
+                  alt="绾音"
+                />
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 开局 3 -->
+          <div class="route-card" data-char="erina" onclick="openRouteModal(3)">
+            <span class="route-scene">🎮 歌舞伎町一番街</span>
+            <p class="route-number">ROUTE 03</p>
+            <h3 class="route-title">歌舞伎町邂逅</h3>
+            <p class="route-desc">
+              被牛郎搭讪的你命悬一线，一个穿着红色马丁靴的短发女孩挽住了你的手臂——"你迟到了。"她的出场费？一瓶可乐。
+            </p>
+            <div class="route-meta">
+              <div class="route-avatars">
+                <img
+                  class="route-avatar"
+                  src="https://esvigan.cn/0301huilinai.webp"
+                  alt="绘里奈"
+                />
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 开局 4 -->
+          <div class="route-card" data-char="ayane" onclick="openRouteModal(4)">
+            <span class="route-scene">🏠 新宿区老旧公寓</span>
+            <p class="route-number">ROUTE 04</p>
+            <h3 class="route-title">地震合租</h3>
+            <p class="route-desc">
+              一场地震让她的住所被封锁，中介安排你们共享两居室。她拖着行李箱出现在门口——"我是林绛。"她没有用那个闪闪发光的艺名。
+            </p>
+            <div class="route-meta">
+              <div class="route-avatars">
+                <img
+                  class="route-avatar"
+                  src="https://esvigan.cn/0301linjiang.webp"
+                  alt="绾音"
+                />
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 开局 5 -->
+          <div class="route-card" data-char="erina" onclick="openRouteModal(5)">
+            <span class="route-scene">🌧️ 雨中的新宿街道</span>
+            <p class="route-number">ROUTE 05</p>
+            <h3 class="route-title">暴雨夜拾猫</h3>
+            <p class="route-desc">
+              公交站台下一个湿透的身影——脸颊上的淤青和嘴角的血迹。所谓的 No.1
+              租借女友此刻和流浪猫没什么区别。"能不能……带我走？"
+            </p>
+            <div class="route-meta">
+              <div class="route-avatars">
+                <img
+                  class="route-avatar"
+                  src="https://esvigan.cn/0301huilinai.webp"
+                  alt="绘里奈"
+                />
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 开局 6 -->
+          <div class="route-card" data-char="both" onclick="openRouteModal(6)">
+            <span class="route-scene">🎤 Platinum KTV</span>
+            <p class="route-number">ROUTE 06</p>
+            <h3 class="route-title">KTV撑场面</h3>
+            <p class="route-desc">
+              你咬牙下单月宫绾音参加同学聚会。包厢角落里还坐着一个猫眼女孩——佐藤带来的"女友"级别高得离谱。两个租借女友的暗战开始了。
+            </p>
+            <div class="route-meta">
+              <div class="route-avatars">
+                <img
+                  class="route-avatar"
+                  src="https://esvigan.cn/0301linjiang.webp"
+                  alt="绾音"
+                />
+                <img
+                  class="route-avatar"
+                  src="https://esvigan.cn/0301huilinai.webp"
+                  alt="绘里奈"
+                />
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 开局 7 -->
+          <div class="route-card" data-char="yumi" onclick="openRouteModal(7)">
+            <span class="route-scene">🍵 新宿歌舞伎町边缘</span>
+            <p class="route-number">ROUTE 07</p>
+            <h3 class="route-title">笨拙的约会</h3>
+            <p class="route-desc">
+              她穿着不搭调的百褶短裙，比了一个极其生硬的剪刀手，脸"腾"地红到耳根。"我、我是由美……今天请多多指教呀！"
+            </p>
+            <div class="route-meta">
+              <div class="route-avatars">
+                <img
+                  class="route-avatar"
+                  src="https://esvigan.cn/由美头像.webp"
+                  alt="由美"
+                />
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 开局 8 -->
+          <div class="route-card" data-char="yumi" onclick="openRouteModal(8)">
+            <span class="route-scene">🔪 歌舞伎町偏僻巷口</span>
+            <p class="route-number">ROUTE 08</p>
+            <h3 class="route-title">解围高利贷</h3>
+            <p class="route-desc">
+              "松本太太,利息你打算拖到什么时候？"你假装是她的客人帮她解了围。她深深鞠了一躬，然后强行比了一个剪刀手——好尴尬。
+            </p>
+            <div class="route-meta">
+              <div class="route-avatars">
+                <img
+                  class="route-avatar"
+                  src="https://esvigan.cn/由美头像.webp"
+                  alt="由美"
+                />
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        
+      </section>
+
+      <!-- ===== 阅读须知与关于 ===== -->
+      <section
+        class="section"
+        id="about"
+        style="min-height: 80vh; padding-top: 60px; padding-bottom: 60px"
+      >
+        <div class="section-header reveal">
+          <p class="section-label">Notice & About</p>
+          <h2 class="section-title">阅读须知</h2>
+          <p class="section-subtitle">
+            在进入歌舞伎町的霓虹世界之前，请务必了解以下规则与设定
+          </p>
+          <div class="section-line"></div>
+        </div>
+
+        <div
+          class="about-content reveal"
+          style="
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(10, 10, 15, 0.7);
+            border: 1px solid var(--border-subtle);
+            padding: 40px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+          "
+        >
+          <h3
+            style="
+              color: var(--neon-red);
+              font-size: 1.2rem;
+              margin-bottom: 24px;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+            "
+          >
+            ❗ 基本注意事项
+          </h3>
+          <ul
+            style="
+              color: var(--text-secondary);
+              font-size: 0.95rem;
+              line-height: 1.8;
+              margin-bottom: 32px;
+              padding-left: 20px;
+            "
+          >
+            <li style="margin-bottom: 8px">
+              请将世界书的排序改为“<strong style="color: #fff">自定义</strong
+              >”。
+            </li>
+            <li style="margin-bottom: 8px">
+              请<span style="color: var(--neon-red)">不要</span
+              >在你完全明白自己在做什么之前，擅自修改世界书中
+              <strong>* 变量 *</strong> 部分内容！
+            </li>
+            <li style="margin-bottom: 8px">
+              请务必将<strong style="color: #fff">酒馆助手</strong>和<strong
+                style="color: #fff"
+                >提示词模板语法</strong
+              >更新到最新再开始游玩。
+            </li>
+          </ul>
+
+          <h3
+            style="
+              color: #fff;
+              font-size: 1.2rem;
+              margin-bottom: 24px;
+              border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+              padding-bottom: 8px;
+            "
+          >
+            常见问题 Q&A
+          </h3>
+
+          <div style="display: flex; flex-direction: column; gap: 24px">
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.02);
+                padding: 16px;
+                border-radius: 8px;
+                border-left: 3px solid var(--neon-red);
+              "
+            >
+              <p
+                style="
+                  color: var(--text-primary);
+                  font-weight: bold;
+                  margin-bottom: 12px;
+                "
+              >
+                Q1：我该如何更新我的角色卡？
+              </p>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.8;
+                "
+              >
+                A：一、下载最新的角色卡。<br />
+                二、在旧角色卡界面点击 “更多...”。<br />
+                三、选择 “替换/更新”，然后选择新下载的角色卡。<br />
+                四、点击蓝色小地球快速打开当前世界书。<br />
+                五、删除现有的世界书。<br />
+                六、点击小地球重新导入新的世界书。
+              </p>
+            </div>
+
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.02);
+                padding: 16px;
+                border-radius: 8px;
+                border-left: 3px solid var(--neon-red);
+              "
+            >
+              <p
+                style="
+                  color: var(--text-primary);
+                  font-weight: bold;
+                  margin-bottom: 12px;
+                "
+              >
+                Q2：为什么我加载不出状态栏 / 内容不更新？
+              </p>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.8;
+                "
+              >
+                A：请检查你的酒馆助手是否安装并更新到最新版本，酒馆助手的角色脚本中是否有“<span
+                  style="color: #fff"
+                  >MVU脚本</span
+                >”并打开。再检查局部正则中是否有“状态栏-完整版”这个正则并打开。状态栏是由
+                mvu 脚本自动注入的，只要其不出问题状态栏便一定会显示。<br /><br />
+                <strong style="color: var(--neon-red)">不更新怎么办？</strong
+                ><br />
+                1. 检查 MVU 脚本是否打开。<br />
+                2. 部分预设会自带“变量更新提醒”，如果有此选项请打开。<br />
+                3. 尝试重 roll 当前楼层。<br />
+                4.
+                如果始终不更新，建议尝试更换预设或更聪明的模型。你可以点击输入框左侧魔法棒打开“变量管理器”核实变量。
+              </p>
+            </div>
+
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.02);
+                padding: 16px;
+                border-radius: 8px;
+                border-left: 3px solid var(--neon-red);
+              "
+            >
+              <p
+                style="
+                  color: var(--text-primary);
+                  font-weight: bold;
+                  margin-bottom: 12px;
+                "
+              >
+                Q3：为什么我开局发送的token数量这么多？
+              </p>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.8;
+                "
+              >
+                A：检查是否正常安装“提示词模板”，并在扩展中打开。很多条目依赖提示词模板来分阶段发送提示词，如果未安装则会全部堆叠发送导致
+                token 暴增。
+              </p>
+            </div>
+
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.02);
+                padding: 16px;
+                border-radius: 8px;
+                border-left: 3px solid var(--neon-red);
+              "
+            >
+              <p
+                style="
+                  color: var(--text-primary);
+                  font-weight: bold;
+                  margin-bottom: 12px;
+                "
+              >
+                Q4：状态栏目前有哪些互动可以操作？
+              </p>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.8;
+                "
+              >
+                A：状态栏内容主要以展示变量信息为主，基于剧情更新：<br />
+                -
+                <strong>首页</strong
+                >：直接查看两名角色的好感、信赖等数值；上方滚动条展示今日新闻（点击弹开详解）；点击角色可进入深度界面查看状态并播放音乐。<br />
+                - <strong>心声栏</strong>：查看表/里心声（右上角切换）。<br />
+                - <strong>消息界面</strong>：展示私聊与群聊内容。<br />
+                -
+                <strong>社交主页</strong
+                >：点击进入女主的租借平台主页，其中动态会随剧情更新。
+              </p>
+            </div>
+
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.02);
+                padding: 16px;
+                border-radius: 8px;
+                border-left: 3px solid var(--neon-red);
+              "
+            >
+              <p
+                style="
+                  color: var(--text-primary);
+                  font-weight: bold;
+                  margin-bottom: 12px;
+                "
+              >
+                Q5：为什么图片或音乐无法正常加载/播放？
+              </p>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.8;
+                "
+              >
+                A：云端媒体资源挂在 Cloudflare R2
+                上，若遇访问问题（图裂、无法播放）通常是网络情况波动。请稍等片刻再试，或是尝试更换网络环境。
+              </p>
+            </div>
+          </div>
+
+          <div
+            style="
+              margin-top: 40px;
+              text-align: center;
+              border-top: 1px dashed rgba(255, 255, 255, 0.1);
+              padding-top: 32px;
+            "
+          >
+            <p
+              style="
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+                margin-bottom: 16px;
+              "
+            >
+              如果还有问题，请到 Discord
+              <a
+                href="https://discord.com/channels/1134557553011998840/1468235771415626003"
+                target="_blank"
+                style="
+                  color: var(--neon-red);
+                  text-decoration: underline;
+                  text-underline-offset: 4px;
+                "
+                >类脑社区留言板</a
+              >
+              找到我进行反馈。
+            </p>
+            <div
+              style="
+                background: rgba(230, 19, 0, 0.1);
+                border: 1px solid rgba(230, 19, 0, 0.3);
+                padding: 16px 24px;
+                border-radius: 8px;
+                display: inline-block;
+              "
+            >
+              <p
+                style="
+                  color: #fff;
+                  font-size: 1rem;
+                  font-weight: bold;
+                  letter-spacing: 1px;
+                "
+              >
+                🚫 本卡仅在类脑和旅程社区免费发布
+              </p>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.7);
+                  font-size: 0.8rem;
+                  margin-top: 8px;
+                "
+              >
+                如果你在别的平台看到这张卡，或有人向你出售，请抵制购买并向我们举报！非常感谢！
+              </p>
+            </div>
+          </div>
+
+          <!-- 插件状态检测 -->
+          <div style="margin-top:24px; padding:16px 20px; background:rgba(255,255,255,0.03); border:1px solid var(--border-subtle); border-radius:8px;">
+            <p style="font-size:0.7rem; color:rgba(255,255,255,0.4); margin-bottom:10px; letter-spacing:1px;">⚙ 运行环境检测</p>
+            <div id="pluginStatus">
+              <span style="font-size:0.75rem; color:rgba(255,255,255,0.3);">检测中...</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== CG Viewer ===== -->
+      <!-- ===== CG Viewer ===== -->
+      <section class="section" id="cg-viewer">
+        <div class="section-header reveal">
+          <p class="section-label">CG Gallery</p>
+          <h2 class="section-title">记忆相册</h2>
+          <p class="section-subtitle">曾经经历过的那些碎片</p>
+          <div class="section-line"></div>
+        </div>
+
+        <!-- 返回条 - 独立于内容容器之外，彻底避免 pointer-events 干扰 -->
+        <div id="cg-back-bar" onclick="window.closeCgSubPage()" style="display:none; cursor:pointer; margin: 0 8% 16px 24px; padding: 12px 20px; background: rgba(230,19,0,0.15); border: 1px solid rgba(230,19,0,0.4); border-radius: 8px; color: var(--neon-red); font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; user-select:none; transition: background 0.2s;" onmouseover="this.style.background='rgba(230,19,0,0.3)'" onmouseout="this.style.background='rgba(230,19,0,0.15)'">
+          ← 返回角色选择
+        </div>
+
+        <div class="cg-viewer-content reveal" style="width: 100%; padding: 0 24px;">
+          
+          <div id="cg-characters-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 0 8%;">
+            <!-- ALL Card -->
+            <div class="cg-char-card" onclick="openCgSubPage('other')">
+              <img src="https://esvigan.cn/开场白大图.webp" style="width: 100%; height: 100%; object-fit: cover" onerror="this.src = 'https://esvigan.cn/bg1.webp'" />
+              <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 20px 15px 15px 15px; color: #fff; font-weight: bold; font-size: 1.1rem; text-shadow: 1px 1px 3px #000;">
+                其他 CG / OTHER
+              </div>
+            </div>
+            <!-- ERINA Card -->
+            <div class="cg-char-card" onclick="openCgSubPage('erina')">
+              <img src="https://esvigan.cn/绘里奈头像 .webp" style="width: 100%; height: 100%; object-fit: cover; object-position: bottom;" onerror="this.src = 'https://esvigan.cn/0301huilinai-li.webp'" />
+              <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 20px 15px 15px 15px; color: #fff; font-weight: bold; font-size: 1.1rem; text-shadow: 1px 1px 3px #000;">
+                如月绘里奈
+              </div>
+            </div>
+            <!-- AYANE Card -->
+            <div class="cg-char-card" onclick="openCgSubPage('ayane')">
+              <img src="https://esvigan.cn/林绛头像 .webp" style="width: 100%; height: 100%; object-fit: cover; object-position: top;" onerror="this.src = 'https://esvigan.cn/0301linjiang-li.webp'" />
+              <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 20px 15px 15px 15px; color: #fff; font-weight: bold; font-size: 1.1rem; text-shadow: 1px 1px 3px #000;">
+                月宫绾音
+              </div>
+            </div>
+            <!-- YUMI Card -->
+            <div class="cg-char-card" onclick="openCgSubPage('yumi')">
+              <img src="https://esvigan.cn/由美头像.webp" style="width: 100%; height: 100%; object-fit: cover" onerror="this.src = 'https://esvigan.cn/由美内.webp'" />
+              <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 20px 15px 15px 15px; color: #fff; font-weight: bold; font-size: 1.1rem; text-shadow: 1px 1px 3px #000;">
+                安藤由美
+              </div>
+            </div>
+          </div>
+
+          <!-- Secondary Page View -->
+          <div id="cg-sub-page" style="display: none; flex-direction: column; width: 100%; min-width: 0;">
+            <div style="padding-bottom: 16px; border-bottom: 1px dashed rgba(255,255,255,0.2); margin-bottom: 20px;">
+              <div id="cg-sub-page-title" style="font-weight: 700; font-size: 1.2rem; color: #fff; letter-spacing: 1px;">GALLERY</div>
+              <div id="cg-unlock-counter" style="font-size: 0.85rem; color: var(--neon-red); margin-top: 4px; font-weight: 600; letter-spacing: 1px;">已解锁 0 / 0</div>
+            </div>
+            <div id="kc-gallery-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; width: 100%; padding-right: 8%; box-sizing: border-box;">
+              <!-- CG items injected here -->
+            </div>
+            <div id="kc-locked-msg" style="display:none; margin-top: 24px; text-align: center; color: rgba(255,255,255,0.25); font-size: 0.8rem; letter-spacing: 2px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 16px;"></div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== 画廊展示 ===== -->
+      <section class="section" id="gallery">
+        <div class="section-header reveal">
+          <p class="section-label">Gallery</p>
+          <h2 class="section-title">浮光掠影</h2>
+          <p class="section-subtitle">迷离夜色中的新宿剪影</p>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="gallery-grid reveal">
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/双人4.webp"
+              alt="双人4"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img src="https://esvigan.cn/林绛.webp" alt="林绛" loading="lazy" />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/17-21-57-959311346052671_底图_00001_.webp"
+              alt="CG"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/17-37-55-735246388052575_SeedVR2分块放大_00001_.webp"
+              alt="CG"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/16-42-11-405869380644004_底图_00001_.webp"
+              alt="CG"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/16-46-19-356889127084706_底图_00001_.webp"
+              alt="CG"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/林绛new1.webp"
+              alt="林绛"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/林绛new2.webp"
+              alt="林绛"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/绘里奈new1.webp"
+              alt="绘里奈"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/1772346814233_download.webp"
+              alt="CG"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/1772347214615_download.webp"
+              alt="CG"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/1770107500748_download.webp"
+              alt="CG"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/1770107231055_download.webp"
+              alt="CG"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/1770106153978_download.webp"
+              alt="CG"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/1770106452295_download.webp"
+              alt="CG"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/1769964638341_download.webp"
+              alt="CG"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/14-16-58-563240038577576_TTP分块放大_00001_.webp"
+              alt="CG"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/jimeng-2026-03-01-1079.webp"
+              alt="即梦"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/开场白大图.webp"
+              alt="开场白"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/qq小人.webp"
+              alt="qq小人"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img src="https://esvigan.cn/由美.webp" alt="由美" loading="lazy" />
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img
+              src="https://esvigan.cn/由美头像.webp"
+              alt="由美头像"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 画廊展示 ===== -->
+      
+
+      <!-- ===== 阅读须知与关于 ===== -->
+      
+    
+
+      <!-- ===== 视频弹窗 ===== -->
+      <div class="video-modal-overlay" id="videoModal" onclick="if(event.target===this) closeVideoModal()">
+        <div class="video-modal-content">
+          <button class="video-modal-close" onclick="closeVideoModal()">×</button>
+          <video id="modalVideo" controls style="width: 100%; height: 100%; display: block;"></video>
+          <iframe id="modalIframe" width="100%" height="100%" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="display: none; border: none;"></iframe>
+        </div>
+      </div>
+
+      <!-- ===== 开局详情弹窗 ===== -->
+      <div class="route-modal-overlay" id="routeModal" onclick="if(event.target===this) closeRouteModal()">
+        <div class="route-modal-box">
+          <button class="route-modal-close" onclick="closeRouteModal()">×</button>
+          <div class="route-modal-body">
+            <span class="route-modal-scene">
+              <i class="material-symbols-outlined">location_on</i>
+              <span id="routeModalScene"></span>
+            </span>
+            <p class="route-modal-number" id="routeModalNumber"></p>
+            <h2 class="route-modal-title" id="routeModalTitle"></h2>
+            <div class="route-modal-divider" id="routeModalDivider"></div>
+            <p class="route-modal-desc" id="routeModalDesc"></p>
+            <div class="route-modal-footer">
+              <div style="display: flex; align-items: center;">
+                <span class="route-modal-char-label">出场角色：</span>
+                <div class="route-modal-avatars" id="routeModalAvatars"></div>
+              </div>
+              <button class="route-modal-enter-btn" id="routeModalEnterBtn" onclick="confirmEnterRoute()">
+                进入故事 →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+    </div> <!-- end .zoom-content -->
+    </div> <!-- end .zoom-wrapper -->
+
+    
+
+
+
+    <script>
+      // ===== 粒子背景 =====
+      (function createParticles() {
+        const container = document.getElementById("particles");
+        for (let i = 0; i < 30; i++) {
+          const p = document.createElement("div");
+          p.className = "particle";
+          p.style.left = Math.random() * 100 + "%";
+          p.style.animationDuration = 8 + Math.random() * 12 + "s";
+          p.style.animationDelay = Math.random() * 10 + "s";
+          p.style.width = p.style.height = 1 + Math.random() * 2 + "px";
+          const colors = ["#e51400", "#0078d7", "#9b59b6", "#f0a30a"];
+          p.style.background =
+            colors[Math.floor(Math.random() * colors.length)];
+          container.appendChild(p);
+        }
+      })();
+
+      // (adjustScale 已统一至底部脚本块，此处不再重复定义)
+
+      // ===== 导航栏滚动效果 =====
+      window.addEventListener("scroll", function () {
+        const nav = document.getElementById("topNav");
+        nav.classList.toggle("scrolled", window.scrollY > 80);
+      });
+
+      // ===== 角色轮播（无缝循环） =====
+      let currentCharIndex = 0;
+      const totalChars = 3;
+      const charSlider = document.getElementById("charSlider");
+      const charPanels = charSlider
+        ? charSlider.querySelectorAll(".char-panel")
+        : [];
+      let isAnimating = false;
+
+      // 初始化：只显示第一个，移除reveal避免CSS冲突
+      charPanels.forEach((p, i) => {
+        p.classList.remove("reveal");
+        p.classList.add("visible");
+        p.style.position = i === 0 ? "relative" : "absolute";
+        p.style.top = "0";
+        p.style.left = "0";
+        p.style.width = "100%";
+        p.style.opacity = i === 0 ? "1" : "0";
+        p.style.pointerEvents = i === 0 ? "auto" : "none";
+        p.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+        p.style.transform = i === 0 ? "translateX(0)" : "translateX(60px)";
+      });
+      if (charSlider) {
+        charSlider.style.position = "relative";
+        charSlider.style.display = "block";
+        charSlider.style.overflow = "hidden";
+      }
+
+      function switchChar(newIndex, direction) {
+        if (isAnimating || newIndex === currentCharIndex) return;
+        isAnimating = true;
+        const outPanel = charPanels[currentCharIndex];
+        const inPanel = charPanels[newIndex];
+        const slideOut = direction === "next" ? "-60px" : "60px";
+        const slideIn = direction === "next" ? "60px" : "-60px";
+
+        // 先把当前面板也设为 absolute（避免 position 切换导致的布局跳变）
+        const wrapHeight = charSlider.offsetHeight;
+        charSlider.style.minHeight = wrapHeight + "px";
+        outPanel.style.position = "absolute";
+
+        // 准备新面板的起始状态（无动画）
+        inPanel.style.transition = "none";
+        inPanel.style.transform = `translateX(${slideIn})`;
+        inPanel.style.opacity = "0";
+        inPanel.style.position = "absolute";
+        inPanel.style.pointerEvents = "none";
+        inPanel.offsetHeight; // force reflow
+
+        // 同时淡出旧面板 + 淡入新面板
+        const t = "opacity 0.4s ease, transform 0.4s ease";
+        outPanel.style.transition = t;
+        outPanel.style.opacity = "0";
+        outPanel.style.transform = `translateX(${slideOut})`;
+        outPanel.style.pointerEvents = "none";
+
+        inPanel.style.transition = t;
+        inPanel.style.opacity = "1";
+        inPanel.style.transform = "translateX(0)";
+        inPanel.style.pointerEvents = "auto";
+
+        currentCharIndex = newIndex;
+        setTimeout(() => {
+          // 动画结束后：新面板占文档流，旧面板脱离
+          inPanel.style.position = "relative";
+          outPanel.style.position = "absolute";
+          charSlider.style.minHeight = "";
+          isAnimating = false;
+        }, 420);
+      }
+
+      window.prevChar = function () {
+        const newIndex = (currentCharIndex - 1 + totalChars) % totalChars;
+        switchChar(newIndex, "prev");
+      };
+
+      window.nextChar = function () {
+        const newIndex = (currentCharIndex + 1) % totalChars;
+        switchChar(newIndex, "next");
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -50px 0px" },
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+
+
+
+      // ===== 音乐播放器控制 (直链播放卡通整合) =====
+      const musicPlayer = document.getElementById("musicPlayer");
+      const musicIcon = document.getElementById("musicIcon");
+      const bgMusic = new Audio("https://esvigan.cn/%E9%9B%B6%E9%9B%B6%E7%A2%8E%E7%A2%8E%E7%9A%84%E6%97%A5%E5%B8%B8.MP3");
+      bgMusic.loop = true;
+      let isMusicPlaying = false;
+      let musicPausedByVideo = false;
+
+      function attemptAutoPlay() {
+        bgMusic.play().then(() => {
+          isMusicPlaying = true;
+          musicIcon.textContent = "music_note";
+          musicPlayer.classList.add("playing");
+        }).catch(e => {
+          console.warn("Auto-play prevented by browser policy", e);
+          musicIcon.textContent = "volume_off";
+          musicPlayer.classList.remove("playing");
+          isMusicPlaying = false;
+        });
+      }
+
+      function toggleMusic() {
+        if (!isMusicPlaying) {
+          bgMusic.play().catch(e => console.error("Audio playback failed", e));
+          musicIcon.textContent = "music_note";
+          musicPlayer.classList.add("playing");
+          isMusicPlaying = true;
+        } else {
+          bgMusic.pause();
+          musicIcon.textContent = "volume_off";
+          musicPlayer.classList.remove("playing");
+          isMusicPlaying = false;
+        }
+      }
+
+      // Initialize automatic playing upon page initialization interaction or load
+      window.addEventListener('click', () => {
+        if (!isMusicPlaying && !musicPausedByVideo) attemptAutoPlay();
+      }, { once: true });
+      setTimeout(attemptAutoPlay, 500); 
+
+      // ===== 视频弹窗播放 (点击弹出独立窗口，自动暂停 BGM) =====
+      const videoModal = document.getElementById('videoModal');
+      const modalVideo = document.getElementById('modalVideo');
+      const modalIframe = document.getElementById('modalIframe');
+
+      function togglePV(wrap) {
+        const sourceVideo = wrap.querySelector('video');
+        const youtubeSrc = sourceVideo.getAttribute('data-youtube');
+        const nativeSrc = sourceVideo.querySelector('source')?.src || sourceVideo.src;
+        
+        // 暂停背景音乐
+        if (isMusicPlaying) {
+          musicPausedByVideo = true;
+          bgMusic.pause();
+          musicIcon.textContent = 'volume_off';
+          musicPlayer.classList.remove('playing');
+        }
+
+        // 动态定位
+        positionModalOverlay(videoModal);
+
+        if (youtubeSrc) {
+          // YouTube 播放逻辑
+          modalVideo.style.display = 'none';
+          modalIframe.style.display = 'block';
+          // 增加 playsinline=1 以提高在 local/SillyTavern 环境下的兼容性
+          const embedUrl = youtubeSrc + (youtubeSrc.includes('?') ? '&' : '?') + 'autoplay=1&playsinline=1';
+          modalIframe.src = embedUrl;
+        } else {
+          // 本地视频播放逻辑
+          modalIframe.style.display = 'none';
+          modalVideo.style.display = 'block';
+          modalVideo.src = nativeSrc;
+          modalVideo.play().catch(e => console.warn('Video play blocked:', e));
+        }
+        
+        videoModal.classList.add('active');
+      }
+
+      function closeVideoModal() {
+        modalVideo.pause();
+        modalVideo.src = '';
+        modalIframe.src = '';
+        videoModal.classList.remove('active');
+        maybeResumeMusic();
+      }
+
+      // Esc 键关闭视频弹窗
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+          closeVideoModal();
+        }
+      });
+
+      function maybeResumeMusic() {
+        if (musicPausedByVideo) {
+          bgMusic.play().catch(()=>{});
+          isMusicPlaying = true;
+          musicIcon.textContent = 'music_note';
+          musicPlayer.classList.add('playing');
+          musicPausedByVideo = false;
+        }
+      }
+
+      // ===== 插件安装检测 =====
+      function checkPlugins() {
+        const hasTavernHelper = typeof getChatMessages === 'function';
+        let hasPromptTemplate = false;
+        if (hasTavernHelper && typeof isInstalledExtension === 'function') {
+          try { hasPromptTemplate = isInstalledExtension('ST-Prompt-Template'); } catch(e) {}
+        }
+
+        // 渲染状态到关于页面
+        const statusContainer = document.getElementById('pluginStatus');
+        if (statusContainer) {
+          statusContainer.innerHTML = `
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <span style="width:8px;height:8px;border-radius:50%;background:${hasTavernHelper ? '#2ed573' : '#ff4757'};display:inline-block;"></span>
+              <span style="font-size:0.75rem;color:${hasTavernHelper ? 'rgba(255,255,255,0.7)' : '#ff4757'};">
+                酒馆助手 (JS-Slash-Runner)：${hasTavernHelper ? '✔ 已安装' : '✘ 未检测到'}
+              </span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="width:8px;height:8px;border-radius:50%;background:${hasPromptTemplate ? '#2ed573' : '#ff4757'};display:inline-block;"></span>
+              <span style="font-size:0.75rem;color:${hasPromptTemplate ? 'rgba(255,255,255,0.7)' : '#ff4757'};">
+                提示词模板 (Prompt Template)：${hasPromptTemplate ? '✔ 已安装' : '✘ 未检测到'}
+              </span>
+            </div>
+          `;
+        }
+        return { hasTavernHelper, hasPromptTemplate };
+      }
+      setTimeout(checkPlugins, 1000);
+
+      // ===== 弹窗定位工具函数 =====
+      // 由于页面使用 zoom-content (transform: scale) 进行缩放，
+      // position:fixed 完全失效，必须使用 position:absolute + 
+      // 基于 fullpage-wrapper 的 scrollTop 来定位弹窗到当前可视区域。
+      function positionModalOverlay(overlayEl) {
+        const fpWrapper = document.querySelector('.fullpage-wrapper');
+        if (!fpWrapper || !overlayEl) return;
+        const isMobile = window.innerWidth <= 800;
+        const scrollY = fpWrapper.scrollTop;
+        overlayEl.style.position = 'absolute';
+        overlayEl.style.top = scrollY + 'px';
+        overlayEl.style.left = '0';
+        overlayEl.style.width = (isMobile ? 750 : 1440) + 'px';
+        overlayEl.style.height = (isMobile ? fpWrapper.clientHeight : 900) + 'px';
+      }
+
+      // ===== 开局详情弹窗系统 =====
+      let _pendingRouteIndex = -1;
+
+      function openRouteModal(index) {
+        const cards = document.querySelectorAll('.route-card');
+        const card = cards[index - 1];
+        if (!card) return;
+        _pendingRouteIndex = index;
+
+        const color = 'var(--neon-red)';
+        const colorGlow = 'var(--neon-red-glow)';
+        
+        // 清洗地名：移除 Emoji 仅保留文字
+        const rawScene = card.querySelector('.route-scene')?.textContent || '';
+        const scene = rawScene.replace(/[^\u4e00-\u9fa5a-zA-Z0-9\s]/g, '').trim();
+        
+        const number = card.querySelector('.route-number')?.textContent || '';
+        const title = card.querySelector('.route-title')?.textContent || '';
+        const desc = card.querySelector('.route-desc')?.textContent?.trim() || '';
+        const avatarImgs = card.querySelectorAll('.route-avatar');
+
+        document.getElementById('routeModalScene').textContent = scene;
+        document.getElementById('routeModalNumber').textContent = number;
+        document.getElementById('routeModalTitle').textContent = title;
+        document.getElementById('routeModalDesc').textContent = desc;
+
+        document.getElementById('routeModalDivider').style.background = color;
+        document.getElementById('routeModalNumber').style.color = color;
+
+        const avatarContainer = document.getElementById('routeModalAvatars');
+        avatarContainer.innerHTML = '';
+        avatarImgs.forEach(img => {
+          const clone = document.createElement('img');
+          clone.src = img.src;
+          clone.alt = img.alt;
+          clone.className = 'route-modal-avatar';
+          clone.style.borderColor = color;
+          avatarContainer.appendChild(clone);
+        });
+
+        const enterBtn = document.getElementById('routeModalEnterBtn');
+        enterBtn.style.background = color;
+        enterBtn.style.color = '#fff';
+        enterBtn.style.borderColor = color;
+        enterBtn.style.boxShadow = `0 0 20px ${colorGlow}`;
+        enterBtn.onmouseenter = () => { enterBtn.style.filter = 'brightness(1.15)'; };
+        enterBtn.onmouseleave = () => { enterBtn.style.filter = ''; };
+
+        const overlay = document.getElementById('routeModal');
+        positionModalOverlay(overlay);
+        overlay.classList.add('active');
+      }
+
+      function closeRouteModal() {
+        document.getElementById('routeModal').classList.remove('active');
+        // document.body.style.overflow = ''; // 恢复背景滚动
+        _pendingRouteIndex = -1;
+      }
+
+      function confirmEnterRoute() {
+        const idx = _pendingRouteIndex;
+        closeRouteModal();
+        if (idx > 0) selectOpening(idx);
+      }
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeRouteModal();
+      });
+
+      // ===== 开局跳转 (通过酒馆助手 API 切换 Swipe) =====
+      async function selectOpening(index) {
+        try {
+          if (typeof getChatMessages === 'function' && typeof setChatMessage === 'function') {
+            const messages = await getChatMessages(0, { include_swipe: true });
+            if (messages && messages.length > 0 && messages[0].swipes && messages[0].swipes.length > index) {
+              await setChatMessage(messages[0].swipes[index], 0, {
+                swipe_id: index,
+                refresh: 'display_and_render_current',
+              });
+              console.log(`[Route] 已跳转到开局 ${index}`);
+            } else {
+              console.warn(`[Route] Swipe ${index} 不存在`);
+            }
+          } else {
+            console.log(`[Route] 预览模式，已选择开局 ${index}`);
+          }
+        } catch (e) {
+          console.error('[Route] 跳转失败:', e);
+        }
+      }
+
+      // ===== ScrollSpy (导航栏滚动高亮 - 基于滚动位置计算) =====
+      const sections = document.querySelectorAll("section");
+      const navItems = document.querySelectorAll(".neon-nav-item");
+      const fpWrapper = document.querySelector(".fullpage-wrapper");
+
+      function updateScrollSpy() {
+        if (!fpWrapper) return;
+        const scrollTop = fpWrapper.scrollTop;
+        const wrapperHeight = fpWrapper.clientHeight;
+        const triggerPoint = scrollTop + wrapperHeight * 0.4; // 40% from top
+
+        let activeId = '';
+        sections.forEach(sec => {
+          if (sec.offsetTop <= triggerPoint) {
+            activeId = sec.getAttribute('id');
+          }
+        });
+
+        navItems.forEach(item => {
+          item.classList.remove('active');
+          if (item.getAttribute('href') === `#${activeId}`) {
+            item.classList.add('active');
+          }
+        });
+
+        // 音乐按钮仅在首页显示
+        if (activeId === 'hero' || !activeId) {
+          musicPlayer.classList.remove('hidden');
+        } else {
+          musicPlayer.classList.add('hidden');
+        }
+      }
+
+      if (fpWrapper) {
+        fpWrapper.addEventListener('scroll', updateScrollSpy);
+        updateScrollSpy(); // 初始调用
+      }
+
+      // ===== 平滑滚动导航 =====
+      document
+        .querySelectorAll(".nav-links a, .neon-nav-item")
+        .forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target && fpWrapper) {
+              fpWrapper.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+            }
+          });
+        });
+      // ===== 灯箱弹窗 =====
+      let currentLightboxSrc = "";
+      function openLightbox(item) {
+        const img = item.querySelector("img");
+        if (!img) return;
+        currentLightboxSrc = img.src;
+        document.getElementById("lightboxImg").src = currentLightboxSrc;
+        document.getElementById("lightboxOverlay").classList.add("active");
+      }
+      function closeLightbox() {
+        document.getElementById("lightboxOverlay").classList.remove("active");
+      }
+      function downloadImg() {
+        const a = document.createElement("a");
+        a.href = currentLightboxSrc;
+        a.download = currentLightboxSrc.split("/").pop();
+        a.target = "_blank";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+      async function copyImg() {
+        const btn = document.querySelector(".lightbox-btn.copy-btn");
+        try {
+          const resp = await fetch(currentLightboxSrc);
+          const blob = await resp.blob();
+          await navigator.clipboard.write([
+            new ClipboardItem({ "image/png": blob }),
+          ]);
+          btn.textContent = "✓ 已复制";
+          setTimeout(() => {
+            btn.textContent = "📋 复制图片";
+          }, 2000);
+        } catch (e) {
+          window.open(currentLightboxSrc, "_blank");
+        }
+      }
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeLightbox();
+      });
+    </script>
+
+    <!-- 灯箱弹窗 HTML -->
+    <div
+      class="lightbox-overlay"
+      id="lightboxOverlay"
+      onclick="if (event.target === this) closeLightbox();"
+    >
+      <button class="lightbox-close" onclick="closeLightbox()">×</button>
+      <img class="lightbox-img" id="lightboxImg" src="" alt="大图" />
+      <div class="lightbox-actions">
+        <button class="lightbox-btn" onclick="downloadImg()">⬇ 下载图片</button>
+        <button class="lightbox-btn copy-btn" onclick="copyImg()">
+          📋 复制图片
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // ===== 终端画面自适应引擎 (SillyTavern 兼容核心) =====
+      function adjustScale() {
+        const wrapper = document.getElementById("zoom-wrapper");
+        const content = document.getElementById("zoom-content");
+        if (!wrapper || !content) return;
+
+        const availableWidth = window.innerWidth;
+        // 用 screen.width 判断设备类型，而非 innerWidth
+        // screen.width 不受浏览器缩放影响，避免桌面用户放大后误入移动端模式
+        const isMobile = Math.min(screen.width, screen.height) <= 800;
+        const fpWrapper = document.querySelector('.fullpage-wrapper');
+
+        if (isMobile) {
+          // ── 移动端：固定画布 750×1334 (9:16 手机比例)，等比缩放 ──
+          // 与桌面端 1440×900 同理，使用固定设计高度而非 window.innerHeight
+          // 避免 SillyTavern 内嵌时 innerHeight 返回异常值导致容器崩溃
+          const mobileBaseW = 750;
+          const mobileBaseH = 1334;
+          const mobileScale = availableWidth / mobileBaseW;
+
+          content.style.width = mobileBaseW + 'px';
+          content.style.height = mobileBaseH + 'px';
+          content.style.transform = `scale(${mobileScale})`;
+          content.style.transformOrigin = 'top left';
+
+          if (fpWrapper) {
+            fpWrapper.style.height = mobileBaseH + 'px';
+            fpWrapper.style.overflowY = 'scroll';
+          }
+
+          // wrapper 物理占位 = 设计高度 × 缩放比（与桌面端逻辑一致）
+          wrapper.style.width = availableWidth + 'px';
+          wrapper.style.height = (mobileBaseH * mobileScale) + 'px';
+          wrapper.style.overflow = 'hidden';
+        } else {
+          // ── 桌面端：1440×900 固定画布，等比缩放 ──
+          const desktopBaseW = 1440;
+          const desktopBaseH = 900;
+          const scale = availableWidth / desktopBaseW;
+
+          content.style.width = desktopBaseW + 'px';
+          content.style.height = desktopBaseH + 'px';
+          content.style.transform = `scale(${scale})`;
+          content.style.transformOrigin = 'top left';
+
+          if (fpWrapper) {
+            fpWrapper.style.height = desktopBaseH + 'px';
+            fpWrapper.style.overflowY = 'scroll';
+          }
+
+          wrapper.style.width = availableWidth + 'px';
+          wrapper.style.height = (desktopBaseH * scale) + 'px';
+          wrapper.style.overflow = 'hidden';
+        }
+
+        // 导航栏显隐：用 JS 覆盖 CSS @media 判断，防止浏览器缩放误隐藏
+        const neonNav = document.getElementById('neonNav');
+        if (neonNav) {
+          neonNav.style.display = isMobile ? 'none' : 'flex';
+        }
+      }
+
+      window.addEventListener("resize", adjustScale);
+      setTimeout(adjustScale, 0);
+      adjustScale();
+      // 图片加载完成后重新计算高度，避免底部截断
+      window.addEventListener("load", () => {
+        setTimeout(adjustScale, 300);
+        setTimeout(adjustScale, 1000);
+      });
+    </script>
+  
+    <script>
+      const kcCG_DATABASE = [
+        { id: "绾音-车站等人", char: "ayane", name: "月宫绾音", title: "车站等人", url: "https://esvigan.cn/绾音-车站等人.webp" },
+        { id: "林绛-吃饭团1", char: "ayane", name: "月宫绾音", title: "吃饭团1", url: "https://esvigan.cn/林绛-吃饭团1.webp" },
+        { id: "林绛-吃饭团2", char: "ayane", name: "月宫绾音", title: "吃饭团2", url: "https://esvigan.cn/林绛吃饭团2.webp" },
+        { id: "林绛-吃泡面", char: "ayane", name: "月宫绾音", title: "吃泡面", url: "https://esvigan.cn/林绛-吃泡面.webp" },
+        { id: "林绛-大学食堂", char: "ayane", name: "月宫绾音", title: "大学食堂", url: "https://esvigan.cn/林绛-大学食堂.webp" },
+        { id: "林绛-贩售机", char: "ayane", name: "月宫绾音", title: "贩售机", url: "https://esvigan.cn/林绛-贩售机.webp" },
+        { id: "绾音-公园约会", char: "ayane", name: "月宫绾音", title: "公园约会", url: "https://esvigan.cn/绾音-公园约会.webp" },
+        { id: "绾音-和服", char: "ayane", name: "月宫绾音", title: "和服", url: "https://esvigan.cn/绾音-和服.webp" },
+        { id: "林绛-婚纱", char: "ayane", name: "月宫绾音", title: "婚纱", url: "https://esvigan.cn/林绛-婚纱.webp" },
+        { id: "林绛-家中学习", char: "ayane", name: "月宫绾音", title: "家中学习", url: "https://esvigan.cn/林绛-家中学习.webp" },
+        { id: "林绛-街头迷茫", char: "ayane", name: "月宫绾音", title: "街头迷茫", url: "https://esvigan.cn/林绛-街头迷茫.webp" },
+        { id: "绾音-咖啡馆约会", char: "ayane", name: "月宫绾音", title: "咖啡馆约会", url: "https://esvigan.cn/绾音-咖啡馆约会.webp" },
+        { id: "林绛-看动画", char: "ayane", name: "月宫绾音", title: "看动画", url: "https://esvigan.cn/林绛-看动画.webp" },
+        { id: "林绛-末班车1", char: "ayane", name: "月宫绾音", title: "末班车1", url: "https://esvigan.cn/林绛-末班车1.webp" },
+        { id: "林绛-末班车2", char: "ayane", name: "月宫绾音", title: "末班车2", url: "https://esvigan.cn/林绛-末班车2.webp" },
+        { id: "林绛-试音", char: "ayane", name: "月宫绾音", title: "试音", url: "https://esvigan.cn/林绛-试音.webp" },
+        { id: "绾音-水族馆约会1", char: "ayane", name: "月宫绾音", title: "水族馆约会1", url: "https://esvigan.cn/绾音-水族馆约会1.webp" },
+        { id: "绾音-水族馆约会2", char: "ayane", name: "月宫绾音", title: "水族馆约会2", url: "https://esvigan.cn/绾音-水族馆约会2.webp" },
+        { id: "绾音-天台", char: "ayane", name: "月宫绾音", title: "天台", url: "https://esvigan.cn/绾音-天台.webp" },
+        { id: "林绛-图书馆", char: "ayane", name: "月宫绾音", title: "图书馆", url: "https://esvigan.cn/林绛-图书馆.webp" },
+        { id: "林绛-图书馆2", char: "ayane", name: "月宫绾音", title: "图书馆2", url: "https://esvigan.cn/林绛-图书馆2.webp" },
+        { id: "绾音-夏日祭", char: "ayane", name: "月宫绾音", title: "夏日祭", url: "https://esvigan.cn/绾音-夏日祭.webp" },
+        { id: "林绛-学习配音", char: "ayane", name: "月宫绾音", title: "学习配音", url: "https://esvigan.cn/林绛-学习配音.webp" },
+        { id: "林绛-学习下厨", char: "ayane", name: "月宫绾音", title: "学习下厨", url: "https://esvigan.cn/林绛-学习下厨.webp" },
+        { id: "林绛-学校配音2", char: "ayane", name: "月宫绾音", title: "学校配音2", url: "https://esvigan.cn/林绛-学校配音2.webp" },
+        { id: "林绛-一人生日", char: "ayane", name: "月宫绾音", title: "一人生日", url: "https://esvigan.cn/林绛-一人生日.webp" },
+        { id: "绾音-KTV", char: "ayane", name: "月宫绾音", title: "KTV", url: "https://esvigan.cn/绾音-KTV.webp" },
+        { id: "由美-安稳睡着", char: "yumi", name: "安藤由美", title: "安稳睡着", url: "https://esvigan.cn/由美-安稳睡着.webp" },
+        { id: "由美-白无垢1", char: "yumi", name: "安藤由美", title: "白无垢1", url: "https://esvigan.cn/由美-白无垢1.webp" },
+        { id: "由美-白无垢2", char: "yumi", name: "安藤由美", title: "白无垢2", url: "https://esvigan.cn/由美-白无垢2.webp" },
+        { id: "由美-便利店打工", char: "yumi", name: "安藤由美", title: "便利店打工", url: "https://esvigan.cn/由美-便利店打工.webp" },
+        { id: "由美-茶道", char: "yumi", name: "安藤由美", title: "茶道", url: "https://esvigan.cn/由美-茶道.webp" },
+        { id: "由美-超市采购", char: "yumi", name: "安藤由美", title: "超市采购", url: "https://esvigan.cn/由美-超市采购.webp" },
+        { id: "由美-车站等待", char: "yumi", name: "安藤由美", title: "车站等待", url: "https://esvigan.cn/由美-车站等待.webp" },
+        { id: "由美-初次接待1", char: "yumi", name: "安藤由美", title: "初次接待1", url: "https://esvigan.cn/由美-初次接待1.webp" },
+        { id: "由美-初次接待2", char: "yumi", name: "安藤由美", title: "初次接待2", url: "https://esvigan.cn/由美初次接待2.webp" },
+        { id: "由美-对镜审视", char: "yumi", name: "安藤由美", title: "对镜审视", url: "https://esvigan.cn/由美-对镜审视.webp" },
+        { id: "由美-缝纫1", char: "yumi", name: "安藤由美", title: "缝纫1", url: "https://esvigan.cn/由美-缝纫1.webp" },
+        { id: "由美-缝纫2", char: "yumi", name: "安藤由美", title: "缝纫2", url: "https://esvigan.cn/由美-缝纫2.webp" },
+        { id: "由美-和服1", char: "yumi", name: "安藤由美", title: "和服1", url: "https://esvigan.cn/由美-和服1.webp" },
+        { id: "由美-和服2", char: "yumi", name: "安藤由美", title: "和服2", url: "https://esvigan.cn/由美-和服2.webp" },
+        { id: "由美-花店买花", char: "yumi", name: "安藤由美", title: "花店买花", url: "https://esvigan.cn/由美-花店买花.webp" },
+        { id: "由美-居家", char: "yumi", name: "安藤由美", title: "居家", url: "https://esvigan.cn/由美-居家.webp" },
+        { id: "由美-看着婚戒惆怅", char: "yumi", name: "安藤由美", title: "看着婚戒惆怅", url: "https://esvigan.cn/由美-看着婚戒惆怅.webp" },
+        { id: "由美-门外催债人", char: "yumi", name: "安藤由美", title: "门外催债人", url: "https://esvigan.cn/由美-门外催债人.webp" },
+        { id: "由美-疲惫归家", char: "yumi", name: "安藤由美", title: "疲惫归家", url: "https://esvigan.cn/由美-疲惫归家.webp" },
+        { id: "由美-深夜迷茫", char: "yumi", name: "安藤由美", title: "深夜迷茫", url: "https://esvigan.cn/由美-深夜迷茫.webp" },
+        { id: "由美-神社祈福", char: "yumi", name: "安藤由美", title: "神社祈福", url: "https://esvigan.cn/由美-神社祈福.webp" },
+        { id: "由美-算账", char: "yumi", name: "安藤由美", title: "算账", url: "https://esvigan.cn/由美-算账.webp" },
+        { id: "由美-夕阳下的归家", char: "yumi", name: "安藤由美", title: "夕阳下的归家", url: "https://esvigan.cn/由美-夕阳下的归家.webp" },
+        { id: "由美-洗衣服", char: "yumi", name: "安藤由美", title: "洗衣服", url: "https://esvigan.cn/由美-洗衣服.webp" },
+        { id: "由美-洗浴后", char: "yumi", name: "安藤由美", title: "洗浴后", url: "https://esvigan.cn/由美-洗浴后.webp" },
+        { id: "由美-下厨", char: "yumi", name: "安藤由美", title: "下厨", url: "https://esvigan.cn/由美-下厨.webp" },
+        { id: "由美-一人生日", char: "yumi", name: "安藤由美", title: "一人生日", url: "https://esvigan.cn/由美-一人生日.webp" },
+        { id: "由美-约会", char: "yumi", name: "安藤由美", title: "约会", url: "https://esvigan.cn/由美-约会.webp" },
+        { id: "绘里奈-便利店", char: "erina", name: "如月绘里奈", title: "便利店", url: "https://esvigan.cn/绘里奈-便利店.webp" },
+        { id: "绘里奈-餐厅约会", char: "erina", name: "如月绘里奈", title: "餐厅约会", url: "https://esvigan.cn/绘里奈-餐厅约会.webp" },
+        { id: "绘里奈-尝试下厨", char: "erina", name: "如月绘里奈", title: "尝试下厨", url: "https://esvigan.cn/绘里奈-尝试下厨.webp" },
+        { id: "绘里奈-等回短信", char: "erina", name: "如月绘里奈", title: "等回短信", url: "https://esvigan.cn/绘里奈-等回短信.webp" },
+        { id: "绘里奈-噩梦醒来", char: "erina", name: "如月绘里奈", title: "噩梦醒来", url: "https://esvigan.cn/绘里奈-噩梦醒来.webp" },
+        { id: "绘里奈-公园喂猫", char: "erina", name: "如月绘里奈", title: "公园喂猫", url: "https://esvigan.cn/绘里奈-公园喂猫.webp" },
+        { id: "绘里奈-婚纱1", char: "erina", name: "如月绘里奈", title: "婚纱1", url: "https://esvigan.cn/绘里奈-婚纱1.webp" },
+        { id: "绘里奈-婚纱2", char: "erina", name: "如月绘里奈", title: "婚纱2", url: "https://esvigan.cn/绘里奈婚纱2.webp" },
+        { id: "绘里奈-街头淋雨", char: "erina", name: "如月绘里奈", title: "街头淋雨", url: "https://esvigan.cn/绘里奈-街头淋雨.webp" },
+        { id: "绘里奈-酒吧", char: "erina", name: "如月绘里奈", title: "酒吧", url: "https://esvigan.cn/绘里奈-酒吧.webp" },
+        { id: "绘里奈-酒店独坐", char: "erina", name: "如月绘里奈", title: "酒店独坐", url: "https://esvigan.cn/绘里奈-酒店独坐.webp" },
+        { id: "绘里奈-旧全家福", char: "erina", name: "如月绘里奈", title: "旧全家福", url: "https://esvigan.cn/绘里奈-旧全家福.webp" },
+        { id: "绘里奈-咖啡馆约会", char: "erina", name: "如月绘里奈", title: "咖啡馆约会", url: "https://esvigan.cn/绘里奈-咖啡馆约会.webp" },
+        { id: "绘里奈-涩谷街头", char: "erina", name: "如月绘里奈", title: "涩谷街头", url: "https://esvigan.cn/绘里奈-涩谷街头.webp" },
+        { id: "绘里奈-上学时", char: "erina", name: "如月绘里奈", title: "上学时", url: "https://esvigan.cn/绘里奈-上学时.webp" },
+        { id: "绘里奈-深夜网咖", char: "erina", name: "如月绘里奈", title: "深夜网咖", url: "https://esvigan.cn/绘里奈-深夜网咖.webp" },
+        { id: "绘里奈-生日蛋糕", char: "erina", name: "如月绘里奈", title: "生日蛋糕", url: "https://esvigan.cn/绘里奈-生日蛋糕.webp" },
+        { id: "绘里奈-刷爆信用卡", char: "erina", name: "如月绘里奈", title: "刷爆信用卡", url: "https://esvigan.cn/绘里奈-刷爆信用卡.webp" },
+        { id: "绘里奈-索吻", char: "erina", name: "如月绘里奈", title: "索吻", url: "https://esvigan.cn/绘里奈-索吻.webp" },
+        { id: "绘里奈-天台远眺", char: "erina", name: "如月绘里奈", title: "天台远眺", url: "https://esvigan.cn/绘里奈-天台远眺.webp" },
+        { id: "绘里奈-午夜街头", char: "erina", name: "如月绘里奈", title: "午夜街头", url: "https://esvigan.cn/绘里奈-午夜街头.webp" },
+        { id: "绘里奈-西餐厅吃和牛", char: "erina", name: "如月绘里奈", title: "西餐厅吃和牛", url: "https://esvigan.cn/绘里奈-西餐厅吃和牛.webp" },
+        { id: "绘里奈-游乐园1", char: "erina", name: "如月绘里奈", title: "游乐园1", url: "https://esvigan.cn/绘里奈-游乐园1.webp" },
+        { id: "绘里奈-游乐园2", char: "erina", name: "如月绘里奈", title: "游乐园2", url: "https://esvigan.cn/绘里奈-游乐园2.webp" },
+        { id: "绘里奈-游乐园3", char: "erina", name: "如月绘里奈", title: "游乐园3", url: "https://esvigan.cn/绘里奈-游乐园3.webp" },
+        { id: "绘里奈-抓娃娃", char: "erina", name: "如月绘里奈", title: "抓娃娃", url: "https://esvigan.cn/绘里奈-抓娃娃.webp" },
+        { id: "绘里奈-KTV", char: "erina", name: "如月绘里奈", title: "KTV", url: "https://esvigan.cn/绘里奈-KTV.webp" },
+        { id: "other_group_01", char: "other", name: "其他", title: "羁绊相聚", url: "https://esvigan.cn/三人合照.webp" }
+      ];
+
+      let kcCurrentGalleryFilter = "all";
+
+      const DEBUG_MODE = false; // 开启调试模式：所有CG强制解锁，图片优先尝试加载本地素材
+
+      function getUnlockedCGs() {
+        if (DEBUG_MODE) return kcCG_DATABASE.map((cg) => cg.id);
+
+        try {
+          // 查找可用的 getVariables 函数，涵盖普通、iframe、以及带有 TavernHelper 命名空间的情况
+          let getVarsFn = null;
+          if (typeof window.getVariables === "function") getVarsFn = window.getVariables;
+          else if (typeof parent !== "undefined" && typeof parent.getVariables === "function") getVarsFn = parent.getVariables;
+          else if (typeof window.TavernHelper !== "undefined" && typeof window.TavernHelper.getVariables === "function") getVarsFn = window.TavernHelper.getVariables;
+          else if (typeof parent !== "undefined" && typeof parent.TavernHelper !== "undefined" && typeof parent.TavernHelper.getVariables === "function") getVarsFn = parent.TavernHelper.getVariables;
+
+          if (getVarsFn) {
+            const vars = getVarsFn({ type: "character" });
+            if (vars && vars._CG相册) {
+              let cgAlbum = vars._CG相册;
+              
+              // 兼容用户手动填写的 JSON 字符串格式或普通字符串
+              if (typeof cgAlbum === "string") {
+                try { 
+                  cgAlbum = JSON.parse(cgAlbum); 
+                } catch(e) {
+                  // 如果不是 JSON，尝试按逗号分隔处理
+                  return cgAlbum.split(",").map(s => s.trim()).filter(Boolean);
+                }
+              }
+
+              // 兼容 Array 格式：["ID1", "ID2"]
+              if (Array.isArray(cgAlbum)) {
+                return cgAlbum;
+              } 
+              // 兼容脚本写入的 Object 格式：{"ID1": true, "ID2": true}
+              else if (typeof cgAlbum === "object" && cgAlbum !== null) {
+                return Object.keys(cgAlbum).filter((k) => cgAlbum[k] === true || cgAlbum[k] === "true" || cgAlbum[k] === 1);
+              }
+            }
+          } else {
+            console.warn("未找到 getVariables 函数，尝试退避读取机制...");
+          }
+        } catch (e) {
+          console.error("Failed to read CG variables", e);
+        }
+        
+        try {
+          const stored = localStorage.getItem("ST_TavernHelper_CG_Unlocks");
+          if (stored) return JSON.parse(stored);
+        } catch (e) {}
+        return [];
+      }
+
+      function openCgSubPage(charId) {
+        const names = {
+          all: "全部记忆 / ALL",
+          erina: "如月绘里奈 / KISARAGI ERINA",
+          ayane: "月宫绾音 / TSUKIMIYA AYANE",
+          yumi: "安藤由美 / ANDO YUMI",
+          other: "其他记忆 / OTHER CG"
+        };
+        const titleEl = document.getElementById("cg-sub-page-title");
+        if (titleEl) titleEl.innerText = names[charId] || "GALLERY";
+        document.getElementById("cg-characters-grid").style.display = "none";
+        document.getElementById("cg-sub-page").style.display = "flex";
+        // 显示返回条
+        const backBar = document.getElementById("cg-back-bar");
+        if (backBar) backBar.style.display = "block";
+        // 在打开子页面的时候直接绑定返回按钮，避免 DOMContentLoaded 时机过早
+        const backBtn = document.getElementById("cg-back-btn");
+        if (backBtn) backBtn.onclick = function(e) { e.stopPropagation(); window.closeCgSubPage(); };
+        filterKcGallery(charId);
+      }
+
+      window.closeCgSubPage = function() {
+        document.getElementById("cg-sub-page").style.display = "none";
+        document.getElementById("cg-characters-grid").style.display = "grid";
+        document.getElementById("kc-gallery-grid").innerHTML = "";
+        // 隐藏返回条
+        const backBar = document.getElementById("cg-back-bar");
+        if (backBar) backBar.style.display = "none";
+      };
+
+      function filterKcGallery(charId) {
+        kcCurrentGalleryFilter = charId;
+        renderKcGallery();
+      }
+
+      function renderKcGallery() {
+        const unlockedList = getUnlockedCGs();
+        const grid = document.getElementById("kc-gallery-grid");
+        if (!grid) return;
+        
+        let htmlContent = "";
+        let filteredCGs = kcCG_DATABASE.filter((cg) => cg.char === kcCurrentGalleryFilter);
+        
+        filteredCGs.sort((a, b) => a.title.localeCompare(b.title, "zh-CN"));
+        const unlockedCount = filteredCGs.filter((cg) => unlockedList.includes(cg.id)).length;
+        
+        const counterEl = document.getElementById("cg-unlock-counter");
+        if (counterEl) {
+          counterEl.innerText = `已解锁 ${unlockedCount} / ${filteredCGs.length}`;
+        }
+
+        filteredCGs.forEach((cg) => {
+          const isUnlocked = unlockedList.includes(cg.id);
+          if (isUnlocked || localStorage.getItem("DEBUG_ALL_CG") === "true") {
+            htmlContent += `<div class="cg-card" onclick="kcOpenFullscreen('${cg.url}')">
+              <div class="cg-img-wrapper"><img src="${cg.url}" class="cg-img"></div>
+              <div class="cg-title">${cg.title}</div>
+            </div>`;
+          } else {
+            htmlContent += `<div class="cg-card locked">
+              <div class="cg-img-wrapper">
+                <div class="cg-locked-icon"><i class="fas fa-lock"></i></div>
+              </div>
+              <div class="cg-title">???</div>
+            </div>`;
+          }
+        });
+
+        const lockedMsg = document.getElementById("kc-locked-msg");
+        if (lockedMsg) lockedMsg.style.display = "none";
+        
+        grid.innerHTML = htmlContent;
+      }
+
+      function kcOpenFullscreen(url) {
+        currentLightboxSrc = url;
+        document.getElementById("lightboxImg").src = url;
+        document.getElementById("lightboxOverlay").classList.add("active");
+      }
+
+      // ===== 调试模式图片替换逻辑 =====
+      if (DEBUG_MODE) {
+        // 全局图片智能备用路径加载器
+        function setupLocalFallback(img, file) {
+          const paths = [
+            `../图片素材/${file}`,
+            `开场白素材/${file}`,
+            `../CG/${file}`
+          ];
+          const allPaths = [];
+          paths.forEach(p => {
+            allPaths.push(p);
+            if (p.endsWith('.webp')) allPaths.push(p.replace('.webp', '.png'));
+            if (p.endsWith('.jpg')) allPaths.push(p.replace('.jpg', '.png'));
+          });
+          // 终极保底：如果本地各种后缀都找不到（比如由于尚未下载到本地），则重新连回线上
+          allPaths.push(`https://esvigan.cn/${file}`);
+          
+          img._fallbackPaths = allPaths;
+          img._fallbackIndex = 0;
+          img.setAttribute('src', allPaths[0]);
+        }
+
+        // 修改 CG 数据字典快速起步（避免线上链接走网络超时）
+        kcCG_DATABASE.forEach((cg) => {
+          if (cg.url.includes("esvigan.cn")) {
+            let file = decodeURIComponent(cg.url.substring(cg.url.lastIndexOf("/") + 1));
+            cg.url = `../CG/${file}`;
+          }
+        });
+
+        // 捕获任一图片加载错误并进行 fallback（由于是捕获阶段，能截获所有 img 的 404）
+        window.addEventListener('error', function(e) {
+          const img = e.target;
+          if (img && img.tagName === 'IMG') {
+            let currentSrc = img.getAttribute('src');
+            // 如果已经在 fallback 循环中，拉取下一条路径
+            if (img._fallbackPaths) {
+              if (img._fallbackIndex < img._fallbackPaths.length - 1) {
+                img._fallbackIndex++;
+                img.setAttribute('src', img._fallbackPaths[img._fallbackIndex]);
+                e.preventDefault();
+              }
+            } 
+            // 否则，如果它是待替换路径触发的失败（如图鉴点击、或者漏掉的线上链接），启动 fallback
+            else if (currentSrc && (currentSrc.includes('../CG/') || currentSrc.includes('../图片素材/') || currentSrc.includes('esvigan.cn'))) {
+              let file = decodeURIComponent(currentSrc.substring(currentSrc.lastIndexOf("/") + 1));
+              setupLocalFallback(img, file);
+              e.preventDefault();
+            }
+          }
+        }, true);
+
+        document.addEventListener("DOMContentLoaded", () => {
+          // 替换页面加载好的静态 img 标签
+          document.querySelectorAll("img").forEach((img) => {
+            let src = img.getAttribute("src");
+            if (src && src.includes("esvigan.cn")) {
+              let file = decodeURIComponent(src.substring(src.lastIndexOf("/") + 1));
+              setupLocalFallback(img, file);
+            }
+          });
+
+          // 手动映射 CSS Backgrounds 到本地资源
+          const bgMap = [
+            { id: ".hero-bg", url: "../图片素材/jimeng-2026-03-01-1079.webp" },
+            { id: "#erina", url: "../图片素材/横图1.webp" },
+            { id: "#ayane", url: "../图片素材/双人1.webp" },
+            { id: "#yumi", url: "../图片素材/游乐园背景1.webp" }
+          ];
+
+          bgMap.forEach((item) => {
+            let el = document.querySelector(item.id);
+            if (el) el.style.backgroundImage = `url('${item.url}')`;
+          });
+        });
+      }
+    </script>
+  
+
+  </body>
+</html>
