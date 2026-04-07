@@ -305,11 +305,11 @@
 
             <!-- 左侧信息柱状排列列（加强了下方投影 drop-shadow-2xl 和 shadow-lg，使其更从背景浮出） -->
             <div
-              class="absolute left-[4%] top-[4%] bottom-[4%] w-[38%] bg-white/95 backdrop-blur shadow-xl drop-shadow-[15px_15px_30px_rgba(0,0,0,0.15)] rounded-lg z-20 flex flex-col pt-[8%] pb-[10%] px-[8%] border border-slate-50"
+              class="absolute left-[4%] top-[4%] bottom-[4%] w-[38%] bg-white/95 backdrop-blur shadow-xl drop-shadow-[15px_15px_30px_rgba(0,0,0,0.15)] rounded-lg z-20 flex flex-col pt-[5%] pb-[2%] px-[4%] border border-slate-50"
             >
               <!-- 雪代1/3/5 姓名上方竖幅轮播 -->
               <div
-                class="w-full aspect-[3/4] shrink-0 bg-slate-100 rounded-sm overflow-hidden border border-slate-200 mb-[10%] shadow-sm relative"
+                class="w-full aspect-[3/4] shrink-0 bg-slate-100 rounded-sm overflow-hidden border border-slate-200 mb-[4%] shadow-sm relative"
               >
                 <div class="photo-card-1 absolute inset-0">
                   <img
@@ -349,17 +349,17 @@
                 >
                   雪代希华
                 </h1>
-                <div class="mb-1 pb-4 border-b border-slate-100/80 w-[95%]">
+                <div class="mb-1 pb-3 border-b border-slate-100/80 w-[95%]">
                   <p
                     id="mvu-date"
-                    class="text-[11px] font-bold text-[#3b3e79] tracking-wider uppercase opacity-80 leading-snug break-words"
+                    class="text-[12.5px] font-extrabold text-[#3b3e79] tracking-wider uppercase opacity-80 leading-snug break-words"
                   >
                     2026年4月7日 星期二 08:30
                   </p>
                 </div>
               </div>
 
-              <div class="flex flex-col gap-3 mt-4 relative pl-0">
+              <div class="flex flex-col gap-3 mt-2 relative pl-0 flex-1 overflow-hidden">
                 <div
                   class="absolute top-[-35px] right-2 text-slate-200 opacity-80"
                 >
@@ -372,23 +372,23 @@
 
                 <p
                   id="mvu-thought"
-                  class="text-[13px] leading-[1.8] text-slate-500 font-serif font-medium tracking-normal text-justify"
+                  class="text-[14.5px] leading-[1.65] text-slate-600 font-serif font-bold tracking-[0.02em] text-justify drop-shadow-sm overflow-y-auto pb-2 min-h-0 shrink" style="scrollbar-width: none;"
                 >
                   主人现在在干什么呢？有没有好好吃饭呢？
                 </p>
 
                 <!-- 状态列表极简重构 -->
-                <div class="flex flex-col gap-2.5 mt-8 w-[80%] text-[12px]">
+                <div class="flex flex-col gap-2 mt-4 shrink-0 w-[96%] text-[15px]">
                   <div
                     class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
                   >
                     <span
-                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      class="text-slate-500 font-bold tracking-wider drop-shadow-sm whitespace-nowrap mr-2"
                       >位置</span
                     >
                     <span
                       id="mvu-location"
-                      class="text-slate-600 font-normal text-right break-all max-w-[75%] leading-snug"
+                      class="text-slate-800 font-semibold drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] text-right break-all max-w-[75%] leading-snug"
                       >肚子疼家肚子疼家肚子疼家肚子疼家肚子疼家</span
                     >
                   </div>
@@ -396,10 +396,10 @@
                     class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
                   >
                     <span
-                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      class="text-slate-500 font-bold tracking-wider drop-shadow-sm whitespace-nowrap mr-2"
                       >年龄</span
                     >
-                    <span id="mvu-age" class="text-slate-600 font-normal"
+                    <span id="mvu-age" class="text-slate-800 font-semibold drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]"
                       >16</span
                     >
                   </div>
@@ -407,10 +407,10 @@
                     class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
                   >
                     <span
-                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      class="text-slate-500 font-bold tracking-wider drop-shadow-sm whitespace-nowrap mr-2"
                       >doi次数</span
                     >
-                    <span id="mvu-sex-count" class="text-slate-600 font-normal"
+                    <span id="mvu-sex-count" class="text-slate-800 font-semibold drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]"
                       >50</span
                     >
                   </div>
@@ -418,10 +418,10 @@
                     class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
                   >
                     <span
-                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      class="text-slate-500 font-bold tracking-wider drop-shadow-sm whitespace-nowrap mr-2"
                       >关系</span
                     >
-                    <span id="mvu-relation" class="text-slate-600 font-normal"
+                    <span id="mvu-relation" class="text-slate-800 font-semibold drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]"
                       >奴隶</span
                     >
                   </div>
@@ -432,7 +432,7 @@
             <!-- 版权 -->
             <div class="absolute bottom-[2%] left-[45%] z-20">
               <p
-                class="text-[9px] text-slate-400 tracking-[0.4em] font-light uppercase drop-shadow-sm"
+                class="text-[10px] text-slate-500 tracking-[0.3em] font-medium font-light uppercase drop-shadow-sm"
               >
                 今天肚子疼啊w's 反方向的钟 2026
               </p>
@@ -591,7 +591,7 @@
                 <img
                   data-img-key="御千院5"
                   src=""
-                  class="absolute left-[30%] top-[0%] w-[80%] h-[100%] object-cover opacity-[0.9] filter contrast-120 saturate-[1]"
+                  class="absolute left-[25%] top-[-10%] w-[80%] h-[100%] object-cover opacity-[0.9] filter contrast-120 saturate-[1]"
                   alt="氛围衬图"
                 />
               </div>
@@ -621,11 +621,11 @@
 
             <!-- 左侧信息列 -->
             <div
-              class="absolute left-[4%] top-[4%] bottom-[4%] w-[38%] bg-white/95 backdrop-blur shadow-xl drop-shadow-[15px_15px_30px_rgba(0,0,0,0.15)] rounded-lg z-20 flex flex-col pt-[8%] pb-[10%] px-[8%] border border-slate-50"
+              class="absolute left-[4%] top-[4%] bottom-[4%] w-[38%] bg-white/95 backdrop-blur shadow-xl drop-shadow-[15px_15px_30px_rgba(0,0,0,0.15)] rounded-lg z-20 flex flex-col pt-[5%] pb-[2%] px-[4%] border border-slate-50"
             >
               <!-- 轮播 -->
               <div
-                class="w-full aspect-[3/4] shrink-0 bg-slate-100 rounded-sm overflow-hidden border border-slate-200 mb-[10%] shadow-sm relative"
+                class="w-full aspect-[3/4] shrink-0 bg-slate-100 rounded-sm overflow-hidden border border-slate-200 mb-[4%] shadow-sm relative"
               >
                 <div class="photo-card-1 absolute inset-0">
                   <img
@@ -665,17 +665,17 @@
                 >
                   御千院月夜
                 </h1>
-                <div class="mb-1 pb-4 border-b border-slate-100/80 w-[95%]">
+                <div class="mb-1 pb-3 border-b border-slate-100/80 w-[95%]">
                   <p
                     id="mvu-date-b"
-                    class="text-[11px] font-bold text-[#3b3e79] tracking-wider uppercase opacity-80 leading-snug break-words"
+                    class="text-[12.5px] font-extrabold text-[#3b3e79] tracking-wider uppercase opacity-80 leading-snug break-words"
                   >
                     2026年4月7日 星期二 08:30
                   </p>
                 </div>
               </div>
               <!-- 状态 -->
-              <div class="flex flex-col gap-3 mt-4 relative pl-0">
+              <div class="flex flex-col gap-3 mt-2 relative pl-0 flex-1 overflow-hidden">
                 <div
                   class="absolute top-[-35px] right-2 text-slate-200 opacity-80"
                 >
@@ -687,21 +687,21 @@
                 </div>
                 <p
                   id="mvu-thought-b"
-                  class="text-[13px] leading-[1.8] text-slate-500 font-serif font-medium tracking-normal text-justify"
+                  class="text-[14.5px] leading-[1.65] text-slate-600 font-serif font-bold tracking-[0.02em] text-justify drop-shadow-sm overflow-y-auto pb-2 min-h-0 shrink" style="scrollbar-width: none;"
                 >
                   院长老师果然还是没有看出来……好险，今天的任务顺利完成了。
                 </p>
-                <div class="flex flex-col gap-2.5 mt-8 w-[80%] text-[12px]">
+                <div class="flex flex-col gap-2 mt-4 shrink-0 w-[96%] text-[15px]">
                   <div
                     class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
                   >
                     <span
-                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      class="text-slate-500 font-bold tracking-wider drop-shadow-sm whitespace-nowrap mr-2"
                       >位置</span
                     >
                     <span
                       id="mvu-location-b"
-                      class="text-slate-600 font-normal text-right break-all max-w-[75%] leading-snug"
+                      class="text-slate-800 font-semibold drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] text-right break-all max-w-[75%] leading-snug"
                       >私立八重华女子学园</span
                     >
                   </div>
@@ -709,10 +709,10 @@
                     class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
                   >
                     <span
-                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      class="text-slate-500 font-bold tracking-wider drop-shadow-sm whitespace-nowrap mr-2"
                       >年龄</span
                     >
-                    <span id="mvu-age-b" class="text-slate-600 font-normal"
+                    <span id="mvu-age-b" class="text-slate-800 font-semibold drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]"
                       >17</span
                     >
                   </div>
@@ -720,12 +720,12 @@
                     class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
                   >
                     <span
-                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      class="text-slate-500 font-bold tracking-wider drop-shadow-sm whitespace-nowrap mr-2"
                       >doi次数</span
                     >
                     <span
                       id="mvu-sex-count-b"
-                      class="text-slate-600 font-normal"
+                      class="text-slate-800 font-semibold drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]"
                       >0</span
                     >
                   </div>
@@ -733,10 +733,10 @@
                     class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
                   >
                     <span
-                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      class="text-slate-500 font-bold tracking-wider drop-shadow-sm whitespace-nowrap mr-2"
                       >关系</span
                     >
-                    <span id="mvu-relation-b" class="text-slate-600 font-normal"
+                    <span id="mvu-relation-b" class="text-slate-800 font-semibold drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]"
                       >学姐</span
                     >
                   </div>
@@ -747,7 +747,7 @@
             <!-- 版权 -->
             <div class="absolute bottom-[2%] left-[45%] z-20">
               <p
-                class="text-[9px] text-slate-400 tracking-[0.4em] font-light uppercase drop-shadow-sm"
+                class="text-[10px] text-slate-500 tracking-[0.3em] font-medium font-light uppercase drop-shadow-sm"
               >
                 今天肚子疼啊w's 反方向的钟 2026
               </p>
