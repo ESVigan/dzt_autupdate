@@ -1,0 +1,1212 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>雪代希华 - 角色卡</title>
+    <!-- Tailwind CSS (CDN for single-file portability) -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;300;400;500;700;900&family=Noto+Serif+SC:wght@300;400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#3b3e79",
+              "background-light": "#f0f2f5",
+            },
+            fontFamily: {
+              display: ["Be Vietnam Pro", "sans-serif"],
+              serif: ["Noto Serif SC", "serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        min-height: 0;
+        height: auto;
+        background: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* 顶部对齐 */
+        overflow: hidden;
+      }
+
+      .zoom-wrapper {
+        position: relative;
+        transform-origin: top left;
+        /* 采用 visible 防止外部气泡和蝴蝶结被裁剪 */
+        overflow: visible;
+        width: 600px;
+        height: 800px;
+      }
+
+      .zoom-content {
+        width: 600px;
+        height: 800px;
+        transform-origin: top left;
+      }
+
+      .card-container {
+        width: 600px;
+        height: 800px;
+        position: relative;
+        background: #ffffff;
+        border-radius: 1.5rem;
+        box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.15);
+        border: 1px solid #e2e8f0;
+        overflow: visible;
+        flex-shrink: 0;
+        z-index: 10;
+      }
+
+      /* 横向包裹带微调：向下移动，缩小高度，略微超出形成包裹感但不突兀 */
+      .horizontal-band {
+        position: absolute;
+        top: 55%;
+        left: -1%;
+        width: 103%;
+        height: 28%;
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(12px);
+        box-shadow:
+          0 15px 35px -5px rgba(0, 0, 0, 0.06),
+          inset 0 1px 0 rgba(255, 255, 255, 1),
+          -8px 0px 12px -5px rgba(0, 0, 0, 0.04),
+          8px 0px 12px -5px rgba(0, 0, 0, 0.04);
+        border-radius: 6px;
+        z-index: 5;
+        overflow: hidden;
+      }
+
+      .watermark-text {
+        position: absolute;
+        top: 5%;
+        left: -2%;
+        width: 105%;
+        -webkit-text-stroke: 1px rgba(160, 175, 195, 0.95); /* 加深加粗描边 */
+        color: rgba(255, 255, 255, 0.4); /* 增加内部填充的白色不透明度 */
+        font-size: 10.5rem;
+        font-weight: 900;
+        letter-spacing: 0.05em;
+        pointer-events: none;
+        user-select: none;
+        white-space: nowrap;
+        z-index: 6;
+        filter: drop-shadow(
+          0 2px 4px rgba(0, 0, 0, 0.05)
+        ); /* 轻微阴影确保清晰度 */
+      }
+
+      .group:hover .avatar-clasp {
+        transform: rotate(0deg);
+      }
+
+      /* 右上角竖幅照片叠层 */
+      .photo-stack-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* 三张照片轮播动画 */
+      @keyframes photoCarousel {
+        0%,
+        28% {
+          opacity: 1;
+          transform: rotate(var(--base-rotate));
+          z-index: 3;
+        }
+        33%,
+        61% {
+          opacity: 0;
+          transform: rotate(var(--base-rotate));
+          z-index: 1;
+        }
+        66%,
+        94% {
+          opacity: 0;
+          transform: rotate(var(--base-rotate));
+          z-index: 1;
+        }
+        100% {
+          opacity: 1;
+          transform: rotate(var(--base-rotate));
+          z-index: 3;
+        }
+      }
+
+      @keyframes photoCarousel2 {
+        0%,
+        28% {
+          opacity: 0;
+          transform: rotate(var(--base-rotate));
+          z-index: 1;
+        }
+        33%,
+        61% {
+          opacity: 1;
+          transform: rotate(var(--base-rotate));
+          z-index: 3;
+        }
+        66%,
+        94% {
+          opacity: 0;
+          transform: rotate(var(--base-rotate));
+          z-index: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: rotate(var(--base-rotate));
+          z-index: 1;
+        }
+      }
+
+      @keyframes photoCarousel3 {
+        0%,
+        28% {
+          opacity: 0;
+          transform: rotate(var(--base-rotate));
+          z-index: 1;
+        }
+        33%,
+        61% {
+          opacity: 0;
+          transform: rotate(var(--base-rotate));
+          z-index: 1;
+        }
+        66%,
+        94% {
+          opacity: 1;
+          transform: rotate(var(--base-rotate));
+          z-index: 3;
+        }
+        100% {
+          opacity: 0;
+          transform: rotate(var(--base-rotate));
+          z-index: 1;
+        }
+      }
+
+      .photo-card-1 {
+        --base-rotate: -5deg;
+        animation: photoCarousel 9s infinite;
+      }
+      .photo-card-2 {
+        --base-rotate: 6deg;
+        animation: photoCarousel2 9s infinite;
+      }
+      .photo-card-3 {
+        --base-rotate: -3deg;
+        animation: photoCarousel3 9s infinite;
+      }
+
+      /* === 翻牌动画 (Fake Flip — iOS 兼容) === */
+      .flip-container {
+        perspective: 1200px;
+      }
+      .flip-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        /* 不再使用 preserve-3d + backface-visibility，改用 JS 在旋转中点切换 display */
+        transform-style: preserve-3d;
+      }
+      .card-face {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 600px;
+        height: 800px;
+        background: #ffffff;
+        border-radius: 1.5rem;
+        box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.15);
+        border: 1px solid #e2e8f0;
+        overflow: visible;
+      }
+      /* 反面默认隐藏 */
+      .card-face-back {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body class="font-display text-slate-900 bg-transparent">
+    <!-- 外层：Zoom Wrapper (占位层) -->
+    <div class="zoom-wrapper mt-4 sm:mt-8 mb-8 mx-auto" id="zoom-wrapper">
+      <div class="zoom-content flip-container" id="zoom-content">
+        <div class="flip-inner" id="flip-inner">
+          <!-- ══════════ 正面：雪代希华 ══════════ -->
+          <main class="card-face" id="face-front">
+            <!-- 背景图限定在右侧显示，同时内层图片放开自由位移缩放 -->
+            <div
+              class="absolute inset-0 bg-white rounded-[1.5rem] overflow-hidden z-0"
+            >
+              <!-- 移除了 w-[60%] 限制，现在背景图容器占据整个卡片宽度，你可以真正自由缩放和平移了 -->
+              <div
+                class="absolute left-[0%] top-0 w-full h-full overflow-hidden"
+              >
+                <!-- 雪代6 背景氛围图 -->
+                <img
+                  data-img-key="雪代6"
+                  src=""
+                  class="absolute left-[23%] top-[-5%] w-[80%] h-[100%] object-cover opacity-[0.9] filter contrast-120 saturate-[1]"
+                  alt="氛围衬图"
+                />
+              </div>
+              <!-- 渐变遮罩放在上层，让左边向右边有一个白色的淡入 -->
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-white via-white/70 to-transparent pointer-events-none"
+              ></div>
+
+              <!-- 右侧俳句文字排版 -->
+              <div
+                class="absolute right-[10%] top-[5%] z-10 flex flex-col items-end opacity-85"
+              >
+                <h2
+                  class="text-4xl font-serif font-black text-slate-800 tracking-widest drop-shadow-md mb-2"
+                >
+                  寒梅开无声
+                </h2>
+                <p
+                  class="text-[0.6rem] font-display text-[#3b3e79] tracking-[0.4em] uppercase font-bold"
+                >
+                  Plum blooms alone in frost
+                </p>
+              </div>
+            </div>
+
+            <div class="horizontal-band">
+              <span class="watermark-text">Yukishiro</span>
+            </div>
+
+            <!-- 左侧信息柱状排列列（加强了下方投影 drop-shadow-2xl 和 shadow-lg，使其更从背景浮出） -->
+            <div
+              class="absolute left-[4%] top-[4%] bottom-[4%] w-[38%] bg-white/95 backdrop-blur shadow-xl drop-shadow-[15px_15px_30px_rgba(0,0,0,0.15)] rounded-lg z-20 flex flex-col pt-[8%] pb-[10%] px-[8%] border border-slate-50"
+            >
+              <!-- 雪代1/3/5 姓名上方竖幅轮播 -->
+              <div
+                class="w-full aspect-[3/4] shrink-0 bg-slate-100 rounded-sm overflow-hidden border border-slate-200 mb-[10%] shadow-sm relative"
+              >
+                <div class="photo-card-1 absolute inset-0">
+                  <img
+                    data-img-key="雪代1"
+                    alt="姓名上方相纸1"
+                    class="w-full h-full object-cover"
+                    style="object-position: center 20%"
+                    src=""
+                  />
+                </div>
+                <div class="photo-card-2 absolute inset-0">
+                  <img
+                    data-img-key="雪代3"
+                    alt="姓名上方相纸2"
+                    class="w-full h-full object-cover"
+                    style="object-position: center 20%"
+                    src=""
+                  />
+                </div>
+                <div class="photo-card-3 absolute inset-0">
+                  <img
+                    data-img-key="雪代5"
+                    alt="姓名上方相纸3"
+                    class="w-full h-full object-cover"
+                    style="object-position: center 20%"
+                    src=""
+                  />
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-1 relative pl-5">
+                <div
+                  class="absolute left-0 top-1 bottom-1 w-[4px] bg-[#3b3e79]"
+                ></div>
+                <h1
+                  class="text-[2.6rem] font-black tracking-widest text-slate-800 font-serif leading-none mb-3"
+                >
+                  雪代希华
+                </h1>
+                <div class="mb-1 pb-4 border-b border-slate-100/80 w-[95%]">
+                  <p
+                    id="mvu-date"
+                    class="text-[11px] font-bold text-[#3b3e79] tracking-wider uppercase opacity-80 leading-snug break-words"
+                  >
+                    2026年4月7日 星期二 08:30
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3 mt-4 relative pl-0">
+                <div
+                  class="absolute top-[-35px] right-2 text-slate-200 opacity-80"
+                >
+                  <span
+                    class="material-symbols-outlined text-[32px]"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >magic_button</span
+                  >
+                </div>
+
+                <p
+                  id="mvu-thought"
+                  class="text-[13px] leading-[1.8] text-slate-500 font-serif font-medium tracking-normal text-justify"
+                >
+                  主人现在在干什么呢？有没有好好吃饭呢？
+                </p>
+
+                <!-- 状态列表极简重构 -->
+                <div class="flex flex-col gap-2.5 mt-8 w-[80%] text-[12px]">
+                  <div
+                    class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
+                  >
+                    <span
+                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      >位置</span
+                    >
+                    <span
+                      id="mvu-location"
+                      class="text-slate-600 font-normal text-right break-all max-w-[75%] leading-snug"
+                      >肚子疼家肚子疼家肚子疼家肚子疼家肚子疼家</span
+                    >
+                  </div>
+                  <div
+                    class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
+                  >
+                    <span
+                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      >年龄</span
+                    >
+                    <span id="mvu-age" class="text-slate-600 font-normal"
+                      >16</span
+                    >
+                  </div>
+                  <div
+                    class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
+                  >
+                    <span
+                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      >doi次数</span
+                    >
+                    <span id="mvu-sex-count" class="text-slate-600 font-normal"
+                      >50</span
+                    >
+                  </div>
+                  <div
+                    class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
+                  >
+                    <span
+                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      >关系</span
+                    >
+                    <span id="mvu-relation" class="text-slate-600 font-normal"
+                      >奴隶</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 版权 -->
+            <div class="absolute bottom-[2%] left-[45%] z-20">
+              <p
+                class="text-[9px] text-slate-400 tracking-[0.4em] font-light uppercase drop-shadow-sm"
+              >
+                今天肚子疼啊w's 反方向的钟 2026
+              </p>
+            </div>
+
+            <!-- 左上方挂坠头像（点击翻牌） -->
+            <div
+              class="absolute left-[-5%] top-[13%] w-[20%] z-40 group cursor-pointer"
+              id="avatar-toggle"
+            >
+              <div class="relative w-full aspect-square">
+                <!-- SVG 金属吊坠 -->
+                <div
+                  class="avatar-clasp absolute top-[-15%] left-[40%] w-[18%] h-[250%] z-30 transform -rotate-[5deg] origin-top transition-transform duration-500"
+                >
+                  <svg
+                    viewBox="0 0 30 50"
+                    fill="none"
+                    class="w-full h-full drop-shadow-md"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="12"
+                      y="0"
+                      width="6"
+                      height="15"
+                      rx="3"
+                      fill="#cbd5e1"
+                    />
+                    <circle
+                      cx="15"
+                      cy="18"
+                      r="4"
+                      stroke="#94a3b8"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M5 25 C -5 25, 5 45, 15 45 C 25 45, 35 25, 25 25"
+                      stroke="#cbd5e1"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                    />
+                    <circle cx="15" cy="15" r="1.5" fill="#64748b" />
+                  </svg>
+                </div>
+                <!-- 雪代2 圆形悬挂头像 -->
+                <div
+                  class="w-full h-full rounded-full border-[6px] border-white shadow-[0_25px_50px_-12px_rgba(0,0,0,0.35)] overflow-hidden bg-white relative z-20 transition-transform duration-500 group-hover:scale-105"
+                >
+                  <img
+                    data-img-key="雪代2"
+                    alt="圆形头像"
+                    class="w-full h-full object-cover scale-[1.45] transform"
+                    style="object-position: center -30%"
+                    src=""
+                  />
+                  <!-- 极简好感度气泡覆盖在头像下方 -->
+                  <div
+                    class="absolute bottom-0 w-full bg-[#3b3e79]/90 text-white text-[10px] font-bold text-center py-0.5 tracking-wider backdrop-blur-sm"
+                    id="mvu-affection"
+                  >
+                    100
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 右上角拼单区：带雪代4的照片贴片与蝴蝶结PNG -->
+            <div
+              class="absolute top-[5%] right-[0%] w-[45%] aspect-square pointer-events-none drop-shadow-xl z-50"
+            >
+              <div
+                class="relative w-full h-full scale-[1.05] transform origin-top-right"
+              >
+                <!-- 雪代4 相框 -->
+                <div
+                  class="absolute top-[38%] right-[15%] w-[45%] h-[48%] bg-white p-[5px] shadow-lg rotate-[-8deg] flex flex-col z-20"
+                >
+                  <div class="flex-1 bg-slate-800 overflow-hidden relative">
+                    <img
+                      data-img-key="雪代4"
+                      alt="相纸内容"
+                      class="absolute left-[0%] top-[0%] w-[100%] h-[99%] object-cover opacity-95 saturate-[0.8]"
+                      src=""
+                    />
+                  </div>
+                </div>
+
+                <!-- 立体回形针横置 (移至右侧) -->
+                <div
+                  class="absolute top-[38%] right-[12%] w-[12%] h-[24%] z-30 rotate-[-80deg] drop-shadow-[2px_5px_4px_rgba(0,0,0,0.3)]"
+                >
+                  <svg
+                    fill="none"
+                    class="w-full h-full"
+                    viewBox="0 0 24 48"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <linearGradient
+                        id="metal-shine-adv"
+                        x1="0%"
+                        x2="100%"
+                        y1="0%"
+                        y2="100%"
+                      >
+                        <stop offset="0%" style="stop-color: #f1f5f9"></stop>
+                        <stop offset="20%" style="stop-color: #94a3b8"></stop>
+                        <stop offset="50%" style="stop-color: #e2e8f0"></stop>
+                        <stop offset="80%" style="stop-color: #cbd5e1"></stop>
+                        <stop offset="100%" style="stop-color: #475569"></stop>
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M18 12V34C18 38.4183 14.4183 42 10 42C5.58172 42 2 38.4183 2 34V10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10V28C18 30.2091 16.2091 32 14 32C11.7909 32 10 30.2091 10 28V12"
+                      stroke="url(#metal-shine-adv)"
+                      stroke-linecap="round"
+                      stroke-width="2.5"
+                    ></path>
+                  </svg>
+                </div>
+
+                <!-- 蝴蝶结 PNG -->
+                <img
+                  data-img-key="蝴蝶结"
+                  class="absolute top-[8%] -right-[5%] w-[85%] h-auto z-[40] drop-shadow-[0_12px_18px_rgba(0,0,0,0.3)] rotate-[8deg]"
+                  src=""
+                  alt="蝴蝶结"
+                />
+              </div>
+            </div>
+
+            <!-- 主立绘被牢牢限制在底部 -->
+
+            <div
+              class="absolute bottom-[-5%] right-[13%] w-[63%] max-h-[63%] flex items-end justify-end pointer-events-none z-[45]"
+            >
+              <!-- 雪代立绘 -->
+              <img
+                data-img-key="雪代动图"
+                class="w-auto h-full object-contain filter drop-shadow-[-25px_25px_30px_rgba(30,35,55,0.5)]"
+                src=""
+                alt="雪代希华主立绘"
+              />
+            </div>
+          </main>
+          <!-- ══════════ 反面：御千院月夜 ══════════ -->
+          <main class="card-face card-face-back" id="face-back">
+            <!-- 背景区 -->
+            <div
+              class="absolute inset-0 bg-white rounded-[1.5rem] overflow-hidden z-0"
+            >
+              <div
+                class="absolute left-[0%] top-0 w-full h-full overflow-hidden"
+              >
+                <img
+                  data-img-key="御千院5"
+                  src=""
+                  class="absolute left-[30%] top-[0%] w-[80%] h-[100%] object-cover opacity-[0.9] filter contrast-120 saturate-[1]"
+                  alt="氛围衬图"
+                />
+              </div>
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-white via-white/70 to-transparent pointer-events-none"
+              ></div>
+              <!-- 俳句 -->
+              <div
+                class="absolute right-[10%] top-[5%] z-10 flex flex-col items-end opacity-85"
+              >
+                <h2
+                  class="text-4xl font-serif font-black text-slate-800 tracking-widest drop-shadow-md mb-2"
+                >
+                  霜月映孤城
+                </h2>
+                <p
+                  class="text-[0.6rem] font-display text-[#3b3e79] tracking-[0.4em] uppercase font-bold"
+                >
+                  Frost moon, silent citadel
+                </p>
+              </div>
+            </div>
+
+            <div class="horizontal-band">
+              <span class="watermark-text">Mikado</span>
+            </div>
+
+            <!-- 左侧信息列 -->
+            <div
+              class="absolute left-[4%] top-[4%] bottom-[4%] w-[38%] bg-white/95 backdrop-blur shadow-xl drop-shadow-[15px_15px_30px_rgba(0,0,0,0.15)] rounded-lg z-20 flex flex-col pt-[8%] pb-[10%] px-[8%] border border-slate-50"
+            >
+              <!-- 轮播 -->
+              <div
+                class="w-full aspect-[3/4] shrink-0 bg-slate-100 rounded-sm overflow-hidden border border-slate-200 mb-[10%] shadow-sm relative"
+              >
+                <div class="photo-card-1 absolute inset-0">
+                  <img
+                    data-img-key="御千院3"
+                    alt="相纸1"
+                    class="w-full h-full object-cover"
+                    style="object-position: center 20%"
+                    src=""
+                  />
+                </div>
+                <div class="photo-card-2 absolute inset-0">
+                  <img
+                    data-img-key="御千院4"
+                    alt="相纸2"
+                    class="w-full h-full object-cover"
+                    style="object-position: center 20%"
+                    src=""
+                  />
+                </div>
+                <div class="photo-card-3 absolute inset-0">
+                  <img
+                    data-img-key="御千院3"
+                    alt="相纸3"
+                    class="w-full h-full object-cover"
+                    style="object-position: center 20%"
+                    src=""
+                  />
+                </div>
+              </div>
+              <!-- 姓名 -->
+              <div class="flex flex-col gap-1 relative pl-5">
+                <div
+                  class="absolute left-0 top-1 bottom-1 w-[4px] bg-[#3b3e79]"
+                ></div>
+                <h1
+                  class="text-[2.6rem] font-black tracking-widest text-slate-800 font-serif leading-none mb-3"
+                >
+                  御千院月夜
+                </h1>
+                <div class="mb-1 pb-4 border-b border-slate-100/80 w-[95%]">
+                  <p
+                    id="mvu-date-b"
+                    class="text-[11px] font-bold text-[#3b3e79] tracking-wider uppercase opacity-80 leading-snug break-words"
+                  >
+                    2026年4月7日 星期二 08:30
+                  </p>
+                </div>
+              </div>
+              <!-- 状态 -->
+              <div class="flex flex-col gap-3 mt-4 relative pl-0">
+                <div
+                  class="absolute top-[-35px] right-2 text-slate-200 opacity-80"
+                >
+                  <span
+                    class="material-symbols-outlined text-[32px]"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >magic_button</span
+                  >
+                </div>
+                <p
+                  id="mvu-thought-b"
+                  class="text-[13px] leading-[1.8] text-slate-500 font-serif font-medium tracking-normal text-justify"
+                >
+                  院长老师果然还是没有看出来……好险，今天的任务顺利完成了。
+                </p>
+                <div class="flex flex-col gap-2.5 mt-8 w-[80%] text-[12px]">
+                  <div
+                    class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
+                  >
+                    <span
+                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      >位置</span
+                    >
+                    <span
+                      id="mvu-location-b"
+                      class="text-slate-600 font-normal text-right break-all max-w-[75%] leading-snug"
+                      >私立八重华女子学园</span
+                    >
+                  </div>
+                  <div
+                    class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
+                  >
+                    <span
+                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      >年龄</span
+                    >
+                    <span id="mvu-age-b" class="text-slate-600 font-normal"
+                      >17</span
+                    >
+                  </div>
+                  <div
+                    class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
+                  >
+                    <span
+                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      >doi次数</span
+                    >
+                    <span
+                      id="mvu-sex-count-b"
+                      class="text-slate-600 font-normal"
+                      >0</span
+                    >
+                  </div>
+                  <div
+                    class="flex justify-between items-baseline border-b border-slate-100/70 pb-1"
+                  >
+                    <span
+                      class="text-slate-400 font-semibold tracking-wider whitespace-nowrap mr-2"
+                      >关系</span
+                    >
+                    <span id="mvu-relation-b" class="text-slate-600 font-normal"
+                      >学姐</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 版权 -->
+            <div class="absolute bottom-[2%] left-[45%] z-20">
+              <p
+                class="text-[9px] text-slate-400 tracking-[0.4em] font-light uppercase drop-shadow-sm"
+              >
+                今天肚子疼啊w's 反方向的钟 2026
+              </p>
+            </div>
+
+            <!-- 左上方挂坠头像（点击翻回） -->
+            <div
+              class="absolute left-[-5%] top-[13%] w-[20%] z-40 group cursor-pointer"
+              id="avatar-toggle-b"
+            >
+              <div class="relative w-full aspect-square">
+                <div
+                  class="avatar-clasp absolute top-[-15%] left-[40%] w-[18%] h-[250%] z-30 transform -rotate-[5deg] origin-top transition-transform duration-500"
+                >
+                  <svg
+                    viewBox="0 0 30 50"
+                    fill="none"
+                    class="w-full h-full drop-shadow-md"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="12"
+                      y="0"
+                      width="6"
+                      height="15"
+                      rx="3"
+                      fill="#cbd5e1"
+                    />
+                    <circle
+                      cx="15"
+                      cy="18"
+                      r="4"
+                      stroke="#94a3b8"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M5 25 C -5 25, 5 45, 15 45 C 25 45, 35 25, 25 25"
+                      stroke="#cbd5e1"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                    />
+                    <circle cx="15" cy="15" r="1.5" fill="#64748b" />
+                  </svg>
+                </div>
+                <div
+                  class="w-full h-full rounded-full border-[6px] border-white shadow-[0_25px_50px_-12px_rgba(0,0,0,0.35)] overflow-hidden bg-white relative z-20 transition-transform duration-500 group-hover:scale-105"
+                >
+                  <img
+                    data-img-key="御千院1"
+                    alt="圆形头像"
+                    class="w-full h-full object-cover scale-[1.45] transform"
+                    style="object-position: center -30%"
+                    src=""
+                  />
+                  <div
+                    class="absolute bottom-0 w-full bg-[#3b3e79]/90 text-white text-[10px] font-bold text-center py-0.5 tracking-wider backdrop-blur-sm"
+                    id="mvu-affection-b"
+                  >
+                    0
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 右上角照片贴片 -->
+            <div
+              class="absolute top-[5%] right-[0%] w-[45%] aspect-square pointer-events-none drop-shadow-xl z-50"
+            >
+              <div
+                class="relative w-full h-full scale-[1.05] transform origin-top-right"
+              >
+                <div
+                  class="absolute top-[38%] right-[15%] w-[45%] h-[48%] bg-white p-[5px] shadow-lg rotate-[-8deg] flex flex-col z-20"
+                >
+                  <div class="flex-1 bg-slate-800 overflow-hidden relative">
+                    <img
+                      data-img-key="御千院2"
+                      alt="相纸内容"
+                      class="absolute left-[0%] top-[0%] w-[100%] h-[99%] object-cover opacity-95 saturate-[0.8] scale-[1.8] transform"
+                      style="object-position: center -50%"
+                      src=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="absolute top-[38%] right-[12%] w-[12%] h-[24%] z-30 rotate-[-80deg] drop-shadow-[2px_5px_4px_rgba(0,0,0,0.3)]"
+                >
+                  <svg
+                    fill="none"
+                    class="w-full h-full"
+                    viewBox="0 0 24 48"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <linearGradient
+                        id="metal-shine-b"
+                        x1="0%"
+                        x2="100%"
+                        y1="0%"
+                        y2="100%"
+                      >
+                        <stop offset="0%" style="stop-color: #f1f5f9" />
+                        <stop offset="20%" style="stop-color: #94a3b8" />
+                        <stop offset="50%" style="stop-color: #e2e8f0" />
+                        <stop offset="80%" style="stop-color: #cbd5e1" />
+                        <stop offset="100%" style="stop-color: #475569" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M18 12V34C18 38.4183 14.4183 42 10 42C5.58172 42 2 38.4183 2 34V10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10V28C18 30.2091 16.2091 32 14 32C11.7909 32 10 30.2091 10 28V12"
+                      stroke="url(#metal-shine-b)"
+                      stroke-linecap="round"
+                      stroke-width="2.5"
+                    ></path>
+                  </svg>
+                </div>
+                <img
+                  data-img-key="蝴蝶结"
+                  class="absolute top-[8%] -right-[5%] w-[85%] h-auto z-[40] drop-shadow-[0_12px_18px_rgba(0,0,0,0.3)] rotate-[8deg]"
+                  src=""
+                  alt="蝴蝶结"
+                />
+              </div>
+            </div>
+
+            <!-- 主立绘 -->
+            <div
+              class="absolute bottom-[-7%] right-[10%] w-[70%] max-h-[70%] flex items-end justify-end pointer-events-none z-[45]"
+            >
+              <img
+                data-img-key="御千院动图"
+                class="w-auto h-full object-contain filter drop-shadow-[-25px_25px_30px_rgba(30,35,55,0.5)]"
+                src=""
+                alt="御千院月夜主立绘"
+              />
+            </div>
+          </main>
+        </div>
+        <!-- /flip-inner -->
+      </div>
+      <!-- /zoom-content -->
+    </div>
+
+    <!-- 图片路径注入：根据 DEBUG_MODE 切换本地/云端 -->
+    <script>
+      (function () {
+        // ★ 与下方 MVU 脚本中的 DEBUG_MODE 保持同步 ★
+        var DEBUG_MODE = false;
+
+        // 本地路径（相对于当前 HTML 文件所在目录）
+        var LOCAL_BASE = "../图片/";
+        var LOCAL_EXT = ".png";
+
+        // 云端路径
+        var REMOTE_BASE = "https://esvigan.cn/";
+        var REMOTE_EXT = ".webp";
+
+        // key → 文件名（本地和云端文件名一致，只扩展名不同）
+        var IMAGE_KEYS = [
+          "雪代6",
+          "雪代1",
+          "雪代2",
+          "雪代3",
+          "雪代4",
+          "雪代5",
+          "雪代动图",
+          "御千院5",
+          "御千院1",
+          "御千院2",
+          "御千院3",
+          "御千院4",
+          "御千院动图",
+          "蝴蝶结",
+        ];
+
+        function injectImages() {
+          var base = DEBUG_MODE ? LOCAL_BASE : REMOTE_BASE;
+          var ext = DEBUG_MODE ? LOCAL_EXT : REMOTE_EXT;
+          document
+            .querySelectorAll("img[data-img-key]")
+            .forEach(function (img) {
+              var key = img.getAttribute("data-img-key");
+              if (IMAGE_KEYS.indexOf(key) !== -1) {
+                // 特殊处理动图后缀（本地和云端都强制使用 .gif）
+                if (key === "雪代动图" || key === "御千院动图") {
+                  img.src = base + key + ".gif";
+                } else {
+                  img.src = base + key + ext;
+                }
+              }
+            });
+        }
+
+        // DOM 就绪后立即注入
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", injectImages);
+        } else {
+          injectImages();
+        }
+      })();
+    </script>
+
+    <!-- 真实高度包裹比例自适应计算 -->
+    <script>
+      function adjustScale() {
+        const wrapper = document.getElementById("zoom-wrapper");
+        const content = document.getElementById("zoom-content");
+        if (!wrapper || !content) return;
+
+        // 原始设计稿尺寸
+        const baseWidth = 600;
+        const baseHeight = 800;
+
+        // 获取当前可用视口宽度并留出安全间距（如左右共32px）
+        const availableWidth = window.innerWidth;
+        const maxAvailableWidth = availableWidth - 32;
+
+        // 1. 计算缩放比例 (基于宽匹配)，并且控制最大缩放比例1倍（不强行放大失真）
+        let scale = maxAvailableWidth / baseWidth;
+        if (scale > 1) scale = 1;
+
+        // 2. 应用缩放给内层 (视觉缩放)
+        content.style.transform = `scale(${scale})`;
+
+        // 3. 计算真实占位尺寸并显式覆盖外层高度
+        // 使外部 iframe 容器感知真实尺寸并收起下巴留白
+        const realWidth = baseWidth * scale;
+        const realHeight = baseHeight * scale;
+
+        wrapper.style.width = `${realWidth}px`;
+        wrapper.style.height = `${realHeight}px`;
+      }
+
+      // 监听调整
+      window.addEventListener("resize", adjustScale);
+      // 初次挂载时执行一次
+      adjustScale();
+      // 余量修正
+      setTimeout(adjustScale, 150);
+    </script>
+
+    <!-- 翻牌交互 (Fake Flip — iOS 兼容，参考色孽状态栏方案) -->
+    <script>
+      (function () {
+        var flipTimeout = null;
+        var isFlipped = false;
+
+        function flipCard(event) {
+          if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          var inner = document.getElementById("flip-inner");
+          var front = document.getElementById("face-front");
+          var back = document.getElementById("face-back");
+          if (!inner || !front || !back) return;
+
+          // 防止连点
+          if (flipTimeout) clearTimeout(flipTimeout);
+
+          // 1. 缩小 (0ms)
+          inner.style.transition = "transform 0.1s ease-out";
+          inner.style.transform = "scale(0.7)";
+
+          setTimeout(function () {
+            // 2. 旋转到 90° 侧面 (50ms)
+            inner.style.transition = "transform 0.2s linear";
+            inner.style.transform = "scale(0.7) rotateY(90deg)";
+
+            flipTimeout = setTimeout(function () {
+              // 3. 中点：切换 display（完全隐藏旧面、显示新面）
+              if (isFlipped) {
+                back.style.display = "none";
+                front.style.display = "block";
+                isFlipped = false;
+              } else {
+                front.style.display = "none";
+                back.style.display = "block";
+                isFlipped = true;
+              }
+
+              // 瞬间跳到 -90°
+              inner.style.transition = "none";
+              inner.style.transform = "scale(0.7) rotateY(-90deg)";
+
+              // 4. 旋转回 0° (250→450ms)
+              requestAnimationFrame(function () {
+                inner.style.transition = "transform 0.2s linear";
+                inner.style.transform = "scale(0.7) rotateY(0deg)";
+              });
+
+              // 5. 恢复原始大小 (450→650ms)
+              setTimeout(function () {
+                inner.style.transition = "transform 0.2s ease-out";
+                inner.style.transform = "scale(1) rotateY(0deg)";
+              }, 200);
+            }, 200);
+          }, 50);
+        }
+
+        function bindFlip() {
+          var a = document.getElementById("avatar-toggle");
+          var b = document.getElementById("avatar-toggle-b");
+          if (a) {
+            a.addEventListener("click", flipCard, false);
+            a.addEventListener("touchend", flipCard, { passive: false });
+            a.addEventListener(
+              "touchstart",
+              function (e) {
+                e.preventDefault();
+              },
+              { passive: false },
+            );
+          }
+          if (b) {
+            b.addEventListener("click", flipCard, false);
+            b.addEventListener("touchend", flipCard, { passive: false });
+            b.addEventListener(
+              "touchstart",
+              function (e) {
+                e.preventDefault();
+              },
+              { passive: false },
+            );
+          }
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", bindFlip);
+        } else {
+          bindFlip();
+        }
+      })();
+    </script>
+
+    <!-- MVU 数据提取注入脚本 (使用模块 5 最新 Zod 标准规范) -->
+    <script type="module">
+      /* 填充状态栏数据 */
+      function populateCharacterData() {
+        try {
+          const DEBUG_MODE = false; // ★ 调试模式开关（与上方图片注入脚本保持同步）★
+
+          let currentThought,
+            currentAffection,
+            currentTime,
+            location,
+            age,
+            sexCount,
+            relation;
+
+          if (DEBUG_MODE) {
+            currentThought =
+              "呜呜呜……学姐的眼神太可怕了，少爷绝对会被杀掉的……我该怎么办……";
+            currentAffection = 15;
+            currentTime = "2024年4月1日 星期一 08:30";
+            location = "私立八重华女子学园 教室";
+            age = 16;
+            sexCount = 0;
+            relation = "奴隶";
+          } else {
+            // 根据最新标准，直接获取全局变量
+            const all_variables = getAllVariables();
+            const characterData = all_variables.stat_data;
+
+            if (!characterData) {
+              console.log("未检测到有效的 MVU 变量数据");
+              return;
+            }
+
+            // 安全读取嵌套数据 (使用原生全局 _)，匹配 schema.js 中的完整路径
+            currentThought = _.get(characterData, "雪代希华.心声", "");
+            currentAffection = _.get(
+              characterData,
+              "雪代希华.基本信息.好感度",
+              0,
+            );
+            currentTime = _.get(characterData, "世界.当前时间", "未知时间");
+
+            location = _.get(characterData, "位置.希华位置", "未知");
+            age = _.get(characterData, "雪代希华.基本信息.年龄", 16);
+            sexCount = _.get(characterData, "雪代希华.基本信息.做爱次数", 0);
+            relation = _.get(characterData, "雪代希华.关系", "未知");
+          }
+
+          // 更新 DOM：心声文本
+          if (currentThought) {
+            $("#mvu-thought").text(currentThought);
+          }
+          $("#mvu-affection").text(`${Math.floor(currentAffection)}`);
+          $("#mvu-date").text(currentTime);
+          $("#mvu-location").text(location);
+          $("#mvu-age").text(age);
+          $("#mvu-sex-count").text(sexCount);
+          $("#mvu-relation").text(relation);
+
+          // === 反面：御千院月夜 ===
+          let bThought, bAffection, bLocation, bAge, bSexCount, bRelation;
+          if (DEBUG_MODE) {
+            bThought =
+              "院长老师果然还是没有看出来……好险，今天的任务顺利完成了。";
+            bAffection = 23;
+            bLocation = "私立八重华女子学园";
+            bAge = 17;
+            bSexCount = 0;
+            bRelation = "学姐";
+          } else {
+            const all_variables = getAllVariables();
+            const d = all_variables.stat_data;
+            if (d) {
+              bThought = _.get(d, "御千院月夜.心声", "");
+              bAffection = _.get(d, "御千院月夜.基本信息.好感度", 0);
+              bLocation = _.get(d, "位置.月夜位置", "未知");
+              bAge = _.get(d, "御千院月夜.基本信息.年龄", 17);
+              bSexCount = _.get(d, "御千院月夜.基本信息.做爱次数", 0);
+              bRelation = _.get(d, "御千院月夜.关系", "未知");
+            }
+          }
+          if (bThought) $("#mvu-thought-b").text(bThought);
+          $("#mvu-affection-b").text(`${Math.floor(bAffection)}`);
+          $("#mvu-date-b").text(currentTime);
+          $("#mvu-location-b").text(bLocation);
+          $("#mvu-age-b").text(bAge);
+          $("#mvu-sex-count-b").text(bSexCount);
+          $("#mvu-relation-b").text(bRelation);
+        } catch (error) {
+          console.error("变量解析错误: " + error.message);
+        }
+      }
+
+      /* 统一入口事件 */
+      async function init() {
+        /* 兼容直接在浏览器中双击打开调试：如果环境不支持 waitGlobalInitialized 则跳过它并直接调用渲染函数 */
+        if (typeof waitGlobalInitialized === "function") {
+          try {
+            await waitGlobalInitialized("Mvu");
+          } catch (e) {
+            console.warn("MVU 环境加载超时或失败。");
+          }
+        }
+
+        /* 首次绘制 */
+        populateCharacterData();
+
+        /* 实时更新：如果环境支持 VARIABLE_UPDATE_ENDED 事件则监听并重新绘制 */
+        if (
+          typeof window.eventOn === "function" &&
+          window.Mvu &&
+          window.Mvu.events
+        ) {
+          window.eventOn(
+            window.Mvu.events.VARIABLE_UPDATE_ENDED,
+            populateCharacterData,
+          );
+        }
+      }
+
+      /* 使用 errorCatched 包装并在 jQuery ready 时执行 */
+      $(errorCatched(init));
+    </script>
+  </body>
+</html>
