@@ -1214,11 +1214,12 @@
       .global-lyrics-box {
         width: 100%;
         max-width: 600px;
-        margin: 0 auto;
+        margin: 20px auto 0;
         text-align: center;
-        position: relative;
-        height: 0;
-        overflow: visible;
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       #global-lyrics-text {
         font-size: 1.75rem;
@@ -1226,9 +1227,6 @@
         font-weight: 700;
         text-shadow: 0 0 12px var(--neon-red-glow);
         margin: 0;
-        position: absolute;
-        top: 50px;
-        left: 0;
         width: 100%;
         transition: all 0.3s ease;
       }
@@ -1595,6 +1593,13 @@
         }
         .section {
           padding: 60px 16px;
+        }
+        #global-lyrics-text {
+          font-size: 1.25rem;
+        }
+        .global-lyrics-box {
+          min-height: 60px;
+          margin-top: 10px;
         }
         .music-player {
           padding: 8px 12px;
@@ -2170,31 +2175,31 @@
         <!-- ===== 全局发光线条导航 (在 zoom-content 内部跟随缩放) ===== -->
         <nav class="neon-nav-container" id="neonNav">
           <div class="neon-nav-wrapper">
-            <a class="neon-nav-item active" href="#hero">
+            <a class="neon-nav-item active" href="javascript:void(0)" data-target="#hero">
               <span class="neon-nav-text">首页</span>
               <div class="neon-line"></div>
             </a>
-            <a class="neon-nav-item" href="#characters">
+            <a class="neon-nav-item" href="javascript:void(0)" data-target="#characters">
               <span class="neon-nav-text">角色</span>
               <div class="neon-line"></div>
             </a>
-            <a class="neon-nav-item" href="#pv">
+            <a class="neon-nav-item" href="javascript:void(0)" data-target="#pv">
               <span class="neon-nav-text">映像</span>
               <div class="neon-line"></div>
             </a>
-            <a class="neon-nav-item" href="#routes">
+            <a class="neon-nav-item" href="javascript:void(0)" data-target="#routes">
               <span class="neon-nav-text">开局</span>
               <div class="neon-line"></div>
             </a>
-            <a class="neon-nav-item" href="#about">
+            <a class="neon-nav-item" href="javascript:void(0)" data-target="#about">
               <span class="neon-nav-text">须知</span>
               <div class="neon-line"></div>
             </a>
-            <a class="neon-nav-item" href="#cg-viewer">
+            <a class="neon-nav-item" href="javascript:void(0)" data-target="#cg-viewer">
               <span class="neon-nav-text">记忆</span>
               <div class="neon-line"></div>
             </a>
-            <a class="neon-nav-item" href="#gallery">
+            <a class="neon-nav-item" href="javascript:void(0)" data-target="#gallery">
               <span class="neon-nav-text">画廊</span>
               <div class="neon-line"></div>
             </a>
@@ -2700,67 +2705,6 @@
         </div>
 
         <div class="routes-grid reveal">
-          <!-- 空位开局 1 -->
-          <div class="route-card" data-char="ruri" onclick="openRouteModal('e1')">
-            <span class="route-scene">❔ 待定场景</span>
-            <p class="route-number">ROUTE 00</p>
-            <h3 class="route-title">琉璃专属开局 (待施工)</h3>
-            <p class="route-desc">
-              等待剧本施工中...
-            </p>
-            <div class="route-meta">
-              <div class="route-avatars">
-                <img class="route-avatar" src="https://esvigan.cn/琉璃头像.webp" alt="琉璃" />
-              </div>
-            </div>
-          </div>
-
-          <!-- 空位开局 2 -->
-          <div class="route-card" data-char="eise" onclick="openRouteModal('e2')">
-            <span class="route-scene">❔ 待定场景</span>
-            <p class="route-number">ROUTE 00</p>
-            <h3 class="route-title">绘世专属开局 (待施工)</h3>
-            <p class="route-desc">
-              等待剧本施工中...
-            </p>
-            <div class="route-meta">
-              <div class="route-avatars">
-                <img class="route-avatar" src="https://esvigan.cn/绘世头像.webp" alt="绘世" />
-              </div>
-            </div>
-          </div>
-
-          <!-- 空位开局 3 -->
-          <div class="route-card" data-char="both" onclick="openRouteModal('e3')">
-            <span class="route-scene">❔ 待定场景</span>
-            <p class="route-number">ROUTE 00</p>
-            <h3 class="route-title">双子路线 1 (待施工)</h3>
-            <p class="route-desc">
-              等待剧本施工中...
-            </p>
-            <div class="route-meta">
-              <div class="route-avatars">
-                <img class="route-avatar" src="https://esvigan.cn/琉璃头像.webp" alt="琉璃" />
-                <img class="route-avatar" src="https://esvigan.cn/绘世头像.webp" alt="绘世" />
-              </div>
-            </div>
-          </div>
-
-          <!-- 空位开局 4 -->
-          <div class="route-card" data-char="both" onclick="openRouteModal('e4')">
-            <span class="route-scene">❔ 待定场景</span>
-            <p class="route-number">ROUTE 00</p>
-            <h3 class="route-title">双子路线 2 (待施工)</h3>
-            <p class="route-desc">
-              等待剧本施工中...
-            </p>
-            <div class="route-meta">
-              <div class="route-avatars">
-                <img class="route-avatar" src="https://esvigan.cn/琉璃头像.webp" alt="琉璃" />
-                <img class="route-avatar" src="https://esvigan.cn/绘世头像.webp" alt="绘世" />
-              </div>
-            </div>
-          </div>
 
           <!-- 开局 1 -->
           <div class="route-card" data-char="both" onclick="openRouteModal(1)">
@@ -4411,6 +4355,12 @@
         .forEach((link) => {
           link.addEventListener("click", function (e) {
             e.preventDefault();
+            
+            // 暂时关闭右边导航栏的点击跳转功能
+            if (this.classList.contains("neon-nav-item")) {
+              return;
+            }
+            
             const target = document.querySelector(this.getAttribute("href"));
             if (target && fpWrapper) {
               fpWrapper.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
