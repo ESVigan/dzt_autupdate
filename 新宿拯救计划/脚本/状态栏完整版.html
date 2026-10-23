@@ -22,6 +22,8 @@
         --line-color: #1a1a1a;
         --erina-color: #cd84f1; /* 绘里奈主色：紫色 */
         --ayane-color: #feca57; /* 绾音主色：黄色 */
+        --ruri-color: #a2d2ff; /* 琉璃主色：水蓝色 */
+        --eise-color: #ff7aa2; /* 绘世主色：粉色 */
         --accent-yellow: #feca57;
         --accent-purple: #cd84f1;
         --accent-cyan: #7efff5;
@@ -188,7 +190,7 @@
 
       /* ========== TAB 1: HOME ========== */
       .hero-banner {
-        margin: 10px 15px;
+        margin: 0 15px 10px;
         background: #fff;
         border: 3px solid var(--line-color);
         padding: 10px;
@@ -249,7 +251,7 @@
         z-index: 2;
         flex: 1;
         justify-content: flex-start;
-        margin-top: 10px;
+        margin-top: 0;
       }
       .archive-card {
         background: #fff;
@@ -422,6 +424,26 @@
       }
       .card-yumi .mini-fill {
         background: #78e08f;
+      }
+      .card-ruri .status-strip {
+        background: var(--ruri-color);
+        color: #000;
+      }
+      .card-ruri .rank-badge {
+        color: var(--ruri-color);
+      }
+      .card-ruri .mini-fill {
+        background: var(--ruri-color);
+      }
+      .card-eise .status-strip {
+        background: var(--eise-color);
+        color: #000;
+      }
+      .card-eise .rank-badge {
+        color: var(--eise-color);
+      }
+      .card-eise .mini-fill {
+        background: var(--eise-color);
       }
       .card-locked {
         opacity: 0.6;
@@ -680,6 +702,24 @@
       }
       .theme-AYANE .val {
         color: var(--ayane-color);
+      }
+      .theme-ruri {
+        --theme-color: var(--ruri-color);
+      }
+      .theme-ruri .face-inner {
+        background: linear-gradient(135deg, #e6f2ff 0%, #cce5ff 100%);
+      }
+      .theme-ruri .val {
+        color: var(--ruri-color);
+      }
+      .theme-eise {
+        --theme-color: var(--eise-color);
+      }
+      .theme-eise .face-inner {
+        background: linear-gradient(135deg, #ffe6f0 0%, #ffcce0 100%);
+      }
+      .theme-eise .val {
+        color: var(--eise-color);
       }
 
       /* ========== TAB 3: CHAT ========== */
@@ -1090,6 +1130,30 @@
         box-shadow:
           0 2px 8px rgba(138, 43, 226, 0.25),
           inset 1px 1px 2px rgba(255, 255, 255, 0.05);
+      }
+      .style-ruri .msg-avatar {
+        border: 2px solid var(--ruri-color);
+      }
+      .style-ruri .msg-name {
+        color: var(--ruri-color);
+      }
+      .style-ruri .msg-bubble {
+        border-radius: 4px 18px 18px 18px;
+        background: #fff;
+        color: #333;
+        border: 1px solid rgba(162, 210, 255, 0.3);
+      }
+      .style-eise .msg-avatar {
+        border: 2px solid var(--eise-color);
+      }
+      .style-eise .msg-name {
+        color: var(--eise-color);
+      }
+      .style-eise .msg-bubble {
+        border-radius: 4px 18px 18px 18px;
+        background: #fff;
+        color: #333;
+        border: 1px solid rgba(255, 122, 162, 0.3);
       }
 
       /* Group Chat Styles */
@@ -2434,6 +2498,46 @@
         filter: drop-shadow(8px 8px 0px rgba(120, 224, 143, 0.2));
       }
 
+      /* --- 4. RURI (御千院琉璃) --- */
+      .page-ruri .char-img-business {
+        --off-x: -10%;
+        --off-y: 87%;
+        --rotate: 0deg;
+        --scale: 2;
+        height: 140%;
+        filter: drop-shadow(8px 8px 0px rgba(112, 161, 255, 0.2));
+        animation: breathe 5s ease-in-out infinite;
+      }
+      .page-ruri .char-img-private {
+        --off-x: -3%;
+        --off-y: 62%;
+        --rotate: 0deg;
+        --scale: 1.5;
+        height: 140%;
+        filter: drop-shadow(8px 8px 0px rgba(112, 161, 255, 0.2));
+        animation: breathe 5s ease-in-out infinite;
+      }
+
+      /* --- 5. EISE (御千院绘世) --- */
+      .page-eise .char-img-business {
+        --off-x: 10%;
+        --off-y: 52%;
+        --rotate: 0deg;
+        --scale: 1.6;
+        height: 140%;
+        filter: drop-shadow(8px 8px 0px rgba(255, 122, 162, 0.2));
+        animation: breathe 5s ease-in-out infinite;
+      }
+      .page-eise .char-img-private {
+        --off-x: -3%;
+        --off-y: 19%;
+        --rotate: 0deg;
+        --scale: 1;
+        height: 140%;
+        filter: drop-shadow(8px 8px 0px rgba(255, 122, 162, 0.2));
+        animation: breathe 5s ease-in-out infinite;
+      }
+
       /* --- Other Character Styles --- */
       .page-erina .big-typo-bg {
         color: #e0e0e0;
@@ -2705,6 +2809,106 @@
         box-shadow: 4px 4px 0 #38ada9;
       }
 
+      .page-ruri {
+        background-color: #eef7ff;
+      }
+      .page-ruri .bg-grid {
+        background-size: 50px 50px;
+        opacity: 0.03;
+      }
+      .page-ruri .big-typo-bg {
+        color: #dcebff;
+      }
+      .page-ruri .typo-outline {
+        -webkit-text-stroke: 2px rgba(112, 161, 255, 0.25);
+        color: transparent;
+      }
+      .page-ruri .detail-top-nav {
+        background: var(--ruri-color);
+        color: #000;
+      }
+      .page-ruri .detail-time-strip {
+        color: #4d7cff;
+        opacity: 0.8;
+      }
+      .page-ruri .status-panel {
+        border-color: #70a1ff;
+        box-shadow: 6px 6px 0 #70a1ff;
+      }
+      .page-ruri .progress-box {
+        border-color: #70a1ff;
+      }
+      .page-ruri .trust-fill {
+        background: #70a1ff;
+      }
+      .page-ruri .love-fill {
+        background: var(--ruri-color);
+      }
+      .page-ruri .avatar-frame {
+        background: #fff;
+      }
+      .page-ruri .avatar-tag {
+        background: var(--ruri-color);
+        color: #000;
+      }
+      .page-ruri .name-en {
+        color: #4d7cff;
+      }
+      .page-ruri .player-bar {
+        border-color: #70a1ff;
+        box-shadow: 4px 4px 0 #70a1ff;
+      }
+
+      .page-eise {
+        background-color: #fff1f6;
+      }
+      .page-eise .bg-grid {
+        background-size: 50px 50px;
+        opacity: 0.03;
+      }
+      .page-eise .big-typo-bg {
+        color: #ffd9e8;
+      }
+      .page-eise .typo-outline {
+        -webkit-text-stroke: 2px rgba(255, 122, 162, 0.25);
+        color: transparent;
+      }
+      .page-eise .detail-top-nav {
+        background: var(--eise-color);
+        color: #000;
+      }
+      .page-eise .detail-time-strip {
+        color: #e85d8c;
+        opacity: 0.8;
+      }
+      .page-eise .status-panel {
+        border-color: #ff7aa2;
+        box-shadow: 6px 6px 0 #ff7aa2;
+      }
+      .page-eise .progress-box {
+        border-color: #ff7aa2;
+      }
+      .page-eise .trust-fill {
+        background: #ff7aa2;
+      }
+      .page-eise .love-fill {
+        background: #ffb3cb;
+      }
+      .page-eise .avatar-frame {
+        background: #fff;
+      }
+      .page-eise .avatar-tag {
+        background: var(--eise-color);
+        color: #000;
+      }
+      .page-eise .name-en {
+        color: #e85d8c;
+      }
+      .page-eise .player-bar {
+        border-color: #ff7aa2;
+        box-shadow: 4px 4px 0 #ff7aa2;
+      }
+
       .deco-note {
         position: absolute;
         z-index: 5;
@@ -2728,10 +2932,10 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         background: rgba(0, 0, 0, 0.6);
-        z-index: 2000;
+        z-index: 99999;
         display: none;
         justify-content: center;
         align-items: center;
@@ -2831,10 +3035,10 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         background: rgba(0, 0, 0, 0.6);
-        z-index: 2000;
+        z-index: 99999;
         display: none;
         justify-content: center;
         align-items: center;
@@ -2893,19 +3097,316 @@
         font-weight: 700;
         color: #2f3542;
       }
+      .total-badge.hidden {
+        display: none;
+      }
+
+      /* ========== APP WRAPPER & LIVE ROOM ========== */
+      :root {
+        --live-blue: #a2d2ff;
+        --live-pink: #ff7aae;
+        --live-purple: #c084fc;
+        --live-yellow: #ffd84d;
+      }
+      #tab-content-vtuber {
+        padding-bottom: 0 !important;
+      }
+      .live-room-container {
+        width: 100%;
+        height: 100%;
+        background-color: var(--bg-color);
+        display: flex;
+        flex-direction: column;
+        font-family: "Noto Sans SC", sans-serif;
+        color: var(--line-color);
+        position: relative;
+        overflow: hidden;
+      }
+      /* 直播间内部样式 */
+      .live-header {
+        background: #111;
+        color: #fff;
+        padding: 10px 15px;
+        border-bottom: 3px solid var(--line-color);
+        flex-shrink: 0;
+      }
+      .live-title-top {
+        display: flex;
+        align-items: center;
+        font-family: "Oswald", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .live-dot {
+        width: 10px;
+        height: 10px;
+        background-color: #ff3366;
+        border-radius: 50%;
+        margin-right: 8px;
+        transition: background-color 0.3s;
+      }
+      .live-dot.active {
+        background-color: #00ff88;
+        animation: blink-dot 1.5s infinite;
+      }
+      @keyframes blink-dot {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+      }
+      .channel-name {
+        letter-spacing: 1px;
+        color: #fff;
+      }
+      .live-title-main {
+        font-size: 18px;
+        font-weight: 900;
+        background: var(--live-pink);
+        color: #fff;
+        padding: 4px 8px;
+        display: inline-block;
+        transform: skewX(-5deg);
+        margin-bottom: 6px;
+        box-shadow: 2px 2px 0 #000;
+      }
+      .live-stats-bar {
+        display: flex;
+        gap: 12px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .live-badge {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+      
+      .live-stage {
+        flex: 1;
+        background: repeating-linear-gradient(45deg, #111, #111 10px, #1a1a1a 10px, #1a1a1a 20px);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 3px solid var(--line-color);
+        overflow: hidden;
+        min-height: 250px;
+      }
+      .live-stage::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: radial-gradient(circle at center, rgba(162,210,255,0.4) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .live-avatar-placeholder {
+        font-size: 120px;
+        color: var(--live-blue);
+        text-shadow: 0 0 20px var(--live-pink);
+        animation: float-avatar 3s ease-in-out infinite;
+      }
+      @keyframes float-avatar {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      .stage-status-tags {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .stage-tag {
+        background: #fff;
+        color: #111;
+        font-weight: 900;
+        font-size: 13px;
+        padding: 4px 10px;
+        border: 2px solid #111;
+        box-shadow: 2px 2px 0 #111;
+        transform: skewX(-5deg);
+        display: none;
+      }
+      .stage-tag.active {
+        display: inline-block;
+        background: var(--live-yellow);
+      }
+      .audio-wave {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        display: flex;
+        align-items: flex-end;
+        gap: 3px;
+        height: 30px;
+      }
+      .audio-wave .bar {
+        width: 6px;
+        background: var(--live-pink);
+        border: 1px solid #111;
+        animation: audio-bounce 1s infinite alternate;
+      }
+      .audio-wave .bar:nth-child(1) { height: 30%; animation-delay: 0s; }
+      .audio-wave .bar:nth-child(2) { height: 100%; animation-delay: 0.2s; }
+      .audio-wave .bar:nth-child(3) { height: 60%; animation-delay: 0.4s; }
+      .audio-wave .bar:nth-child(4) { height: 80%; animation-delay: 0.1s; }
+      .audio-wave .bar:nth-child(5) { height: 40%; animation-delay: 0.5s; }
+      @keyframes audio-bounce {
+        0% { transform: scaleY(0.3); }
+        100% { transform: scaleY(1); }
+      }
+      
+      .nso-window {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid #000;
+        box-shadow: 4px 4px 0 #000;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 10;
+      }
+      .live-chat-nso {
+        right: 15px;
+        bottom: 15px;
+        width: 190px;
+        height: 220px;
+      }
+      .nso-paint {
+        top: 15px;
+        left: 15px;
+        width: 150px;
+      }
+      .nso-schedule {
+        top: 170px;
+        left: 15px;
+        width: 140px;
+      }
+      .nso-music {
+        bottom: 15px;
+        left: 15px;
+        width: 170px;
+      }
+      .nso-titlebar {
+        background: var(--live-pink);
+        color: #000;
+        border-bottom: 2px solid #000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3px 6px;
+        font-family: "Oswald", sans-serif;
+        font-size: 12px;
+        font-weight: 900;
+        flex-shrink: 0;
+      }
+      .nso-controls {
+        display: flex;
+        gap: 4px;
+      }
+      .nso-btn {
+        width: 14px;
+        height: 14px;
+        border: 1.5px solid #000;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        font-weight: bold;
+        line-height: 1;
+        cursor: pointer;
+      }
+      .nso-content {
+        flex: 1;
+        padding: 8px;
+        overflow: hidden;
+        position: relative;
+      }
+      .chat-track {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        animation: chat-scroll 20s linear infinite;
+      }
+      .chat-track:hover {
+        animation-play-state: paused;
+      }
+      @keyframes chat-scroll {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(calc(-50% - 3px)); }
+      }
+      .chat-msg {
+        font-size: 11px;
+        font-weight: 700;
+        background: transparent;
+        padding: 2px 4px;
+        border: 1.5px solid transparent;
+        animation: chat-slide-up 0.3s ease-out;
+        color: #000;
+      }
+      .chat-msg.highlight {
+        background: var(--live-pink);
+        color: #fff;
+        border-color: #000;
+        box-shadow: 2px 2px 0 #000;
+      }
+      .chat-msg.highlight .chat-user {
+        color: #fff;
+        text-shadow: 1px 1px 0 #000;
+      }
+      .chat-user {
+        color: #ff3366;
+        margin-right: 4px;
+        font-weight: 900;
+      }
+      @keyframes chat-slide-up {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      .live-footer {
+        background: #111;
+        padding: 10px 15px 85px 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        border-top: 3px solid var(--line-color);
+        flex-shrink: 0;
+      }
+      .footer-tags {
+        display: flex;
+        gap: 6px;
+      }
+      .footer-tag {
+        font-size: 12px;
+        font-weight: 900;
+        color: #fff;
+        background: rgba(255,255,255,0.2);
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+      .room-intro {
+        color: #fff;
+        font-size: 13px;
+        line-height: 1.4;
+        opacity: 0.8;
+        padding-top: 5px;
+      }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
   </head>
   <body>
     <div class="page-container">
-      <!-- Debug Indicator -->
-      <div id="debug-indicator" class="debug-indicator">
-        DEBUG MODE: USING MOCK DATA
-      </div>
-      <div class="bg-grid"></div>
+        <!-- Debug Indicator -->
+        <div id="debug-indicator" class="debug-indicator">
+          DEBUG MODE: USING MOCK DATA
+        </div>
+        <div class="bg-grid"></div>
 
-      <!-- GLOBAL HEADER (Visible for Tabs 1, 2, 3, 4) -->
+        <!-- GLOBAL HEADER (Visible for Tabs 1, 2, 3, 4) -->
       <div class="header-group">
         <header class="sys-header">
           <div><i class="fas fa-database"></i> 新宿拯救计划</div>
@@ -3162,7 +3663,7 @@
           <div class="sticker avatar-card">
             <div class="avatar-frame">
               <img
-                src="https://esvigan.cn/0301huilinai.webp"
+                src="https://esvigan.cn/绘里奈头像new.webp"
                 class="avatar-img"
                 alt="如月绘里奈头像"
               />
@@ -3316,7 +3817,7 @@
           <div class="sticker avatar-card">
             <div class="avatar-frame">
               <img
-                src="https://esvigan.cn/0301linjiang.webp"
+                src="https://esvigan.cn/林绛头像new.webp"
                 class="avatar-img"
                 alt="月宫绾音头像"
               />
@@ -3528,6 +4029,298 @@
           </div>
         </div>
 
+        <div class="page-detail page-ruri" id="page-ruri">
+          <div class="big-typo-bg">
+            <span class="typo-outline">RURI</span
+            ><span class="typo-tsukimiya">Gosenin</span>
+          </div>
+          <div class="detail-time-strip" id="music-strip-ruri">
+            <span>♪ NOW PLAYING</span><span class="track-name">STOPPED</span
+            ><span>♪</span>
+          </div>
+          <div class="detail-top-nav">
+            <i
+              class="fas fa-chevron-left nav-back"
+              onclick="closePageDetail('ruri')"
+            ></i>
+            <div class="nav-title">TomorrowsGirlfriend</div>
+            <i class="fas fa-ellipsis-h"></i>
+          </div>
+          <div class="char-container">
+            <img
+              src="https://placehold.co/400x600"
+              class="char-img char-img-business active"
+            />
+            <img
+              src="https://placehold.co/400x600"
+              class="char-img char-img-private"
+            />
+          </div>
+          <div class="status-wrapper">
+            <div class="status-panel">
+              <div class="stat-item">
+                <div class="stat-head">
+                  <span>好感度</span>
+                  <span id="ruri-detail-love-text">0/400</span>
+                </div>
+                <div class="progress-box">
+                  <div
+                    class="progress-fill love-fill"
+                    id="ruri-detail-love-bar"
+                  ></div>
+                </div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-head trust-head">
+                  <span>信赖度</span>
+                  <span id="ruri-detail-trust-text">0/400</span>
+                </div>
+                <div class="progress-box">
+                  <div
+                    class="progress-fill trust-fill"
+                    id="ruri-detail-trust-bar"
+                  ></div>
+                </div>
+              </div>
+              <div class="icon-row">
+                <div class="icon-btn">
+                  <div class="icon-circle" id="ruri-contact-icon">
+                    <i class="fas fa-lock"></i>
+                  </div>
+                  <span id="ruri-contact-text">未交换</span>
+                </div>
+                <div class="icon-btn">
+                  <div class="icon-circle" id="ruri-love-icon">
+                    <i class="fas fa-heart-broken"></i>
+                  </div>
+                  <span id="ruri-love-status-text">单身</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sticker stage-box">
+            <div class="stage-label">CURRENT STATUS</div>
+            <div class="stage-val">
+              <i class="fas fa-star"></i>
+              <span id="ruri-stage-text">...</span>
+            </div>
+          </div>
+          <div class="sticker switch-box" onclick="toggleMode('ruri')">
+            <div class="switch-row">
+              <div class="toggle" id="ruri-toggle-private">
+                <div class="toggle-dot"></div>
+              </div>
+              <span>私生活 OFF</span>
+            </div>
+            <div class="switch-row">
+              <div class="toggle on" id="ruri-toggle-business">
+                <div class="toggle-dot"></div>
+              </div>
+              <span>营业中 ON</span>
+            </div>
+          </div>
+          <div class="sticker avatar-card">
+            <div class="avatar-frame">
+              <img
+                src="https://esvigan.cn/琉璃头像.webp"
+                class="avatar-img"
+                alt="琉璃头像"
+              />
+            </div>
+            <div class="avatar-tag" id="ruri-name-tag"># ID PHOTO</div>
+          </div>
+          <div class="tags-group">
+            <div class="tag-item"># 大小姐</div>
+            <div class="tag-item"># 黑道千金</div>
+          </div>
+          <div
+            class="pregnancy-badge"
+            id="ruri-pregnancy-badge"
+            onclick="this.classList.toggle('flipped')"
+          >
+            <div class="pregnancy-inner">
+              <div class="pregnancy-front">
+                <i class="fas fa-baby pregnancy-icon"></i>
+                <span class="pregnancy-text">已受孕</span>
+              </div>
+              <div class="pregnancy-back">
+                <i class="fas fa-calendar-alt pregnancy-icon"></i>
+                <span class="pregnancy-text" id="ruri-pregnancy-date"
+                  >2026-02-02</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="bottom-area">
+            <div class="name-wrapper">
+              <div class="name-en">RURI</div>
+              <div class="name-cn-tag">御千院琉璃</div>
+            </div>
+            <div class="disclaimer-text glitch-text"></div>
+            <div
+              class="player-bar"
+              onclick="window.musicManager.toggle('ruri')"
+            >
+              <i class="fas fa-play player-play-icon" id="btn-ruri"></i>
+              <div
+                class="player-progress-bg"
+                onclick="
+                  event.stopPropagation();
+                  window.musicManager.seek(event, 'ruri');
+                "
+              >
+                <div class="player-progress-fill" id="bar-ruri"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-detail page-eise" id="page-eise">
+          <div class="big-typo-bg">
+            <span class="typo-outline">EISE</span
+            ><span class="typo-tsukimiya">Gosenin</span>
+          </div>
+          <div class="detail-time-strip" id="music-strip-eise">
+            <span>♪ NOW PLAYING</span><span class="track-name">STOPPED</span
+            ><span>♪</span>
+          </div>
+          <div class="detail-top-nav">
+            <i
+              class="fas fa-chevron-left nav-back"
+              onclick="closePageDetail('eise')"
+            ></i>
+            <div class="nav-title">TomorrowsGirlfriend</div>
+            <i class="fas fa-ellipsis-h"></i>
+          </div>
+          <div class="char-container">
+            <img
+              src="https://placehold.co/400x600"
+              class="char-img char-img-business active"
+            />
+            <img
+              src="https://placehold.co/400x600"
+              class="char-img char-img-private"
+            />
+          </div>
+          <div class="status-wrapper">
+            <div class="status-panel">
+              <div class="stat-item">
+                <div class="stat-head">
+                  <span>好感度</span>
+                  <span id="eise-detail-love-text">0/400</span>
+                </div>
+                <div class="progress-box">
+                  <div
+                    class="progress-fill love-fill"
+                    id="eise-detail-love-bar"
+                  ></div>
+                </div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-head trust-head">
+                  <span>信赖度</span>
+                  <span id="eise-detail-trust-text">0/400</span>
+                </div>
+                <div class="progress-box">
+                  <div
+                    class="progress-fill trust-fill"
+                    id="eise-detail-trust-bar"
+                  ></div>
+                </div>
+              </div>
+              <div class="icon-row">
+                <div class="icon-btn">
+                  <div class="icon-circle" id="eise-contact-icon">
+                    <i class="fas fa-lock"></i>
+                  </div>
+                  <span id="eise-contact-text">未交换</span>
+                </div>
+                <div class="icon-btn">
+                  <div class="icon-circle" id="eise-love-icon">
+                    <i class="fas fa-heart-broken"></i>
+                  </div>
+                  <span id="eise-love-status-text">单身</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sticker stage-box">
+            <div class="stage-label">CURRENT STATUS</div>
+            <div class="stage-val">
+              <i class="fas fa-music"></i>
+              <span id="eise-stage-text">...</span>
+            </div>
+          </div>
+          <div class="sticker switch-box" onclick="toggleMode('eise')">
+            <div class="switch-row">
+              <div class="toggle" id="eise-toggle-private">
+                <div class="toggle-dot"></div>
+              </div>
+              <span>私生活 OFF</span>
+            </div>
+            <div class="switch-row">
+              <div class="toggle on" id="eise-toggle-business">
+                <div class="toggle-dot"></div>
+              </div>
+              <span>营业中 ON</span>
+            </div>
+          </div>
+          <div class="sticker avatar-card">
+            <div class="avatar-frame">
+              <img
+                src="https://esvigan.cn/绘世头像.webp"
+                class="avatar-img"
+                alt="绘世头像"
+              />
+            </div>
+            <div class="avatar-tag" id="eise-name-tag"># ID PHOTO</div>
+          </div>
+          <div class="tags-group">
+            <div class="tag-item"># 地下偶像</div>
+            <div class="tag-item"># 黑道千金</div>
+          </div>
+          <div
+            class="pregnancy-badge"
+            id="eise-pregnancy-badge"
+            onclick="this.classList.toggle('flipped')"
+          >
+            <div class="pregnancy-inner">
+              <div class="pregnancy-front">
+                <i class="fas fa-baby pregnancy-icon"></i>
+                <span class="pregnancy-text">已受孕</span>
+              </div>
+              <div class="pregnancy-back">
+                <i class="fas fa-calendar-alt pregnancy-icon"></i>
+                <span class="pregnancy-text" id="eise-pregnancy-date"
+                  >2026-02-02</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="bottom-area">
+            <div class="name-wrapper">
+              <div class="name-en">EISE</div>
+              <div class="name-cn-tag">御千院绘世</div>
+            </div>
+            <div class="disclaimer-text glitch-text"></div>
+            <div
+              class="player-bar"
+              onclick="window.musicManager.toggle('eise')"
+            >
+              <i class="fas fa-play player-play-icon" id="btn-eise"></i>
+              <div
+                class="player-progress-bg"
+                onclick="
+                  event.stopPropagation();
+                  window.musicManager.seek(event, 'eise');
+                "
+              >
+                <div class="player-progress-fill" id="bar-eise"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- ========== OVERLAYS: RENT DETAILS (INSIDE) ========== -->
         <div class="rent-profile-overlay" id="rent-profile-overlay">
           <div class="rent-top-nav">
@@ -3654,49 +4447,7 @@
           </div>
         </div>
 
-        <!-- NEWS MODAL -->
-        <div
-          class="news-modal-overlay"
-          id="news-modal"
-          onclick="$(this).removeClass('active')"
-        >
-          <div class="news-card" onclick="event.stopPropagation()">
-            <div class="news-header">
-              <div>NEWS REPORT</div>
-              <div
-                class="news-close-btn"
-                onclick="$('#news-modal').removeClass('active')"
-              >
-                <i class="fas fa-times"></i>
-              </div>
-            </div>
-            <div class="news-body" id="news-list-container">
-              <!-- News items injected here -->
-            </div>
-          </div>
-        </div>
-
-        <!-- ========== OVERLAYS: GROUP MEMBERS ========== -->
-        <div
-          class="group-members-modal-overlay"
-          id="group-members-modal"
-          onclick="$(this).removeClass('active')"
-        >
-          <div class="group-card" onclick="event.stopPropagation()">
-            <div class="group-header">
-              <span><i class="fas fa-users"></i> 群组成员</span>
-              <div
-                class="news-close-btn"
-                onclick="$('#group-members-modal').removeClass('active')"
-              >
-                <i class="fas fa-times"></i>
-              </div>
-            </div>
-            <div class="group-body" id="group-members-list">
-              <!-- Members injected here -->
-            </div>
-          </div>
-        </div>
+        <!-- NEWS MODAL: 移到 page-container 外以避免 overflow:hidden + transform 裁剪 -->
         <!-- ========== TAB 5: GALLERY ========== -->
         <style>
           .gallery-filter-chip {
@@ -3885,9 +4636,9 @@
               "
             >
               <img
-                src="../图片素材/绘里奈头像 .webp"
+                src="https://esvigan.cn/绘里奈横图.webp"
                 style="width: 100%; height: 100%; object-fit: cover"
-                onerror="this.src = 'https://esvigan.cn/绘里奈头像 .webp'"
+                onerror="this.src = 'https://esvigan.cn/绘里奈横图.webp'"
               />
               <div
                 style="
@@ -3925,9 +4676,9 @@
               "
             >
               <img
-                src="../图片素材/林绛头像 .webp"
+                src="https://esvigan.cn/绾音横图.webp"
                 style="width: 100%; height: 100%; object-fit: cover"
-                onerror="this.src = 'https://esvigan.cn/林绛头像 .webp'"
+                onerror="this.src = 'https://esvigan.cn/绾音横图.webp'"
               />
               <div
                 style="
@@ -3965,9 +4716,9 @@
               "
             >
               <img
-                src="https://esvigan.cn/由美头像.webp"
+                src="https://esvigan.cn/由美横图.webp"
                 style="width: 100%; height: 100%; object-fit: cover"
-                onerror="this.src = 'https://esvigan.cn/由美内.webp'"
+                onerror="this.src = 'https://esvigan.cn/由美横图.webp'"
               />
               <div
                 style="
@@ -3987,6 +4738,84 @@
                 "
               >
                 安藤由美
+              </div>
+            </div>
+            <!-- RURI Card -->
+            <div
+              class="cg-char-card"
+              onclick="openCgSubPage('ruri')"
+              style="
+                position: relative;
+                border-radius: 12px;
+                overflow: hidden;
+                aspect-ratio: 16 / 9;
+                cursor: pointer;
+                border: 2px solid #1a1a1a;
+                box-shadow: 4px 4px 0 #1a1a1a;
+                transition: transform 0.2s;
+              "
+            >
+              <img
+                src="https://esvigan.cn/琉璃横图.webp"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+              <div
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  left: 0;
+                  width: 100%;
+                  background: linear-gradient(
+                    to top,
+                    rgba(0, 0, 0, 0.8),
+                    transparent
+                  );
+                  padding: 20px 10px 10px 10px;
+                  color: #fff;
+                  font-weight: bold;
+                  text-shadow: 1px 1px 2px #000;
+                "
+              >
+                御千院琉璃
+              </div>
+            </div>
+            <!-- EISE Card -->
+            <div
+              class="cg-char-card"
+              onclick="openCgSubPage('eise')"
+              style="
+                position: relative;
+                border-radius: 12px;
+                overflow: hidden;
+                aspect-ratio: 16 / 9;
+                cursor: pointer;
+                border: 2px solid #1a1a1a;
+                box-shadow: 4px 4px 0 #1a1a1a;
+                transition: transform 0.2s;
+              "
+            >
+              <img
+                src="https://esvigan.cn/绘世横图.webp"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+              <div
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  left: 0;
+                  width: 100%;
+                  background: linear-gradient(
+                    to top,
+                    rgba(0, 0, 0, 0.8),
+                    transparent
+                  );
+                  padding: 20px 10px 10px 10px;
+                  color: #fff;
+                  font-weight: bold;
+                  text-shadow: 1px 1px 2px #000;
+                "
+              >
+                御千院绘世
               </div>
             </div>
           </div>
@@ -4078,6 +4907,265 @@
           />
           <div class="cg-fs-close">CLOSE</div>
         </div>
+        <!-- TAB 5: VTUBER -->
+        <div id="tab-content-vtuber" class="tab-content">
+          <!-- ==================== 琉璃直播间（由纱多） ==================== -->
+          <div class="live-room-container" id="yusata-live-room">
+            <div class="live-header">
+              <div class="live-title-top">
+                <span class="live-dot" id="yusata-live-dot"></span>
+                <span id="yusata-live-status" style="font-size:10px;">未开播</span>
+                <span class="channel-name" style="margin-left: 10px;">YUSATA CHANNEL</span>
+              </div>
+              <div class="live-title-main" id="yusata-live-title">—</div>
+            </div>
+            
+            <div class="live-stage" style="background: none; z-index: 0;">
+              <!-- 背景层（默认隐藏，开播后显示） -->
+              <img id="yusata-bg" src="https://esvigan.cn/直播背景.webp" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1; pointer-events: none; display: none;">
+              
+              <video id="yusata-live2d" autoplay muted playsinline style="width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none; transform: scale(1.5) translateY(18%); transition: transform 2.4s cubic-bezier(0.4, 0, 0.2, 1); display: none;">
+                <source id="yusata-live2d-src" src="https://esvigan.cn/由纱多生气.webm" type="video/webm">
+              </video>
+              
+              <!-- 前景层（默认隐藏，开播后显示） -->
+              <img id="yusata-fg" src="https://esvigan.cn/直播前景.webp" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 2px; left: 0; z-index: 1; pointer-events: none; display: none;">
+              <script>
+                // ============================================================
+                // 直播间动态数据驱动系统
+                // 由 SillyTavern 扩展调用 window.updateYusataLive(data) 来更新
+                // ============================================================
+                var YUSATA_VIDEO_MAP = {
+                  '普通':     'https://esvigan.cn/由纱多普通.webm',
+                  '开心':     'https://esvigan.cn/由纱多开心.webm',
+                  '生气':     'https://esvigan.cn/由纱多生气.webm',
+                  '心不在焉': 'https://esvigan.cn/由纱多心不在焉.webm',
+                  '游戏':     'https://esvigan.cn/由纱多游戏.webm'
+                };
+
+                window.updateYusataLive = function(data) {
+                  // data = { 直播状态, 直播标题, 标签, 直播内容表, 弹幕列表 }
+                  const isLive = data.直播状态 && data.直播状态 !== '未开播';
+
+                  // --- 开播状态指示 ---
+                  const dot = document.getElementById('yusata-live-dot');
+                  const statusEl = document.getElementById('yusata-live-status');
+                  if (dot) { dot.className = isLive ? 'live-dot active' : 'live-dot'; }
+                  if (statusEl) { statusEl.textContent = isLive ? '直播中' : '未开播'; }
+
+                  // --- 直播标题（关播时保持上次内容）---
+                  const titleEl = document.getElementById('yusata-live-title');
+                  if (titleEl && isLive) { titleEl.textContent = data.直播标题 || '—'; }
+
+                  // --- 视频源切换 ---
+                  const live2d = document.getElementById('yusata-live2d');
+                  const srcEl = document.getElementById('yusata-live2d-src');
+                  if (live2d && srcEl && isLive) {
+                    const newSrc = YUSATA_VIDEO_MAP[data.直播状态];
+                    // 修复：读取属性可以避免浏览器对 src 的 URL 编码导致的字符串不匹配死循环
+                    if (newSrc && srcEl.getAttribute('src') !== newSrc) {
+                      srcEl.setAttribute('src', newSrc);
+                      live2d.load();
+                      live2d.play().catch(() => {});
+                    }
+                  }
+
+                  // --- Schedule 直播内容表（始终显示，包含上次直播内容）---
+                  const scheduleEl = document.getElementById('yusata-schedule-content');
+                  if (scheduleEl) {
+                    const schedStr = (data.直播内容表 ? data.直播内容表.join('|') : '') + '|' + isLive;
+                    if (scheduleEl.getAttribute('data-cache') !== schedStr) {
+                      scheduleEl.setAttribute('data-cache', schedStr);
+                      if (data.直播内容表 && data.直播内容表.length > 0) {
+                        const prefix = isLive ? '♡' : '◎';
+                        scheduleEl.innerHTML = data.直播内容表.map(item => `${prefix} ${item}<br>`).join('');
+                      } else {
+                        scheduleEl.innerHTML = '（暂无直播记录）';
+                      }
+                    }
+                  }
+
+                  // --- 弹幕列表（始终显示，包含上次直播弹幕）---
+                  const chatTrack = document.getElementById('yusata-chat-track');
+                  if (chatTrack && data.弹幕列表 && data.弹幕列表.length > 0) {
+                    const chatStr = data.弹幕列表.join('|');
+                    if (chatTrack.getAttribute('data-cache') !== chatStr) {
+                      chatTrack.setAttribute('data-cache', chatStr);
+                      const htmlStr = data.弹幕列表.map((msg, i) => {
+                        const cls = i % 3 === 2 ? 'chat-msg highlight' : 'chat-msg';
+                        const userNames = ['@普通路人', '@老粉丝', '@发电机', '@弹幕姬', '@吃瓜人', '@应援团', '@粉丝A', '@深夜守护者'];
+                        const user = userNames[i % userNames.length];
+                        return `<div class="${cls}"><span class="chat-user">${user}:</span> ${msg}</div>`;
+                      }).join('');
+                      chatTrack.innerHTML = htmlStr + htmlStr;
+                    }
+                  }
+
+                  // --- 标签（始终显示上次标签）---
+                  const tagsEl = document.getElementById('yusata-footer-tags');
+                  if (tagsEl && data.标签) {
+                    const tags = data.标签.split('#').filter(t => t.trim());
+                    tagsEl.innerHTML = tags.map(t => `<span class="footer-tag">#${t.trim()}</span>`).join('');
+                  }
+
+                  // --- 只控制直播画面区域的显隐，其他UI结构保持 ---
+                  const bgEl = document.getElementById('yusata-bg');
+                  const fgEl = document.getElementById('yusata-fg');
+                  const videoEl = document.getElementById('yusata-live2d');
+                  const waveEl = document.querySelector('.audio-wave');
+                  var offlineEl = document.getElementById('yusata-offline-placeholder');
+
+                  if (isLive) {
+                    // 开播：显示画面，隐藏占位符
+                    if (bgEl) bgEl.style.display = '';
+                    if (fgEl) fgEl.style.display = '';
+                    if (videoEl) videoEl.style.display = '';
+                    if (waveEl) waveEl.style.display = '';
+                    if (offlineEl) offlineEl.style.display = 'none';
+                  } else {
+                    // 关播：隐藏画面，显示「未开播」占位符
+                    if (bgEl) bgEl.style.display = 'none';
+                    if (fgEl) fgEl.style.display = 'none';
+                    if (videoEl) videoEl.style.display = 'none';
+                    if (waveEl) waveEl.style.display = 'none';
+                    if (!offlineEl) {
+                      offlineEl = document.createElement('div');
+                      offlineEl.id = 'yusata-offline-placeholder';
+                      offlineEl.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0a0a0a;color:#555;font-family:monospace;z-index:2;';
+                      offlineEl.innerHTML = '<div style="font-size:28px;margin-bottom:8px;">📴</div><div style="font-size:11px;letter-spacing:2px;">OFFLINE</div><div style="font-size:9px;margin-top:6px;color:#333;">YUSATA CHANNEL</div>';
+                      const stage = document.querySelector('#yusata-live-room .live-stage');
+                      if (stage) stage.appendChild(offlineEl);
+                    } else {
+                      offlineEl.style.display = 'flex';
+                    }
+                  }
+                };
+
+                // --- 探头缩放循环逻辑（极致简化版） ---
+                document.addEventListener('DOMContentLoaded', () => {
+                  const live2d = document.getElementById('yusata-live2d');
+                  if (live2d) {
+                    const baseTransform = 'scale(1.5) translateY(18%)';
+                    const zoomTransform = 'scale(2.2) translateY(25%)';
+                    
+                    // 保持全局的平滑过渡
+                    live2d.style.transition = 'transform 2.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                    live2d.style.opacity = '1';
+                    
+                    // 初始化基础大小
+                    live2d.style.transform = baseTransform;
+
+                    // 记录是否已经触发了放大
+                    let hasStartedZoom = false;
+
+                    live2d.addEventListener('timeupdate', () => {
+                      if (live2d.duration && !hasStartedZoom) {
+                        const remain = live2d.duration - live2d.currentTime;
+                        // 当剩下不到 0.8s 时，精确安排在最后 0.5s 时触发放大
+                        if (remain < 0.8) {
+                          hasStartedZoom = true;
+                          const delay = Math.max(0, remain - 0.5) * 1000;
+                          setTimeout(() => {
+                            live2d.style.transform = zoomTransform;
+                          }, delay);
+                        }
+                      }
+                    });
+
+                    live2d.addEventListener('ended', () => {
+                      // 视频结束跳回开头（此时已经放大了 0.5 秒，形成了冲刺感）
+                      live2d.currentTime = 0;
+                      live2d.play();
+                      
+                      // 放大动画总共 2.4 秒，在 0.5 秒前已经开始。
+                      // 所以在新循环的 1.9 秒后，放大完成，我们让它自动平滑缩小回去。
+                      setTimeout(() => {
+                        live2d.style.transform = baseTransform; 
+                        hasStartedZoom = false; // 重置状态迎接下一轮
+                      }, 1900);
+                    });
+                  }
+
+                  // 页面加载时默认以「未开播」状态初始化，隐藏所有直播内容
+                  if (window.updateYusataLive) {
+                    window.updateYusataLive({ 直播状态: '未开播' });
+                  }
+                });
+              </script>
+              <div class="audio-wave">
+                <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              </div>
+              
+
+
+              <!-- NSO: Schedule Window -->
+              <div class="nso-window nso-schedule" id="nso-schedule-box" style="position: absolute; top: 10px; right: 10px; z-index: 10;">
+                <div class="nso-titlebar" style="background: #a2d2ff;">
+                  <div class="nso-title"><i class="fas fa-clipboard-list"></i> SCHEDULE</div>
+                  <div class="nso-controls">
+                    <div class="nso-btn">_</div><div class="nso-btn">□</div><div class="nso-btn">×</div>
+                  </div>
+                </div>
+                <div class="nso-content" id="yusata-schedule-content" style="padding: 6px; font-size: 10px; font-weight: bold; line-height: 1.6; color: #333; background: #fff0f5;">
+                  （未开播）
+                </div>
+              </div>
+
+              <!-- NSO: Music Player Window -->
+              <div class="nso-window nso-music" id="nso-music-box">
+                <div class="nso-titlebar" style="background: #e6e6fa;">
+                  <div class="nso-title"><i class="fas fa-music"></i> OVERDOSE</div>
+                  <div class="nso-controls">
+                    <div class="nso-btn">_</div><div class="nso-btn">□</div><div class="nso-btn">×</div>
+                  </div>
+                </div>
+                <div class="nso-content" style="padding: 6px; background: #fff;">
+                  <div style="font-size: 9px; font-weight: 900; margin-bottom: 4px; display: flex; justify-content: space-between;">
+                    <span>▶ INTERNET OVERDOSE</span>
+                    <span>00:59 / 03:30</span>
+                  </div>
+                  <div style="width: 100%; height: 4px; background: #ddd; border: 1px solid #000; position: relative; margin-bottom: 6px;">
+                    <div style="position: absolute; left: 0; top: 0; height: 100%; width: 30%; background: #ff3366;"></div>
+                  </div>
+                  <div style="display: flex; justify-content: space-around; font-size: 12px; margin-top: 4px;">
+                    <i class="fas fa-step-backward" style="cursor: pointer;"></i>
+                    <i class="fas fa-play" style="color: var(--live-pink); cursor: pointer;"></i>
+                    <i class="fas fa-step-forward" style="cursor: pointer;"></i>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- NSO 风格弹幕视窗 -->
+              <div class="nso-window live-chat-nso" id="live-chat-box">
+                <div class="nso-titlebar">
+                  <div class="nso-title"><i class="fas fa-heart"></i> COMMENTS</div>
+                  <div class="nso-controls">
+                    <div class="nso-btn">_</div>
+                    <div class="nso-btn">□</div>
+                    <div class="nso-btn">×</div>
+                  </div>
+                </div>
+                <div class="nso-content">
+                  <div class="chat-track" id="yusata-chat-track">
+                    <div class="chat-msg"><span class="chat-user">@粉丝A:</span> 等待开播中...</div>
+                    <div class="chat-msg"><span class="chat-user">@深夜守护者:</span> 由纱多今天开吗</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="live-footer">
+              <div class="footer-tags" id="yusata-footer-tags">
+                <span class="footer-tag">#由纱多</span>
+                <span class="footer-tag">#YUSATA CHANNEL</span>
+              </div>
+              <div class="room-intro">
+                「琉璃的日常观察室」——无常识黑客的锐评时间。不设防闲聊，随时下播。
+              </div>
+            </div>
+          </div>
+          <!-- 结束 直播间 -->
+        </div>
       </div>
       <!-- End Content Area -->
 
@@ -4101,6 +5189,9 @@
           <i class="fas fa-images"></i>
           <div id="nav-red-dot-gallery" class="nav-dot"></div>
         </div>
+        <div class="nav-btn" onclick="switchMainTab(5)" id="nav-btn-5">
+          <i class="fas fa-video"></i>
+        </div>
       </nav>
 
       <script>
@@ -4118,6 +5209,14 @@
             yumi: {
               url: "https://pub-4f69b26e6f244cc1a03edb0aa827b72b.r2.dev/%E3%83%A8%E3%83%AB%E3%82%B7%E3%82%AB%20-%20%E3%82%A2%E3%83%AB%E3%82%B8%E3%83%A3%E3%83%BC%E3%83%8E%E3%83%B3.mp3",
               title: "♫ アルジャーノン",
+            },
+            ruri: {
+              url: "https://example.com/audio.mp3",
+              title: "♫ (No Track)",
+            },
+            eise: {
+              url: "https://example.com/audio.mp3",
+              title: "♫ (No Track)",
             },
           };
 
@@ -4177,7 +5276,7 @@
             }
 
             updateTitle(title) {
-              ["erina", "AYANE", "yumi"].forEach((id) => {
+              ["erina", "AYANE", "yumi", "ruri", "eise"].forEach((id) => {
                 const strip = document.getElementById(`music-strip-${id}`);
                 if (strip) {
                   const nameSpan = strip.querySelector(".track-name");
@@ -4205,7 +5304,7 @@
                 (this.audio.currentTime / this.audio.duration) * 100 || 0;
 
               // Update all play buttons
-              ["erina", "AYANE", "yumi"].forEach((id) => {
+              ["erina", "AYANE", "yumi", "ruri", "eise"].forEach((id) => {
                 const btn = document.getElementById(`btn-${id}`);
                 const bar = document.getElementById(`bar-${id}`);
 
@@ -4277,7 +5376,7 @@
 
           // --- HOTFIX: OVERWRITE METHODS TO USE CURRENT CONTEXT ---
           player.updateTitle = function (title) {
-            ["erina", "AYANE", "yumi"].forEach((id) => {
+            ["erina", "AYANE", "yumi", "ruri", "eise"].forEach((id) => {
               const strip = document.getElementById(`music-strip-${id}`);
               if (strip) {
                 const nameSpan = strip.querySelector(".track-name");
@@ -4317,7 +5416,7 @@
             const progress =
               (this.audio.currentTime / this.audio.duration) * 100 || 0;
 
-            ["erina", "AYANE", "yumi"].forEach((id) => {
+            ["erina", "AYANE", "yumi", "ruri", "eise"].forEach((id) => {
               const btn = document.getElementById(`btn-${id}`);
               const bar = document.getElementById(`bar-${id}`);
 
@@ -4444,15 +5543,59 @@
                 评论列表: { 宅男A: "由美酱最可爱了！" },
               },
             },
-            消息记录: {
-              私聊: {
-                "2026-02-02 14:00_01": {
-                  发送者: "松本由美",
-                  文字内容: "您好，我是由美！期待和您的见面哦😊",
-                  类型: "文字消息",
+          },
+          御千院琉璃: {
+            好感度: 380,
+            信赖度: 360,
+            拥有联系方式: true,
+            关系阶段: "荧幕共鸣期",
+            恋爱状态: true,
+            心情: "兴奋",
+            $表心声: "今晚的直播，我想让你坐在最前排。",
+            $里心声: "明明隔着屏幕，可我还是会在意你有没有一直看着我。",
+            受孕状态: false,
+            受孕日期: "",
+            $社交动态: {
+              "2026-02-02 20:30": {
+                动态内容: "今晚 21:00 开播，来听我唱新练的歌吧♪",
+                发布地点: "RURI CHANNEL",
+                评论数量: 3,
+                评论列表: {
+                  粉丝A: "已经提前蹲好了！",
+                  粉丝B: "今天也要闪闪发光！",
+                  user: "会准时到。",
                 },
               },
-              群聊: {},
+            },
+            $直播信息: {
+              直播状态: "普通",
+              直播标题: "【杂谈/游戏】和大家一起度过愉快的夜晚！",
+              标签: "杂谈#YUSATA#直播",
+              直播内容表: ["闲聊杂谈", "新游戏试玩", "感谢打赏"],
+              弹幕列表: ["晚上好！", "由纱多贴贴", "前排", "来了来了", "草", "主播今天真可爱"]
+            },
+          },
+          御千院绘世: {
+            好感度: 365,
+            信赖度: 340,
+            拥有联系方式: true,
+            关系阶段: "试探接触期",
+            恋爱状态: true,
+            心情: "烦躁",
+            $表心声: "别站太远，听不清我的吉他。",
+            $里心声: "如果你真的能听懂我的歌，也许我会愿意让你更靠近一点。",
+            受孕状态: false,
+            受孕日期: "",
+            $社交动态: {
+              "2026-02-02 18:10": {
+                动态内容: "新歌 Demo 录到第三版了，还是差一点意思。",
+                发布地点: "地下排练室",
+                评论数量: 2,
+                评论列表: {
+                  乐迷A: "已经很好听了！",
+                  user: "我想听完整版。",
+                },
+              },
             },
           },
           消息记录: {
@@ -4736,11 +5879,11 @@
             url: "https://esvigan.cn/林绛-学习下厨.webp",
           },
           {
-            id: "林绛-学习配音2",
+            id: "林绛-学校配音2",
             char: "ayane",
             name: "月宫绾音",
-            title: "学习配音2",
-            url: "https://esvigan.cn/林绛-学习配音2.webp",
+            title: "学校配音2",
+            url: "https://esvigan.cn/林绛-学校配音2.webp",
           },
           {
             id: "林绛-一人生日",
@@ -5142,6 +6285,419 @@
             url: "https://esvigan.cn/绘里奈-KTV.webp",
           },
           {
+            id: "琉璃-大小姐的茶道",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "大小姐的茶道",
+            url: "https://esvigan.cn/琉璃-大小姐的茶道.webp",
+          },
+          {
+            id: "琉璃-弹钢琴",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "弹钢琴",
+            url: "https://esvigan.cn/琉璃-弹钢琴.webp",
+          },
+          {
+            id: "琉璃-放课后的邀约",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "放课后的邀约",
+            url: "https://esvigan.cn/琉璃-放课后的邀约.webp",
+          },
+          {
+            id: "琉璃-放课后的邀约2",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "放课后的邀约2",
+            url: "https://esvigan.cn/琉璃-放课后的邀约2.webp",
+          },
+          {
+            id: "琉璃-豪华餐厅约会",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "豪华餐厅约会",
+            url: "https://esvigan.cn/琉璃-豪华餐厅约会.webp",
+          },
+          {
+            id: "由纱多-开怀大笑",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "开怀大笑",
+            url: "https://esvigan.cn/由纱多-开怀大笑.webp",
+          },
+          {
+            id: "琉璃-看自己的直播回放",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "看自己的直播回放",
+            url: "https://esvigan.cn/琉璃-看自己的直播回放.webp",
+          },
+          {
+            id: "琉璃-离家出走1",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "离家出走1",
+            url: "https://esvigan.cn/琉璃-离家出走1.webp",
+          },
+          {
+            id: "琉璃-离家出走2",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "离家出走2",
+            url: "https://esvigan.cn/琉璃-离家出走2.webp",
+          },
+          {
+            id: "琉璃-练习做鬼脸",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "练习做鬼脸",
+            url: "https://esvigan.cn/琉璃-练习做鬼脸.webp",
+          },
+          {
+            id: "琉璃-难得一见的生气",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "难得一见的生气",
+            url: "https://esvigan.cn/琉璃-难得一见的生气.webp",
+          },
+          {
+            id: "难得一见的生气2",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "难得一见的生气2",
+            url: "https://esvigan.cn/难得一见的生气2.webp",
+          },
+          {
+            id: "琉璃-情人节的礼物1",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "情人节的礼物1",
+            url: "https://esvigan.cn/琉璃-情人节的礼物1.webp",
+          },
+          {
+            id: "琉璃-去看livehouse",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "去看livehouse",
+            url: "https://esvigan.cn/琉璃-去看livehouse.webp",
+          },
+          {
+            id: "琉璃-社交晚宴",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "社交晚宴",
+            url: "https://esvigan.cn/琉璃-社交晚宴.webp",
+          },
+          {
+            id: "琉璃-深夜便利店吃便当",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "深夜便利店吃便当",
+            url: "https://esvigan.cn/琉璃-深夜便利店吃便当.webp",
+          },
+          {
+            id: "琉璃-收到短信",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "收到短信",
+            url: "https://esvigan.cn/琉璃-收到短信.webp",
+          },
+          {
+            id: "琉璃-天台交谈",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "天台交谈",
+            url: "https://esvigan.cn/琉璃-天台交谈.webp",
+          },
+          {
+            id: "琉璃-夕阳下的教室1",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "夕阳下的教室1",
+            url: "https://esvigan.cn/琉璃-夕阳下的教室1.webp",
+          },
+          {
+            id: "琉璃-下雨天的等待",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "下雨天的等待",
+            url: "https://esvigan.cn/琉璃-下雨天的等待.webp",
+          },
+          {
+            id: "琉璃-卸下心防",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "卸下心防",
+            url: "https://esvigan.cn/琉璃-卸下心防.webp",
+          },
+          {
+            id: "琉璃-学校走廊",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "学校走廊",
+            url: "https://esvigan.cn/琉璃-学校走廊.webp",
+          },
+          {
+            id: "琉璃-阅读",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "阅读",
+            url: "https://esvigan.cn/琉璃-阅读.webp",
+          },
+          {
+            id: "琉璃-直播游戏",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "直播游戏",
+            url: "https://esvigan.cn/琉璃-直播游戏.webp",
+          },
+          {
+            id: "由纱多-直播中的告白",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "直播中的告白",
+            url: "https://esvigan.cn/由纱多-直播中的告白.webp",
+          },
+          {
+            id: "琉璃-准备上播",
+            char: "ruri",
+            name: "御千院琉璃",
+            title: "准备上播",
+            url: "https://esvigan.cn/琉璃-准备上播.webp",
+          },
+          {
+            id: "绘世-安静的饭桌",
+            char: "eise",
+            name: "御千院绘世",
+            title: "安静的饭桌",
+            url: "https://esvigan.cn/绘世-安静的饭桌.webp",
+          },
+          {
+            id: "绘世-唱片店",
+            char: "eise",
+            name: "御千院绘世",
+            title: "唱片店",
+            url: "https://esvigan.cn/绘世-唱片店.webp",
+          },
+          {
+            id: "绘世-初次登台",
+            char: "eise",
+            name: "御千院绘世",
+            title: "初次登台",
+            url: "https://esvigan.cn/绘世-初次登台.webp",
+          },
+          {
+            id: "绘世-打电话",
+            char: "eise",
+            name: "御千院绘世",
+            title: "打电话",
+            url: "https://esvigan.cn/绘世-打电话.webp",
+          },
+          {
+            id: "绘世-蹲着抽烟",
+            char: "eise",
+            name: "御千院绘世",
+            title: "蹲着抽烟",
+            url: "https://esvigan.cn/绘世-蹲着抽烟.webp",
+          },
+          {
+            id: "绘世-放学路上",
+            char: "eise",
+            name: "御千院绘世",
+            title: "放学路上",
+            url: "https://esvigan.cn/绘世-放学路上.webp",
+          },
+          {
+            id: "绘世-刚好路过",
+            char: "eise",
+            name: "御千院绘世",
+            title: "刚好路过",
+            url: "https://esvigan.cn/绘世-刚好路过.webp",
+          },
+          {
+            id: "绘世-刚好路过被戳穿",
+            char: "eise",
+            name: "御千院绘世",
+            title: "刚好路过被戳穿",
+            url: "https://esvigan.cn/绘世-刚好路过被戳穿.webp",
+          },
+          {
+            id: "绘世-和服",
+            char: "eise",
+            name: "御千院绘世",
+            title: "和服",
+            url: "https://esvigan.cn/绘世-和服.webp",
+          },
+          {
+            id: "绘世-化妆室",
+            char: "eise",
+            name: "御千院绘世",
+            title: "化妆室",
+            url: "https://esvigan.cn/绘世-化妆室.webp",
+          },
+          {
+            id: "绘世-婚纱",
+            char: "eise",
+            name: "御千院绘世",
+            title: "婚纱",
+            url: "https://esvigan.cn/绘世-婚纱.webp",
+          },
+          {
+            id: "绘世-酒吧后门抽烟",
+            char: "eise",
+            name: "御千院绘世",
+            title: "酒吧后门抽烟",
+            url: "https://esvigan.cn/绘世-酒吧后门抽烟.webp",
+          },
+          {
+            id: "绘世-来看我的演出",
+            char: "eise",
+            name: "御千院绘世",
+            title: "来看我的演出",
+            url: "https://esvigan.cn/绘世-来看我的演出.webp",
+          },
+          {
+            id: "绘世-路边的猫",
+            char: "eise",
+            name: "御千院绘世",
+            title: "路边的猫",
+            url: "https://esvigan.cn/绘世-路边的猫.webp",
+          },
+          {
+            id: "绘世-没睡醒",
+            char: "eise",
+            name: "御千院绘世",
+            title: "没睡醒",
+            url: "https://esvigan.cn/绘世-没睡醒.webp",
+          },
+          {
+            id: "绘世-排练路上",
+            char: "eise",
+            name: "御千院绘世",
+            title: "排练路上",
+            url: "https://esvigan.cn/绘世-排练路上.webp",
+          },
+          {
+            id: "绘世-撒娇后复位",
+            char: "eise",
+            name: "御千院绘世",
+            title: "撒娇后复位",
+            url: "https://esvigan.cn/绘世-撒娇后复位.webp",
+          },
+          {
+            id: "绘世-撒娇战术",
+            char: "eise",
+            name: "御千院绘世",
+            title: "撒娇战术",
+            url: "https://esvigan.cn/绘世-撒娇战术.webp",
+          },
+          {
+            id: "绘世-深夜归途",
+            char: "eise",
+            name: "御千院绘世",
+            title: "深夜归途",
+            url: "https://esvigan.cn/绘世-深夜归途.webp",
+          },
+          {
+            id: "绘世-深夜排练",
+            char: "eise",
+            name: "御千院绘世",
+            title: "深夜排练",
+            url: "https://esvigan.cn/绘世-深夜排练.webp",
+          },
+          {
+            id: "绘世-深夜排练2",
+            char: "eise",
+            name: "御千院绘世",
+            title: "深夜排练2",
+            url: "https://esvigan.cn/绘世-深夜排练2.webp",
+          },
+          {
+            id: "绘世-深夜饮料机",
+            char: "eise",
+            name: "御千院绘世",
+            title: "深夜饮料机",
+            url: "https://esvigan.cn/绘世-深夜饮料机.webp",
+          },
+          {
+            id: "绘世-生日",
+            char: "eise",
+            name: "御千院绘世",
+            title: "生日",
+            url: "https://esvigan.cn/绘世-生日.webp",
+          },
+          {
+            id: "绘世-梳妆",
+            char: "eise",
+            name: "御千院绘世",
+            title: "梳妆",
+            url: "https://esvigan.cn/绘世-梳妆.webp",
+          },
+          {
+            id: "绘世-台阶抽烟",
+            char: "eise",
+            name: "御千院绘世",
+            title: "台阶抽烟",
+            url: "https://esvigan.cn/绘世-台阶抽烟.webp",
+          },
+          {
+            id: "绘世-天台",
+            char: "eise",
+            name: "御千院绘世",
+            title: "天台",
+            url: "https://esvigan.cn/绘世-天台.webp",
+          },
+          {
+            id: "绘世-头发凌乱的清晨",
+            char: "eise",
+            name: "御千院绘世",
+            title: "头发凌乱的清晨",
+            url: "https://esvigan.cn/绘世-头发凌乱的清晨.webp",
+          },
+          {
+            id: "绘世-舞台告白",
+            char: "eise",
+            name: "御千院绘世",
+            title: "舞台告白",
+            url: "https://esvigan.cn/绘世-舞台告白.webp",
+          },
+          {
+            id: "绘世-物贩摊",
+            char: "eise",
+            name: "御千院绘世",
+            title: "物贩摊",
+            url: "https://esvigan.cn/绘世-物贩摊.webp",
+          },
+          {
+            id: "绘世-写歌词",
+            char: "eise",
+            name: "御千院绘世",
+            title: "写歌词",
+            url: "https://esvigan.cn/绘世-写歌词.webp",
+          },
+          {
+            id: "绘世-洋装",
+            char: "eise",
+            name: "御千院绘世",
+            title: "洋装",
+            url: "https://esvigan.cn/绘世-洋装.webp",
+          },
+          {
+            id: "绘世-浴衣",
+            char: "eise",
+            name: "御千院绘世",
+            title: "浴衣",
+            url: "https://esvigan.cn/绘世-浴衣.webp",
+          },
+          {
+            id: "绘世-制服",
+            char: "eise",
+            name: "御千院绘世",
+            title: "制服",
+            url: "https://esvigan.cn/绘世-制服.webp",
+          },
+          {
             id: "other_group_01",
             char: "other",
             name: "其他",
@@ -5193,6 +6749,8 @@
             erina: "如月绘里奈",
             ayane: "月宫绾音",
             yumi: "安藤由美",
+            ruri: "御千院琉璃",
+            eise: "御千院绘世",
           };
           document.getElementById("cg-sub-page-title").innerText =
             names[charId] || "GALLERY";
@@ -5260,6 +6818,10 @@
             document
               .getElementById("tab-content-gallery")
               .classList.add("active");
+          if (index === 5)
+            document
+              .getElementById("tab-content-vtuber")
+              .classList.add("active");
 
           // Update Nav Icons
           document
@@ -5299,7 +6861,8 @@
             name: "如月绘里奈",
             fullName: "如月 绘里奈",
             nameEn: "KISARAGI ERINA",
-            avatar: "https://esvigan.cn/0301huilinai.webp",
+            avatar: "https://esvigan.cn/绘里奈头像 .webp",
+            homeAvatar: "https://esvigan.cn/绘里奈头像new.webp",
             hero: "https://esvigan.cn/0301huilinai-hengfu.webp",
             heroOutside: "https://esvigan.cn/0301huilinai-wai.webp",
             heroInside: "https://esvigan.cn/0301huilinai-li.webp",
@@ -5330,14 +6893,15 @@
             name: "月宫绾音",
             fullName: "月宫 绾音",
             nameEn: "TSUKIMIYA AYANE",
-            avatar: "https://esvigan.cn/0301linjiang.webp",
+            avatar: "https://esvigan.cn/林绛头像 .webp",
+            homeAvatar: "https://esvigan.cn/林绛头像new.webp",
             hero: "https://esvigan.cn/0301linjiang-hengfu.webp",
             heroOutside: "https://esvigan.cn/0301linjiang-wai.webp",
             heroInside: "https://esvigan.cn/0301linjiang-li.webp",
             themeClass: "theme-AYANE",
             styleClass: "style-AYANE",
             color: "#feca57",
-            rank: "TOP 7",
+            rank: "TOP 3",
             rankIcon: "fas fa-caret-up",
             tags: ["偶像", "新人"],
             varPrefix: "月宫绾音",
@@ -5368,9 +6932,9 @@
             themeClass: "theme-yumi",
             styleClass: "style-yumi",
             color: "#78e08f",
-            rank: "NEW!",
-            rankIcon: "fas fa-star",
-            tags: ["治愈", "新人"],
+            rank: "TOP 20",
+            rankIcon: "fas fa-caret-up",
+            tags: ["治愈"],
             varPrefix: "安藤由美",
             rentInfo: {
               tagline: "新人 | 清纯治愈 / 邻家学妹 / 耐心倾听",
@@ -5387,6 +6951,40 @@
                 "治愈时薪：5,000 円 / hour\n起订时长：2小时起（因为希望有足够的时间听您慢慢倾诉）\n🎭 角色适配：比起完美的约会对象，我更希望能成为您卸下防备、安心倾诉的朋友。",
             },
           },
+          ruri: {
+            id: "ruri",
+            name: "御千院琉璃",
+            fullName: "御千院琉璃",
+            nameEn: "RURI",
+            avatar: "https://esvigan.cn/琉璃头像.webp",
+            hero: "https://placehold.co/400x600",
+            heroOutside: "https://esvigan.cn/琉璃-表.webp",
+            heroInside: "https://esvigan.cn/琉璃-里.webp",
+            themeClass: "theme-ruri",
+            styleClass: "style-ruri",
+            color: "#a2d2ff",
+            rank: "NEW!",
+            rankIcon: "fas fa-star",
+            tags: ["大小姐", "黑道千金"],
+            varPrefix: "御千院琉璃",
+          },
+          eise: {
+            id: "eise",
+            name: "御千院绘世",
+            fullName: "御千院绘世",
+            nameEn: "EISE",
+            avatar: "https://esvigan.cn/绘世头像.webp",
+            hero: "https://placehold.co/400x600",
+            heroOutside: "https://esvigan.cn/绘世- 表.webp",
+            heroInside: "https://esvigan.cn/绘世- 里.webp",
+            themeClass: "theme-eise",
+            styleClass: "style-eise",
+            color: "#ff7aa2",
+            rank: "NEW!",
+            rankIcon: "fas fa-star",
+            tags: ["地下偶像", "黑道千金"],
+            varPrefix: "御千院绘世",
+          },
         };
 
         const chatData = {};
@@ -5400,6 +6998,8 @@
           erina: { override: null },
           AYANE: { override: null },
           yumi: { override: null },
+          ruri: { override: null },
+          eise: { override: null },
         };
 
         window.toggleMode = function (charId) {
@@ -5462,22 +7062,24 @@
               hasNew: false,
               lastSeenKey: null,
             };
-            rentDb[char.id] = {
-              ...char.rentInfo,
-              id: char.id,
-              name:
-                char.id === "erina"
-                  ? "Erina"
-                  : char.id === "yumi"
-                    ? "Yumi"
-                    : "Ayane", // Keep short name for internal use
-              fullName: char.fullName,
-              hero: char.hero,
-              avatar: char.avatar,
-              posts: [],
-              reviews: generateReviews(char.id),
-              hasNew: false,
-            };
+            if (char.rentInfo) {
+              rentDb[char.id] = {
+                ...char.rentInfo,
+                id: char.id,
+                name:
+                  char.id === "erina"
+                    ? "Erina"
+                    : char.id === "yumi"
+                      ? "Yumi"
+                      : "Ayane", // Keep short name for internal use
+                fullName: char.fullName,
+                hero: char.hero,
+                avatar: char.avatar,
+                posts: [],
+                reviews: generateReviews(char.id),
+                hasNew: false,
+              };
+            }
             lastSeenKeys[char.id] = localStorage.getItem(`lastSeen_${char.id}`);
           });
 
@@ -5508,7 +7110,7 @@
             // Home Card
             homeHtml += `
                     <div class="archive-card card-${char.id}" onclick="showPageDetail('${char.id}')">
-                        <div class="card-avatar-box"><img src="${char.avatar}" class="avatar-img char-avatar"></div>
+                        <div class="card-avatar-box"><img src="${char.homeAvatar || char.avatar}" class="avatar-img char-avatar"></div>
                         <div class="card-info-box">
                             <div class="info-header">
                                 <div><div class="name-main">${char.fullName}</div><div class="name-sub">${char.nameEn}</div></div>
@@ -5533,12 +7135,12 @@
                             <div class="card-face face-surface">
                                 <div class="card-header-mind"><div class="char-name">${char.fullName}</div><div class="toggle-btn"><i class="fas fa-eye"></i></div></div>
                                 <div class="card-body-mind">
-                                    <div class="mind-avatar-row"><img src="${char.avatar}" class="mind-avatar char-avatar"><div class="bubble">...</div></div>
+                                    <div class="mind-avatar-row"><img src="${char.homeAvatar || char.avatar}" class="mind-avatar char-avatar"><div class="bubble">...</div></div>
                                     <div class="mood-bar-container"><div class="mood-info"><span>MOOD: ...</span></div></div>
                                 </div>
                             </div>
                             <div class="card-face face-inner">
-                                <div class="card-header-mind"><div class="char-name">${char.id === "erina" ? "Erina's Diary" : "Ayane's Note"}</div><div class="toggle-btn" onclick="flipCard('card-${char.id}')"><i class="fas fa-heart"></i></div></div>
+                                <div class="card-header-mind"><div class="char-name">${char.id === "erina" ? "Erina's Diary" : char.id.charAt(0).toUpperCase() + char.id.slice(1) + "'s Note"}</div><div class="toggle-btn" onclick="flipCard('card-${char.id}')"><i class="fas fa-heart"></i></div></div>
                                 <div class="card-body-mind warm-content">
                                     <div class="cmd-line"><i class="fas fa-bookmark heart-icon"></i> 秘密心声: <span class="soft-pulse">已解锁</span></div>
                                     <div class="inner-text">...</div>
@@ -5548,15 +7150,17 @@
                     </div>`;
 
             // Rent Banner
-            rentHtml += `
-                    <div class="rent-banner" onclick="openRentProfile('${char.id}')">
-                        <img src="${char.hero}" class="rent-banner-img">
-                        <div id="banner-badge-${char.id}" class="banner-new-badge" style="display:none">NEW!</div>
-                        <div class="rent-banner-overlay">
-                            <div><div class="banner-name-main">${char.fullName}</div><div class="banner-name-sub">${char.nameEn}</div></div>
-                            <i class="fas fa-arrow-right banner-icon"></i>
-                        </div>
-                    </div>`;
+            if (char.rentInfo) {
+              rentHtml += `
+                      <div class="rent-banner" onclick="openRentProfile('${char.id}')">
+                          <img src="${char.hero}" class="rent-banner-img">
+                          <div id="banner-badge-${char.id}" class="banner-new-badge" style="display:none">NEW!</div>
+                          <div class="rent-banner-overlay">
+                              <div><div class="banner-name-main">${char.fullName}</div><div class="banner-name-sub">${char.nameEn}</div></div>
+                              <i class="fas fa-arrow-right banner-icon"></i>
+                          </div>
+                      </div>`;
+            }
           });
 
           // Add locked card to home
@@ -5624,13 +7228,13 @@
           listEl.innerHTML = "";
 
           data.members.forEach((memberName) => {
-            const isUser = memberName === "user" || memberName === "{{user}}";
+            const isUser = memberName === "user" || memberName === "{{" + "user}}" || memberName === "{{user}}";
             let displayName = memberName;
             let avatarUrl =
               "https://gitgud.io/ESVigan/picture/-/raw/master/user_default.png";
 
             if (isUser) {
-              displayName = "我";
+              displayName = "{{user}}";
               avatarUrl = window.CURRENT_USER_AVATAR || avatarUrl;
             } else {
               let foundChar = Object.values(CHARACTER_CONFIG).find(
@@ -5727,8 +7331,8 @@
               durationText = mins > 0 ? `${mins}分${secs}秒` : `${secs}"`;
             }
 
-            if (msg.type === "文字消息") {
-              bubbleContent = `<div>${msg.content}</div>`;
+            if (!msg.type || msg.type === "文字消息" || msg.type === "消息") {
+              bubbleContent = `<div>${msg.content || ""}</div>`;
             } else if (msg.type === "图片" || msg.type === "图文消息") {
               bubbleContent = `<div class="msg-media-desc"><i class="far fa-image"></i> ${msg.content || "图片消息"}</div>`;
             } else if (msg.type === "语音") {
@@ -5738,13 +7342,16 @@
             } else if (msg.type === "语音通话" || msg.type === "视频通话") {
               const icon = msg.type === "语音通话" ? "phone-alt" : "video";
               bubbleContent = `<div class="call-bubble"><div class="call-icon-box"><i class="fas fa-${icon}"></i></div><div class="call-info"><span class="call-status">${msg.type}</span><span class="call-dur">${durationText || "已结束"}</span></div></div>`;
+            } else {
+              bubbleContent = `<div>${msg.content || "[不支持的消息类型]"}</div>`;
             }
 
-            const senderName = isLeft
+            let senderName = isLeft
               ? data.isGroup
                 ? msg.sender
                 : data.name
               : "{{user}}";
+            if (senderName === "{{" + "user}}") senderName = "{{user}}";
             const avatarUrl = isLeft
               ? msg.senderAvatar || data.avatar
               : msg.senderAvatar;
@@ -6285,8 +7892,24 @@
               window.CURRENT_USER_AVATAR = userAvatar;
 
               const messages = recordToArray(record).map((m) => {
-                let senderAvatar = null;
-                const isUser = m.发送者 === "user" || m.发送者 === "{{user}}";
+                // 判断是否为玩家（排除已知 NPC）
+                let isUser = false;
+                if (m.发送者 === "user" || m.发送者 === "{{user}}" || m.发送者 === "{{" + "user}}") {
+                  isUser = true;
+                } else {
+                  const isKnownNPC = Object.values(CHARACTER_CONFIG).some(c => 
+                    c.varPrefix === m.发送者 || 
+                    c.name === m.发送者 || 
+                    c.fullName.includes(m.发送者) || 
+                    (c.id === "AYANE" && m.发送者 === "林绛") || 
+                    (c.id === "yumi" && (m.发送者 === "安藤由美" || m.发送者 === "松本由美"))
+                  );
+                  // 如果既不是已知角色，且在私聊中也不是当前聊天的对象，则认为是玩家
+                  if (!isKnownNPC && m.发送者 !== chatName) {
+                    isUser = true;
+                  }
+                }
+
                 if (isUser) {
                   senderAvatar = userAvatar;
                 } else {
@@ -6362,6 +7985,41 @@
                 }
               }
             };
+
+            // --- 0. World Info & News (先渲染，避免被角色 forEach 异常阻断) ---
+            const worldTime = _.get(数据, "世界信息.时间", "");
+            const worldLocation = _.get(数据, "世界信息.地点", "");
+            if (worldTime) $("#world-date").text(worldTime);
+            if (worldLocation) $("#world-location").text(worldLocation);
+
+            // --- 0b. News Speed Report ---
+            let newsRecord =
+              _.get(数据, "$新闻速报.速报列表") ||
+              _.get(数据, "新闻速报.速报列表");
+            if (!newsRecord || _.isEmpty(newsRecord)) {
+              newsRecord = {
+                新闻1: { 来源: "TBS新闻", 标题: "新宿歌舞伎町今晚将加强夜间巡逻", 正文: "由于近期深夜骚乱频发，警视厅决定从今日起在歌舞伎町一番街及周边区域增派警力，重点盘查可疑人员。请各位市民及游客注意安全，随身携带身份证件。" },
+                新闻2: { 来源: "《ViVi》", 标题: "秋季约会妆容特辑：清透底妆是关键", 正文: "本季最流行的'微醺感'妆容教程大公开！只需三步，就能打造出让男朋友怦然心动的温柔氛围。重点在于腮红的晕染范围和唇釉的水光感哦。" },
+                新闻3: { 来源: "Yahoo!ニュース", 标题: "租借服务市场持续升温，业界呼吁规范", 正文: "最新的市场调查报告显示，'情感陪伴'类服务的需求量在过去一个季度增长了 300%。专家分析认为，现代都市人的孤独感是推动这一产业爆发的主要原因。" },
+              };
+            }
+            if (Object.keys(newsRecord).length > 0) {
+              const singleSet = _.map(
+                newsRecord,
+                (n) => `<span class="marquee-item" onclick="document.getElementById('news-modal').classList.add('active')">${n.来源} : ${n.标题}</span>`,
+              ).join("");
+              $(".marquee-content").html(singleSet + singleSet);
+              const newsListHtml = _.map(
+                newsRecord,
+                (n) => `
+                  <div class="news-item-row">
+                    <div class="news-source">${n.来源 || "NEWS"}</div>
+                    <div class="news-title">${n.标题 || "..."}</div>
+                    <div class="news-body-text" style="font-size:16px;color:#555;line-height:1.4;margin-top:5px;">${n.正文 || ""}</div>
+                  </div>`,
+              ).join("");
+              $("#news-list-container").html(newsListHtml);
+            }
 
             // --- 1. Character Data Rendering ---
             Object.values(CHARACTER_CONFIG).forEach((char) => {
@@ -6557,6 +8215,12 @@
               }
             });
 
+            // --- 直播间变量同步（由纱多 VTuber Live Room）---
+            const liveInfo = _.get(数据, '御千院琉璃.$直播信息', null);
+            if (liveInfo && typeof window.updateYusataLive === 'function') {
+              window.updateYusataLive(liveInfo);
+            }
+
             // --- 2. Iterate Chat Histories ---
             const allPrivateChats = _.get(数据, "消息记录.私聊", {});
             Object.keys(allPrivateChats).forEach((npcName) => {
@@ -6650,63 +8314,7 @@
               });
               listContainer.innerHTML = html;
             }
-            // --- 5. News Speed Report ---
-            let newsRecord =
-              _.get(数据, "$新闻速报.速报列表") ||
-              _.get(数据, "新闻速报.速报列表");
-
-            // Fallback to defaults if empty (ensure popup has content)
-            if (!newsRecord || _.isEmpty(newsRecord)) {
-              newsRecord = {
-                新闻1: {
-                  来源: "TBS新闻",
-                  标题: "新宿歌舞伎町今晚将加强夜间巡逻",
-                  正文: "由于近期深夜骚乱频发，警视厅决定从今日起在歌舞伎町一番街及周边区域增派警力，重点盘查可疑人员。请各位市民及游客注意安全，随身携带身份证件。",
-                },
-                新闻2: {
-                  来源: "《ViVi》",
-                  标题: "秋季约会妆容特辑：清透底妆是关键",
-                  正文: "本季最流行的'微醺感'妆容教程大公开！只需三步，就能打造出让男朋友怦然心动的温柔氛围。重点在于腮红的晕染范围和唇釉的水光感哦。",
-                },
-                新闻3: {
-                  来源: "Yahoo!ニュース",
-                  标题: "租借服务市场持续升温，业界呼吁规范",
-                  正文: "最新的市场调查报告显示，'情感陪伴'类服务的需求量在过去一个季度增长了 300%。专家分析认为，现代都市人的孤独感是推动这一产业爆发的主要原因。",
-                },
-              };
-            }
-
-            const newsKeys = Object.keys(newsRecord);
-            if (newsKeys.length > 0) {
-              // Generate Ticker (No brackets, Clickable)
-              const singleSet = _.map(
-                newsRecord,
-                (n) =>
-                  `<span class="marquee-item" onclick="$('#news-modal').addClass('active')">${n.来源} : ${n.标题}</span>`,
-              ).join("");
-
-              const $marquee = $(".marquee-content");
-              $marquee.html(singleSet + singleSet);
-
-              // Generate News Modal List
-              const newsListHtml = _.map(
-                newsRecord,
-                (n) => `
-                        <div class="news-item-row">
-                            <div class="news-source">${n.来源 || "NEWS"}</div>
-                            <div class="news-title">${n.标题 || "..."}</div>
-                            <div class="news-body-text" style="font-size:16px; color:#555; line-height:1.4; margin-top:5px;">${n.正文 || ""}</div>
-                        </div>
-                    `,
-              ).join("");
-              $("#news-list-container").html(newsListHtml);
-            }
-
-            // --- 6. World Info ---
-            if (_.has(数据, "世界信息.时间"))
-              $("#world-date").text(数据.世界信息.时间);
-            if (_.has(数据, "世界信息.地点"))
-              $("#world-location").text(数据.世界信息.地点);
+            // --- 5 & 6 已前移到 forEach 之前执行 ---
 
             updateBadges();
             updateBadges();
@@ -6718,15 +8326,6 @@
           if (!DEBUG_MODE) {
             if (typeof waitGlobalInitialized !== "undefined") {
               await waitGlobalInitialized("Mvu");
-            }
-            if (typeof waitUntil !== "undefined") {
-              await waitUntil(() => {
-                const vars =
-                  typeof getVariables !== "undefined"
-                    ? getVariables({ type: "message" })
-                    : null;
-                return vars && vars.stat_data;
-              });
             }
           }
           渲染数据();
@@ -6813,9 +8412,9 @@
             // Find avatar
             let avatarUrl = "../图片素材/默认头像.png";
             let displayName = member;
-            if (member === "user" || member === "{{user}}") {
-              avatarUrl = `../../${window.TavernUserAvatar}`;
-              displayName = "我 (<user>)";
+            if (member === "user" || member === "{{" + "user}}" || member === "{{user}}") {
+              avatarUrl = window.CURRENT_USER_AVATAR || `../../${window.TavernUserAvatar}`;
+              displayName = "{{user}}";
             } else {
               const charMatch = Object.values(CHARACTER_CONFIG).find(
                 (c) =>
@@ -6828,7 +8427,8 @@
 
               // 由美的离婚名字适配
               if (member === "松本由美" || member === "安藤由美") {
-                const charData_v = _.get(数据, "安藤由美", {});
+                const safeData = window.ST_GLOBAL_DATA || {};
+                const charData_v = _.get(safeData, "安藤由美", {});
                 const isDivorced =
                   _.get(charData_v, "婚姻状态", "") === "已离婚";
                 displayName = isDivorced ? "安藤由美" : "松本由美";
@@ -6849,6 +8449,50 @@
             .classList.add("active");
         }
       </script>
+    </div>
+
+    <!-- ========== OVERLAYS: NEWS MODAL (page-container 外) ========== -->
+    <div
+      class="news-modal-overlay"
+      id="news-modal"
+      onclick="this.classList.remove('active')"
+    >
+      <div class="news-card" onclick="event.stopPropagation()">
+        <div class="news-header">
+          <div>NEWS REPORT</div>
+          <div
+            class="news-close-btn"
+            onclick="document.getElementById('news-modal').classList.remove('active')"
+          >
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+        <div class="news-body" id="news-list-container">
+          <!-- News items injected here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== OVERLAYS: GROUP MEMBERS (page-container 外) ========== -->
+    <div
+      class="group-members-modal-overlay"
+      id="group-members-modal"
+      onclick="this.classList.remove('active')"
+    >
+      <div class="group-card" onclick="event.stopPropagation()">
+        <div class="group-header">
+          <span><i class="fas fa-users"></i> 群组成员</span>
+          <div
+            class="news-close-btn"
+            onclick="document.getElementById('group-members-modal').classList.remove('active')"
+          >
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+        <div class="group-body" id="group-members-list">
+          <!-- Members injected here -->
+        </div>
+      </div>
     </div>
   </body>
 </html>
